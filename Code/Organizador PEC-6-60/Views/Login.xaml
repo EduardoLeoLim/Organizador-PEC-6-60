@@ -5,9 +5,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Organizador_PEC_6_60.Views"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="Login" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        SizeToContent="Height"
+        Title="Iniciar Sesión" Width="440">
+    <StackPanel Orientation="Vertical">
+        <Image Source="../Resources/Images/Login.png" Height="190" Width="190" Margin="20,10" />
+
+        <Label Content="Usuario" FontSize="16" Margin="50,5" />
+        <TextBox x:Name="txtUsername" FontSize="16" Margin="50,5" />
+
+        <Label Content="Contraseña:" FontSize="16" Margin="50,20,50,5" />
+        <PasswordBox x:Name="txtPassword" FontSize="16" Margin="50,5" />
+
+        <Button x:Name="btnLogIn" Content="Ingresar" FontSize="16" Margin="50,15,50,10" />
+
+        <Separator Margin="40,20" />
+
+        <Button x:Name="btnSignIn" Content="Registrarse" FontSize="16" Margin="50,10,50,50" />
+    </StackPanel>
 </Window>
