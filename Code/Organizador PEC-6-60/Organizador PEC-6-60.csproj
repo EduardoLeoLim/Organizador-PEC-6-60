@@ -8,4 +8,17 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Model" />
+      <Folder Include="Resources" />
+      <Folder Include="Utils" />
+      <Folder Include="Views" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.123" />
+      <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.39" />
+      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
+    </ItemGroup>
+
 </Project>
