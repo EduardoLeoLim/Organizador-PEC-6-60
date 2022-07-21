@@ -6,7 +6,7 @@
         <RootNamespace>Organizador_PEC_6_60</RootNamespace>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>app\Resources\Images\Icon.ico</ApplicationIcon>
+        <ApplicationIcon>Icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,7 +43,7 @@
       <None Remove="app\Resources\Images\Salir.png" />
       <Resource Include="app\Resources\Images\Salir.png" />
       <None Remove="app\Resources\Images\Icon.ico" />
-      <Resource Include="app\Resources\Images\Icon.ico" />
+      <Resource Include="Icon.ico" />
     </ItemGroup>
 
     <ItemGroup>
