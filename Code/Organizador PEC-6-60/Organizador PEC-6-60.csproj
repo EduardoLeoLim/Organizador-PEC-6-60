@@ -27,4 +27,12 @@
       <Resource Include="app\Resources\Images\Login.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="src\Database\Organizador_PEC_6_60.db" />
+      <Content Include="src\Database\Organizador_PEC_6_60.db">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	<TargetPath>Database\Organizador_PEC_6_60.db</TargetPath>
+      </Content>
+    </ItemGroup>
+
 </Project>
