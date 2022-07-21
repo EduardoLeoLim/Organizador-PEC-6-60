@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Model" />
-      <Folder Include="Utils" />
+      <Folder Include="app" />
+      <Folder Include="src\Database" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +21,10 @@
 
     <ItemGroup>
       <None Remove="Resources\Images\Login.png" />
-      <Resource Include="Resources\Images\Login.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="app\Resources\Images\Login.png" />
     </ItemGroup>
 
 </Project>
