@@ -16,6 +16,9 @@
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.39" />
+      <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.39" />
+      <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.2.0.39" />
+      <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.39" />
       <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
     </ItemGroup>
 
@@ -25,6 +28,20 @@
 
     <ItemGroup>
       <Resource Include="app\Resources\Images\Login.png" />
+      <None Remove="app\Resources\Images\Buscar.png" />
+      <Resource Include="app\Resources\Images\Buscar.png" />
+      <None Remove="app\Resources\Images\Catalogo.png" />
+      <Resource Include="app\Resources\Images\Catalogo.png" />
+      <None Remove="app\Resources\Images\Guardar.png" />
+      <Resource Include="app\Resources\Images\Guardar.png" />
+      <None Remove="app\Resources\Images\Imagen.png" />
+      <Resource Include="app\Resources\Images\Imagen.png" />
+      <None Remove="app\Resources\Images\Menu.png" />
+      <Resource Include="app\Resources\Images\Menu.png" />
+      <None Remove="app\Resources\Images\Pdf.png" />
+      <Resource Include="app\Resources\Images\Pdf.png" />
+      <None Remove="app\Resources\Images\Salir.png" />
+      <Resource Include="app\Resources\Images\Salir.png" />
     </ItemGroup>
 
     <ItemGroup>

@@ -9,7 +9,7 @@
         SizeToContent="Height"
         Title="Iniciar Sesión" Width="440">
     <StackPanel Orientation="Vertical">
-        <Image Source="../Resources/Images/Login.png" Height="190" Width="190" Margin="20,10" />
+        <Image Source="../../Resources/Images/Login.png" Height="190" Width="190" Margin="20,10" />
 
         <Label Content="Usuario" FontSize="16" Margin="50,5" />
         <TextBox x:Name="txtUsername" FontSize="16" Margin="50,5" />
