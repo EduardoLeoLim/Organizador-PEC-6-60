@@ -6,11 +6,11 @@
         <RootNamespace>Organizador_PEC_6_60</RootNamespace>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>app\Resources\Images\Icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
       <Folder Include="app" />
-      <Folder Include="src\Database" />
     </ItemGroup>
 
     <ItemGroup>
@@ -42,13 +42,18 @@
       <Resource Include="app\Resources\Images\Pdf.png" />
       <None Remove="app\Resources\Images\Salir.png" />
       <Resource Include="app\Resources\Images\Salir.png" />
+      <None Remove="app\Resources\Images\Icon.ico" />
+      <Resource Include="app\Resources\Images\Icon.ico" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="src\Database\Organizador_PEC_6_60.db" />
-      <Content Include="src\Database\Organizador_PEC_6_60.db">
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="database\Organizador_PEC_6_60.db">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	<TargetPath>Database\Organizador_PEC_6_60.db</TargetPath>
+        <TargetPath>database\Organizador_PEC_6_60.db</TargetPath>
       </Content>
     </ItemGroup>
 
