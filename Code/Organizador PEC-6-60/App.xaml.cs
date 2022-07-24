@@ -1,8 +1,7 @@
 ﻿using Syncfusion.Licensing;
 using System.Configuration;
 using System.Windows;
-
-using Organizador_PEC_6_60.Views;
+using Organizador_PEC_6_60.Usuario.Infrestructure.Views;
 
 namespace Organizador_PEC_6_60
 {

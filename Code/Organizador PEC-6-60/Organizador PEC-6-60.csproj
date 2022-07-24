@@ -10,51 +10,54 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="app" />
+        <Folder Include="src\EntidadFederativa\Application" />
+        <Folder Include="src\Instrumento\Application" />
+        <Folder Include="src\Instrumento\Domain" />
+        <Folder Include="src\Municipio\Application" />
+        <Folder Include="src\Municipio\Domain" />
+        <Folder Include="src\Municipio\Infrestructure" />
+        <Folder Include="src\PEC_6_60\Application" />
+        <Folder Include="src\PEC_6_60\Domain" />
+        <Folder Include="src\PEC_6_60\Infrestructure" />
+        <Folder Include="src\TipoEstadistica\Application" />
+        <Folder Include="src\TipoEstadistica\Domain" />
+        <Folder Include="src\TipoEstadistica\Infrestructure" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.0.123" />
-      <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.39" />
-      <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.39" />
-      <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.2.0.39" />
-      <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.39" />
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
+        <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.39" />
+        <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.39" />
+        <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.2.0.39" />
+        <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.39" />
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\Images\Login.png" />
+        <None Remove="Resources\Images\Login.png" />
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="app\Resources\Images\Login.png" />
-      <None Remove="app\Resources\Images\Buscar.png" />
-      <Resource Include="app\Resources\Images\Buscar.png" />
-      <None Remove="app\Resources\Images\Catalogo.png" />
-      <Resource Include="app\Resources\Images\Catalogo.png" />
-      <None Remove="app\Resources\Images\Guardar.png" />
-      <Resource Include="app\Resources\Images\Guardar.png" />
-      <None Remove="app\Resources\Images\Imagen.png" />
-      <Resource Include="app\Resources\Images\Imagen.png" />
-      <None Remove="app\Resources\Images\Menu.png" />
-      <Resource Include="app\Resources\Images\Menu.png" />
-      <None Remove="app\Resources\Images\Pdf.png" />
-      <Resource Include="app\Resources\Images\Pdf.png" />
-      <None Remove="app\Resources\Images\Salir.png" />
-      <Resource Include="app\Resources\Images\Salir.png" />
-      <None Remove="app\Resources\Images\Icon.ico" />
-      <Resource Include="Icon.ico" />
+        <Resource Include="Icon.ico" />
+        <Resource Include="Resources\Images\Buscar.png" />
+        <Resource Include="Resources\Images\Catalogo.png" />
+        <Resource Include="Resources\Images\Guardar.png" />
+        <Resource Include="Resources\Images\Imagen.png" />
+        <Resource Include="Resources\Images\Login.png" />
+        <Resource Include="Resources\Images\Menu.png" />
+        <Resource Include="Resources\Images\Pdf.png" />
+        <Resource Include="Resources\Images\Salir.png" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="src\Database\Organizador_PEC_6_60.db" />
+        <None Remove="src\Database\Organizador_PEC_6_60.db" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="database\Organizador_PEC_6_60.db">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <TargetPath>database\Organizador_PEC_6_60.db</TargetPath>
-      </Content>
+        <Content Include="database\Organizador_PEC_6_60.db">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>database\Organizador_PEC_6_60.db</TargetPath>
+        </Content>
     </ItemGroup>
 
 </Project>
