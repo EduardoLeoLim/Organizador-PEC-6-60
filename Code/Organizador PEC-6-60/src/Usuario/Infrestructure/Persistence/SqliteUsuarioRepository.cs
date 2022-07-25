@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SQLite;
 using Dapper;
 using Organizador_PEC_6_60.Resources.Database;
-using Organizador_PEC_6_60.Usuario.Domain;
 using Organizador_PEC_6_60.Usuario.Domain.Repository;
 using Organizador_PEC_6_60.Usuario.Domain.ValueObjects;
 
