@@ -51,10 +51,10 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Persistence
                                "VALUES (@Username, @Password, @Nombre, @Apellidos);";
                 var parameters = new
                 {
-                    newUsuario.Username.Username,
-                    newUsuario.Password.Password,
-                    newUsuario.Nombre.Nombre,
-                    newUsuario.Apellidos.Apellidos
+                    Username = newUsuario.Username.Value,
+                    Password = newUsuario.Password.Value,
+                    Nombre = newUsuario.Nombre.Value,
+                    Apellidos = newUsuario.Apellidos.Value
                 };
                 connection.Execute(query, parameters);
             }
@@ -65,7 +65,7 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Persistence
             throw new System.NotImplementedException();
         }
 
-        public void Delete(Domain.Model.Usuario usuario)
+        public void Delete(int id)
         {
             throw new System.NotImplementedException();
         }

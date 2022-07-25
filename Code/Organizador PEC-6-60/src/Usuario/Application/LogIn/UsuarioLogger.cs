@@ -15,6 +15,6 @@ public class UsuarioLogger
     public UsuarioConnected LogInUsuario(string username, string password)
     {
         Domain.Model.Usuario usuario = _repository.LogIn(username, password);
-        return new UsuarioConnected(usuario.Id, usuario.Nombre.Nombre, usuario.Apellidos.Apellidos, usuario.Username.Username, usuario.Password.Password);
+        return new UsuarioConnected(usuario.Id, usuario.Nombre.Value, usuario.Apellidos.Value, usuario.Username.Value, usuario.Password.Value);
     }
 }

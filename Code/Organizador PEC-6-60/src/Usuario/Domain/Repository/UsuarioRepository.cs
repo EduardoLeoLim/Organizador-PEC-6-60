@@ -6,7 +6,7 @@
         Model.Usuario LogIn(string username, string password);
         void Insert(Model.Usuario newUsuario);
         void Update(Model.Usuario usuario);
-        void Delete(Model.Usuario usuario);
+        void Delete(int id);
     }
 }
 

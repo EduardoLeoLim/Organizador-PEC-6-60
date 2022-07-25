@@ -2,11 +2,11 @@
 {
     public class UsuarioApellidos
     {
-        public string Apellidos { get; }
+        public string Value { get; }
         
         public UsuarioApellidos(string apelidos)
         {
-            Apellidos = apelidos;
+            Value = apelidos;
         }
     }
 }

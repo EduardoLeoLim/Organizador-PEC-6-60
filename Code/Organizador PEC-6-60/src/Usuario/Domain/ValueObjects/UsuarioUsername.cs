@@ -2,11 +2,11 @@
 {
     public class UsuarioUsername
     {
-        public string Username { get; }
+        public string Value { get; }
     
         public UsuarioUsername(string username)
         {
-            Username = username;
+            Value = username;
         }
     }
 }

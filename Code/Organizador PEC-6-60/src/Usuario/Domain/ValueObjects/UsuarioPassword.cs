@@ -2,11 +2,11 @@
 {
     public class UsuarioPassword
     {
-        public string Password { get; } 
+        public string Value { get; } 
         
         public UsuarioPassword(string password)
         {
-            Password = password;
+            Value = password;
         }
     }
 }

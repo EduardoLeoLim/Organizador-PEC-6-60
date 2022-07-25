@@ -34,7 +34,7 @@ namespace Organizador_PEC_6_60.Usuario.Application.Create
         {
             if (obj is UsuarioNombre)
             {
-                string nombre = ((UsuarioNombre)obj).Nombre;
+                string nombre = ((UsuarioNombre)obj).Value;
 
                 if (string.IsNullOrEmpty(nombre))
                     return false;
@@ -47,7 +47,7 @@ namespace Organizador_PEC_6_60.Usuario.Application.Create
 
             if (obj is UsuarioApellidos)
             {
-                string apellidos = ((UsuarioApellidos)obj).Apellidos;
+                string apellidos = ((UsuarioApellidos)obj).Value;
 
                 if (string.IsNullOrEmpty(apellidos))
                     return false;
@@ -60,7 +60,7 @@ namespace Organizador_PEC_6_60.Usuario.Application.Create
 
             if (obj is UsuarioUsername)
             {
-                string username = ((UsuarioUsername)obj).Username;
+                string username = ((UsuarioUsername)obj).Value;
                 
                 if (string.IsNullOrEmpty(username))
                     return false;
@@ -73,7 +73,7 @@ namespace Organizador_PEC_6_60.Usuario.Application.Create
 
             if (obj is UsuarioPassword)
             {
-                string password = ((UsuarioPassword)obj).Password;
+                string password = ((UsuarioPassword)obj).Value;
                 
                 if (string.IsNullOrEmpty(password))
                     return false;
