@@ -39,14 +39,14 @@
 
     <ItemGroup>
         <Resource Include="Icon.ico" />
-        <Resource Include="Resources\Images\Buscar.png" />
-        <Resource Include="Resources\Images\Catalogo.png" />
-        <Resource Include="Resources\Images\Guardar.png" />
-        <Resource Include="Resources\Images\Imagen.png" />
-        <Resource Include="Resources\Images\Login.png" />
-        <Resource Include="Resources\Images\Menu.png" />
-        <Resource Include="Resources\Images\Pdf.png" />
-        <Resource Include="Resources\Images\Salir.png" />
+        <Resource Include="src\Resources\Images\Buscar.png" />
+        <Resource Include="src\Resources\Images\Catalogo.png" />
+        <Resource Include="src\Resources\Images\Guardar.png" />
+        <Resource Include="src\Resources\Images\Imagen.png" />
+        <Resource Include="src\Resources\Images\Login.png" />
+        <Resource Include="src\Resources\Images\Menu.png" />
+        <Resource Include="src\Resources\Images\Pdf.png" />
+        <Resource Include="src\Resources\Images\Salir.png" />
     </ItemGroup>
 
     <ItemGroup>
