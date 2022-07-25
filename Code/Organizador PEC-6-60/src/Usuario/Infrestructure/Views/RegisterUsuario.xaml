@@ -20,7 +20,7 @@
         <Label Content="Contraseña:" FontSize="16" Margin="50,20,50,5" />
         <PasswordBox x:Name="txtPassword" FontSize="16" Margin="50,5" />
 
-        <Label Content="Confirmar ontraseña:" FontSize="16" Margin="50,20,50,5" />
+        <Label Content="Confirmar contraseña:" FontSize="16" Margin="50,20,50,5" />
         <PasswordBox x:Name="txtPassword2" FontSize="16" Margin="50,5" />
 
         <Button x:Name="btnRegisterUsuario" Content="Registrarse" FontSize="16" Margin="50,20,50,10"

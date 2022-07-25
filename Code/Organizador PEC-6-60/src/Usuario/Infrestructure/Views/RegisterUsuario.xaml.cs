@@ -13,18 +13,23 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
         public RegisterUsuario()
         {
             InitializeComponent();
-            UsuarioCreator usuarioCreator = new UsuarioCreator(new SqliteUsuarioRepository());
-            _createUsuario = new CreateUsuario(usuarioCreator);
+            _createUsuario = new CreateUsuario(new SqliteUsuarioRepository());
         }
 
         private void RegisterUsuario_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (!IsEmptyFormData())
+                if (IsValidFormData())
                 {
                     _createUsuario.RegisterUsuario(txtUsername.Text, txtPassword.Password, txtNombre.Text,
                         txtApellidos.Text);
+                    MessageBox.Show(
+                        $"Usuario: {txtUsername.Text}\nContraseña: {txtPassword.Password}",
+                        "Usuario registrado", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    new Login().Show();
+                    Close();
                 }
             }
             catch (InvalidUsername ex)
@@ -45,7 +50,7 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Eroro de base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString(), "Error de base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -55,9 +60,65 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
             Close();
         }
 
-        private bool IsEmptyFormData()
+        private bool IsValidFormData()
         {
-            return true; //There are empty fields in the forn
+            if (IsThereEmptyFields())
+            {
+                MessageBox.Show("Hay campos vacos en el formulario", "Campos vacios", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!IsSamePassword())
+            {
+                MessageBox.Show("Las contraseñas no coinciden", "Error contraseña", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsThereEmptyFields()
+        {
+            bool result = false;
+
+            if (txtNombre.Text.Length == 0)
+            {
+                txtNombre.Style = new Style();
+                result = true;
+            }
+
+            if (txtApellidos.Text.Length == 0)
+            {
+                txtApellidos.Style = new Style();
+                result = true;
+            }
+
+            if (txtUsername.Text.Length == 0)
+            {
+                txtUsername.Style = new Style();
+                result = true;
+            }
+
+            if (txtPassword.Password.Length == 0)
+            {
+                txtPassword.Style = new Style();
+                result = true;
+            }
+
+            if (txtPassword2.Password.Length == 0)
+            {
+                txtPassword2.Style = new Style();
+                result = true;
+            }
+
+            return result;
+        }
+
+        private bool IsSamePassword()
+        {
+            return txtPassword.Password == txtPassword2.Password;
         }
     }
 }
