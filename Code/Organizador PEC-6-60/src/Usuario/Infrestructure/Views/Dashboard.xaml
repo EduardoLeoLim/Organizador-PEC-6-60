@@ -4,9 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
-        Title="Organizador PEC-6-60" Height="450" Width="800">
+        Style="{DynamicResource WindowBaseStyle}"
+        WindowStartupLocation="CenterScreen"
+        Title="Organizador PEC-6-60"
+        Height="650" MinHeight="650" Width="1100" MinWidth="1100">
     <DockPanel LastChildFill="True">
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+        <StackPanel x:Name="menu" Orientation="Vertical" DockPanel.Dock="Left" Style="{DynamicResource DashboardMenu}">
             
             <Button x:Name="btnDashboard" Content="Dashboard" Click="Dashboard_Click">
                 <Button.Background>
@@ -76,7 +79,7 @@
             
             <Separator Height="20" />
             
-            <Button Content="Cerrar sesión">
+            <Button x:Name="btnLogOut" Content="Cerrar sesión" Click="LogOut_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Salir.png" />
                 </Button.Background>

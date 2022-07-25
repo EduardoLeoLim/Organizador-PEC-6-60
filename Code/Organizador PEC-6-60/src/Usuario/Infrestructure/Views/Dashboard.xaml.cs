@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views;
 using Organizador_PEC_6_60.Instrumento.Infrestructure.Views;
 using Organizador_PEC_6_60.Municipio.Infrestructure.Views;
@@ -33,7 +34,17 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
         private void Dashboard_Click(object sender, RoutedEventArgs e)
         {
-            //throw new System.NotImplementedException();
+            foreach (object item in menu.Children)
+            {
+                if (item is Button)
+                {
+                    Label lblContentButton = (Label)btnSavePEC_6_60.Template.FindName("ContentButton", (Button)item);
+                    if (lblContentButton.Visibility == Visibility.Visible)
+                        lblContentButton.Visibility = Visibility.Collapsed;
+                    else
+                        lblContentButton.Visibility = Visibility.Visible;
+                }       
+            }
         }
 
         private void SavePEC_6_60_Click(object sender, RoutedEventArgs e)
@@ -64,6 +75,12 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
         private void ManageMunicipios_Click(object sender, RoutedEventArgs e)
         {
             mainPanel.Content = _windowManageMunicipio;
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            new Login().Show();
+            Close();
         }
     }
 }

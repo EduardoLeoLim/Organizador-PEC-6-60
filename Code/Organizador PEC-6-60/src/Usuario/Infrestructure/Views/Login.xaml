@@ -4,11 +4,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
+        Style="{DynamicResource WindowBaseStyle}"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
         SizeToContent="Height"
         Title="Iniciar Sesión" Width="440">
     <StackPanel Orientation="Vertical">
-        <Image Source="/Organizador PEC-6-60;component/src/Resources/Images/Login.png" Height="190" Width="190" Margin="20,10" />
+        <Image Source="/Organizador PEC-6-60;component/src/Resources/Images/Login.png" Height="190" Width="190"
+               Margin="20,10" />
 
         <Label Content="Usuario" FontSize="16" Margin="50,5" />
         <TextBox x:Name="txtUsername" FontSize="16" Margin="50,5" />
@@ -16,10 +18,12 @@
         <Label Content="Contraseña:" FontSize="16" Margin="50,20,50,5" />
         <PasswordBox x:Name="txtPassword" FontSize="16" Margin="50,5" />
 
-        <Button x:Name="btnLogIn" Content="Ingresar" FontSize="16" Margin="50,15,50,10" Click="LogIn_Click" />
+        <Button x:Name="btnLogIn" Content="Ingresar" Style="{StaticResource btn-primary}" FontSize="16"
+                FontWeight="Bold" Width="340" Margin="50,15,50,10" Click="LogIn_Click" />
 
         <Separator Margin="40,20" />
 
-        <Button x:Name="btnSignIn" Content="Registrarse" FontSize="16" Margin="50,10,50,50" Click="SingIn_Click"/>
+        <Button x:Name="btnSignIn" Content="Registrarse" Style="{StaticResource btn-primary}" FontSize="16"
+                FontWeight="Bold" Width="340" Margin="50,10,50,50" Click="SingIn_Click" />
     </StackPanel>
 </Window>

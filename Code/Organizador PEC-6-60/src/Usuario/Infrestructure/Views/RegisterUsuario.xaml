@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
+        Style="{DynamicResource WindowBaseStyle}"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
         SizeToContent="Height"
         Title="Registrarse" Width="440">
@@ -23,11 +24,13 @@
         <Label Content="Confirmar contraseña:" FontSize="16" Margin="50,20,50,5" />
         <PasswordBox x:Name="txtPassword2" FontSize="16" Margin="50,5" />
 
-        <Button x:Name="btnRegisterUsuario" Content="Registrarse" FontSize="16" Margin="50,20,50,10"
+        <Button x:Name="btnRegisterUsuario" Content="Registrarse" Style="{StaticResource btn-success}" FontSize="16"
+                FontWeight="Bold" Width="340" Margin="50,20,50,10"
                 Click="RegisterUsuario_Click" />
 
         <Separator Margin="50,20" />
 
-        <Button x:Name="btnCancel" Content="Cancelar" FontSize="16" Margin="50,10,50,50" Click="Cancel_Click" />
+        <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource btn-danger}" FontSize="16"
+                FontWeight="Bold" Width="340" Margin="50,10,50,50" Click="Cancel_Click" />
     </StackPanel>
 </Window>

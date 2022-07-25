@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Windows;
+using System.Windows.Controls;
 using Organizador_PEC_6_60.Usuario.Application.Create;
 using Organizador_PEC_6_60.Usuario.Domain.Exceptions;
 using Organizador_PEC_6_60.Usuario.Infrestructure.Persistence;
@@ -62,6 +63,12 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
         private bool IsValidFormData()
         {
+            txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+            txtApellidos.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+            txtUsername.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+            txtPassword.Style = System.Windows.Application.Current.TryFindResource(typeof(PasswordBox)) as Style;
+            txtPassword2.Style = System.Windows.Application.Current.TryFindResource(typeof(PasswordBox)) as Style;
+
             if (IsThereEmptyFields())
             {
                 MessageBox.Show("Hay campos vacos en el formulario", "Campos vacios", MessageBoxButton.OK,
@@ -85,31 +92,31 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
             if (txtNombre.Text.Length == 0)
             {
-                txtNombre.Style = new Style();
+                txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 result = true;
             }
 
             if (txtApellidos.Text.Length == 0)
             {
-                txtApellidos.Style = new Style();
+                txtApellidos.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 result = true;
             }
 
             if (txtUsername.Text.Length == 0)
             {
-                txtUsername.Style = new Style();
+                txtUsername.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 result = true;
             }
 
             if (txtPassword.Password.Length == 0)
             {
-                txtPassword.Style = new Style();
+                txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 result = true;
             }
 
             if (txtPassword2.Password.Length == 0)
             {
-                txtPassword2.Style = new Style();
+                txtPassword2.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 result = true;
             }
 
@@ -118,7 +125,14 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
         private bool IsSamePassword()
         {
-            return txtPassword.Password == txtPassword2.Password;
+            bool isSame = txtPassword.Password == txtPassword2.Password;
+            if (!isSame)
+            {
+                txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+                txtPassword2.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            }
+
+            return isSame;
         }
     }
 }

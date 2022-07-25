@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using Organizador_PEC_6_60.Usuario.Application;
 using Organizador_PEC_6_60.Usuario.Application.LogIn;
 using Organizador_PEC_6_60.Usuario.Infrestructure.Persistence;
@@ -8,12 +9,12 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 {
     public partial class Login : Window
     {
-        public readonly LogInUsuario _LogInUsuario;
+        private readonly LogInUsuario _logInUsuario;
 
         public Login()
         {
             InitializeComponent();
-            _LogInUsuario = new LogInUsuario(new SqliteUsuarioRepository());
+            _logInUsuario = new LogInUsuario(new SqliteUsuarioRepository());
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -27,7 +28,7 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
                 if (IsValidDataForm())
                 {
-                    UsuarioConnected usuarioLogged = _LogInUsuario.LogIn(txtUsername.Text, txtPassword.Password);
+                    UsuarioConnected usuarioLogged = _logInUsuario.LogIn(txtUsername.Text, txtPassword.Password);
                     new Dashboard(usuarioLogged).Show();
                     Close();
                 }
@@ -54,6 +55,9 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
         private bool IsValidDataForm()
         {
+            txtUsername.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+            txtPassword.Style = System.Windows.Application.Current.TryFindResource(typeof(PasswordBox)) as Style;
+
             if (IsThereEmptyFields())
             {
                 MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
@@ -70,13 +74,13 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 
             if (txtUsername.Text.Length == 0)
             {
-                txtUsername.Style = new Style();
+                txtUsername.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 isThere = true;
             }
 
             if (txtPassword.Password.Length == 0)
             {
-                txtPassword.Style = new Style();
+                txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 isThere = true;
             }
 
