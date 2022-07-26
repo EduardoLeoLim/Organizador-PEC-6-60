@@ -10,7 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="src\EntidadFederativa\Application" />
         <Folder Include="src\Instrumento\Application" />
         <Folder Include="src\Instrumento\Domain" />
         <Folder Include="src\Municipio\Application" />
