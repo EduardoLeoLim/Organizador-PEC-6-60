@@ -29,6 +29,7 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Persistence
                     Password = password
                 };
                 dynamic result = connection.QuerySingle(quuery, parameters);
+                connection.Close();
                 Domain.Model.Usuario usuario = new Domain.Model.Usuario(
                     new UsuarioUsername((string)result.username),
                     new UsuarioPassword((string)result.password),
@@ -57,6 +58,7 @@ namespace Organizador_PEC_6_60.Usuario.Infrestructure.Persistence
                     Apellidos = newUsuario.Apellidos.Value
                 };
                 connection.Execute(query, parameters);
+                connection.Close();
             }
         }
 
