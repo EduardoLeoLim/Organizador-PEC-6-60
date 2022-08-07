@@ -13,7 +13,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
     {
         private readonly ManageEntidadFederativa _manager;
         private bool isNewRecord;
-        private EntidadFederativaResponse entidadFederativa;
+        private EntidadFederativaResponse _entidadFederativa;
 
         public FormEntidadFederativa(ManageEntidadFederativa manager)
         {
@@ -47,7 +47,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
                     }
                     else
                     {
-                        _manager.UpdateEntidadFederativa(entidadFederativa.Id, int.Parse(txtClave.Text),
+                        _manager.UpdateEntidadFederativa(_entidadFederativa.Id, int.Parse(txtClave.Text),
                             txtNombre.Text);
                         MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
@@ -96,9 +96,9 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
         {
             try
             {
-                entidadFederativa = _manager.SearchEntidadFederativaById(idEntidadFederativa);
-                txtClave.Text = entidadFederativa.Clave.ToString();
-                txtNombre.Text = entidadFederativa.Nombre;
+                _entidadFederativa = _manager.SearchEntidadFederativaById(idEntidadFederativa);
+                txtClave.Text = _entidadFederativa.Clave.ToString();
+                txtNombre.Text = _entidadFederativa.Nombre;
             }
             catch (DbException ex)
             {
