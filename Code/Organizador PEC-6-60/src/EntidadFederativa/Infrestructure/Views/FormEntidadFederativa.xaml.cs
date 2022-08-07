@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,7 +65,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (DbException ex)
+            catch (InvalidOperationException ex)
             {
                 MessageBox.Show(ex.Message, "Error Base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }

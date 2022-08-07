@@ -42,7 +42,8 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                 var parameters = new { Id = id };
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
-                Domain.Model.EntidadFederativa entidadFederativa = new Domain.Model.EntidadFederativa(new EntidadFederativaClave((int)result.folio),
+                Domain.Model.EntidadFederativa entidadFederativa = new Domain.Model.EntidadFederativa(
+                    new EntidadFederativaClave((int)result.folio),
                     new EntidadFederativaNombre((string)result.nombre), (int)result.id);
                 return entidadFederativa;
             }
@@ -59,7 +60,21 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                 var parameters = new
                     { Folio = newEntidadFederativa.Clave.Value, Nombre = newEntidadFederativa.Nombre.Value };
 
-                connection.Execute(query, parameters);
+                try
+                {
+                    connection.Execute(query, parameters);
+                }
+                catch (SQLiteException ex)
+                {
+                    string errorMessage = "No fue posible registrar la Entidad Federativa, Intentalo más tarde.";
+                    if (ex.ErrorCode == 19)
+                        errorMessage = "Ya hay una entidad federativa registrada con esa clave.";
+
+                    connection.Close();
+
+                    throw new InvalidOperationException(errorMessage);
+                }
+
                 connection.Close();
             }
         }
@@ -78,7 +93,21 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                     Id = entidadFederativa.Id
                 };
 
-                connection.Execute(query, parameters);
+                try
+                {
+                    connection.Execute(query, parameters);
+                }
+                catch (SQLiteException ex)
+                {
+                    string errorMessage = "No fue posible actualizar la Entidad Federativa, Intentalo más tarde.";
+                    if (ex.ErrorCode == 19)
+                        errorMessage = "Ya hay una entidad federativa registrada con esa clave.";
+
+                    connection.Close();
+
+                    throw new InvalidOperationException(errorMessage);
+                }
+
                 connection.Close();
             }
         }

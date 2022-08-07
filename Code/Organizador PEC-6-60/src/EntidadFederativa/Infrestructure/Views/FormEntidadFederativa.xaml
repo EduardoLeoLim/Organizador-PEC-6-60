@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views"
         mc:Ignorable="d"
+        Style="{DynamicResource WindowBaseStyle}"
         Title="Entidad Federativa" WindowStartupLocation="CenterOwner"
         ResizeMode="CanMinimize"
         MinHeight="280" Height="280" MinWidth="380" Width="380">
