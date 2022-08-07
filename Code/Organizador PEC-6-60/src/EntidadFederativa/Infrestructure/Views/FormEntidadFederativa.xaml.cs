@@ -67,7 +67,11 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, "Error Base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DbException ex)
+            {
+                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

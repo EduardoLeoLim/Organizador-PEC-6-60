@@ -116,6 +116,9 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
+                if (connection == null)
+                    throw new SQLiteException("Base de datos no disponible.");
+
                 string query = "DELETE FROM entidadFederativa WHERE id = @Id";
                 var parameters = new { Id = id };
                 connection.Execute(query, parameters);

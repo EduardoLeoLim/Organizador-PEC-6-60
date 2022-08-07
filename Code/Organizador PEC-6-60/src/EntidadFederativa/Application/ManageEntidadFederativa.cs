@@ -33,7 +33,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Application
         {
             return EntidadFederativaResponse.FromAggregate(_byIdSearcher.SearchEntidadFederativaById(id));
         }
-        
+
         public void RegisterEntidadFederativa(int clave, string nombre)
         {
             _creator.Create(new EntidadFederativaClave(clave), new EntidadFederativaNombre(nombre));

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Data.Common;
+using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.EntidadFederativa.Application;
 using Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence;
@@ -8,6 +10,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
     public partial class ManageEntidadesFederativas : Page
     {
         private readonly ManageEntidadFederativa _manager;
+
         public ManageEntidadesFederativas()
         {
             InitializeComponent();
@@ -39,20 +42,35 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
 
-            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
+                MessageBoxImage.Question, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
-                _manager.DeleteEntidadfederativa(record.Id);
-                
+                try
+                {
+                    _manager.DeleteEntidadfederativa(record.Id);
+                }
+                catch (DbException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
                 LoadTable();
             }
         }
 
         private void LoadTable()
         {
-            var entidadesFederativas = _manager.SearchAllEntidadesFederativas().EntidadesFederativas;
-            tblEntidades.ItemsSource = entidadesFederativas;
+            try
+            {
+                var entidadesFederativas = _manager.SearchAllEntidadesFederativas().EntidadesFederativas;
+                tblEntidades.ItemsSource = entidadesFederativas;
+            }
+            catch (DbException ex)
+            {
+                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                tblEntidades.Items.Clear();
+            }
         }
     }
 }
-
