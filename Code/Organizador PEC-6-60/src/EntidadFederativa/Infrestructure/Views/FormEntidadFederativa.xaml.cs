@@ -107,7 +107,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             }
         }
 
-        public bool IsValidFormData()
+        private bool IsValidFormData()
         {
             txtClave.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
             txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
@@ -122,7 +122,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             return true;
         }
 
-        public bool IsThereEmptyFields()
+        private bool IsThereEmptyFields()
         {
             bool isThere = false;
 
@@ -135,6 +135,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             if (txtNombre.Text.Length == 0)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+                isThere = true;
             }
 
             return isThere;

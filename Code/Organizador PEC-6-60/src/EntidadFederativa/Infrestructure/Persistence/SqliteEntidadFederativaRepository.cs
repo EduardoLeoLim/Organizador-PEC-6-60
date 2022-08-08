@@ -63,6 +63,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                 try
                 {
                     connection.Execute(query, parameters);
+                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
@@ -74,8 +75,6 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
 
                     throw new InvalidOperationException(errorMessage);
                 }
-
-                connection.Close();
             }
         }
 
@@ -96,6 +95,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                 try
                 {
                     connection.Execute(query, parameters);
+                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
@@ -107,8 +107,6 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
 
                     throw new InvalidOperationException(errorMessage);
                 }
-
-                connection.Close();
             }
         }
 
@@ -122,6 +120,7 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
                 string query = "DELETE FROM entidadFederativa WHERE id = @Id";
                 var parameters = new { Id = id };
                 connection.Execute(query, parameters);
+                connection.Close();
             }
         }
     }
