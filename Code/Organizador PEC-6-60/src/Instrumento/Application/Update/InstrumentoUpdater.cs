@@ -15,7 +15,7 @@ public class InstrumentoUpdater
 
     public void Update(int id, InstrumentoNombre nombre)
     {
-        if (IsValid(nombre))
+        if (!IsValid(nombre))
             throw new InvalidNombreInstrumento();
 
         _repository.Update(new Domain.Model.Instrumento(nombre, id));
