@@ -11,7 +11,6 @@
 
     <ItemGroup>
         <Folder Include="src\Instrumento\Application" />
-        <Folder Include="src\Instrumento\Domain" />
         <Folder Include="src\PEC_6_60\Application" />
         <Folder Include="src\PEC_6_60\Domain" />
         <Folder Include="src\PEC_6_60\Infrestructure" />
