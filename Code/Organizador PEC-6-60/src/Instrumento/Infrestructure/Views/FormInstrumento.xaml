@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Organizador_PEC_6_60.Instrumento.Infrestructure.Views"
         mc:Ignorable="d"
         Title="Instrumento"
+        Style="{DynamicResource WindowBaseStyle}"
         WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize"
         MinHeight="280" Height="280" MinWidth="380" Width="380">
     <Grid>
@@ -24,8 +25,8 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft"
                     Grid.ColumnSpan="2" Margin="20,10,20,20">
-            <Button x:Name="btnCancel" Content="Cancelar" Margin="0,0,10,0" Click="Cancel_Click" />
-            <Button x:Name="btnSave" Content="Guardar" Margin="10,0,0,0" Click="Save_Click" />
+            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource btn-danger}" Margin="0,0,10,0" Click="Cancel_Click" />
+            <Button x:Name="btnSave" Content="Guardar" Style="{StaticResource btn-success}" Margin="10,0,0,0" Click="Save_Click" />
         </StackPanel>
 
     </Grid>

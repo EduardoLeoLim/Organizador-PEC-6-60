@@ -7,7 +7,7 @@
       mc:Ignorable="d">
     <DockPanel LastChildFill="True" Margin="10">
         <StackPanel DockPanel.Dock="Top">
-            <Label Content="Instrumentos" Margin="30,10,0,0" />
+            <Label Content="Instrumentos" Style="{StaticResource h2}" Margin="30,10,30,0" />
         </StackPanel>
         
         <Grid Margin="25">
@@ -16,7 +16,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             
-            <Button x:Name="btnNewRecord" Content="Nuevo" FontSize="16" Grid.Row="0" HorizontalAlignment="Right"
+            <Button x:Name="btnNewRecord" Content="Nuevo" FontSize="16" Grid.Row="0" Style="{StaticResource btn-success}" HorizontalAlignment="Right"
                     VerticalAlignment="Center" Click="NewRecord_Click" />
             <DataGrid x:Name="tblInstrumentos" Grid.Row="1" ColumnWidth="*" AutoGenerateColumns="False" FontSize="16"
                       CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
@@ -26,14 +26,14 @@
                     <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Editar" Click="EditRecord_Click" />
+                                <Button Content="Editar" Style="{StaticResource btn-success}" Click="EditRecord_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Eliminar" Click="DeleteRecord_Click" />
+                                <Button Content="Eliminar" Style="{StaticResource btn-danger}" Click="DeleteRecord_Click" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
