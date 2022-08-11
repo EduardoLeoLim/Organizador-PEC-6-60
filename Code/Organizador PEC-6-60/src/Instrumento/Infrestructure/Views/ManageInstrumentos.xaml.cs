@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System;
+using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.Instrumento.Application;
@@ -47,6 +48,10 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
                 try
                 {
                     _managerInstrumentos.DeleteInstrumento(record.Id);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (DbException ex)
                 {

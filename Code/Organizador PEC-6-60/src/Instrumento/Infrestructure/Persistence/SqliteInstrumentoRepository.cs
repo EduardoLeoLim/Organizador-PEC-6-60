@@ -134,9 +134,9 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible actualizar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible eliminar el Instrumento, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un instrumento registrada con ese nombre.";
+                        errorMessage = "No es posible eliminar el instrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
 
                     connection.Close();
 
