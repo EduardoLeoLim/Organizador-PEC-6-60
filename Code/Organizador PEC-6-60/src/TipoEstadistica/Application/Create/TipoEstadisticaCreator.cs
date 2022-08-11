@@ -21,7 +21,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Application.Create
                 throw new InvalidClaveTipoEstadistica();
             if (!IsValid(nombre))
                 throw new InvalidNombreTipoEstadistica();
-            if (IsValid(instrumentos))
+            if (!IsValid(instrumentos))
                 throw new InvalidInstrumentosTipoEstadistica();
             
             _repository.Insert(new Domain.Model.TipoEstadistica(clave, nombre, instrumentos));
