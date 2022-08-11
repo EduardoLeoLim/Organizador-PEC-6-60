@@ -97,7 +97,11 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
 
                 try
                 {
-                    connection.Execute(query, paramenters);
+                    int affectedRows = connection.Execute(query, paramenters);
+
+                    if (affectedRows == 0)
+                        throw new SQLiteException();
+
                     connection.Close();
                 }
                 catch (SQLiteException ex)
@@ -132,7 +136,11 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
 
                 try
                 {
-                    connection.Execute(query, parameters);
+                    int affectedRows = connection.Execute(query, parameters);
+                    
+                    if (affectedRows == 0)
+                        throw new SQLiteException();
+                    
                     connection.Close();
                 }
                 catch (SQLiteException ex)
