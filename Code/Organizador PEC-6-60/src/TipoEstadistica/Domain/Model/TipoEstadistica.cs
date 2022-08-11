@@ -10,7 +10,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Domain.Model
         public int Id { get; }
         public TipoEstadisticaClave Clave { get; }
         public TipoEstadisticaNombre Nombre { get; }
-        public List<Instrumento.Domain.Model.Instrumento> Instrumentos { get; }
+        public IEnumerable<Instrumento.Domain.Model.Instrumento> Instrumentos { get; }
 
         #endregion
 
