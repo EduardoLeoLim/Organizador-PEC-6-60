@@ -47,7 +47,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
                     {
                         _managerTipoEstadistica.RegisterTipoEstadistica(int.Parse(txtClave.Text), txtNombre.Text,
                             GetSelectedInstrumentos());
-                        MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
+                        MessageBox.Show("Tipo de estadística registrada.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
@@ -56,7 +56,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
                         _managerTipoEstadistica.UpdateTipoEstadistica(_tipoEstadistica.Id, int.Parse(txtClave.Text),
                             txtNombre.Text,
                             GetSelectedInstrumentos());
-                        MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
+                        MessageBox.Show("Tipo de estadística editada.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }

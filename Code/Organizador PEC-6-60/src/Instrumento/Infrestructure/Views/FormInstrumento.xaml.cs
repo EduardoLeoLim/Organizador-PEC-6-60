@@ -38,14 +38,14 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
                     if (isNewRecord)
                     {
                         _managerInstrumentos.RegisterInstrumento(txtNombre.Text);
-                        MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
+                        MessageBox.Show("Instrumento registrado.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
                     else
                     {
                         _managerInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
-                        MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
+                        MessageBox.Show("Instrumento editado.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
