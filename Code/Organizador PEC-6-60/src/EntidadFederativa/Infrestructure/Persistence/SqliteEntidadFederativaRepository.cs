@@ -62,8 +62,11 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
 
                 try
                 {
-                    connection.Execute(query, parameters);
+                    int affectedRows = connection.Execute(query, parameters);
                     connection.Close();
+                    
+                    if (affectedRows == 0)
+                        throw new SQLiteException();
                 }
                 catch (SQLiteException ex)
                 {
@@ -94,8 +97,11 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence
 
                 try
                 {
-                    connection.Execute(query, parameters);
+                    int affectedRows = connection.Execute(query, parameters);
                     connection.Close();
+                    
+                    if (affectedRows == 0)
+                        throw new SQLiteException();
                 }
                 catch (SQLiteException ex)
                 {
