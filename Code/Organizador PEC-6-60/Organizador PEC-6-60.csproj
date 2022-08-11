@@ -13,8 +13,6 @@
         <Folder Include="src\PEC_6_60\Application" />
         <Folder Include="src\PEC_6_60\Domain" />
         <Folder Include="src\PEC_6_60\Infrestructure" />
-        <Folder Include="src\TipoEstadistica\Application" />
-        <Folder Include="src\TipoEstadistica\Infrestructure" />
     </ItemGroup>
 
     <ItemGroup>
