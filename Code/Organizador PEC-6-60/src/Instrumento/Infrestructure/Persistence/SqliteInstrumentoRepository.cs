@@ -62,10 +62,11 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-                    connection.Close();
 
                     if (affectedRows == 0)
                         throw new SQLiteException();
+
+                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
@@ -93,10 +94,11 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-                    connection.Close();
 
                     if (affectedRows == 0)
                         throw new SQLiteException();
+
+                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
@@ -119,15 +121,16 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                     throw new SQLiteException("Base de datos no disponible.");
 
                 string query = "DELETE FROM instrumento WHERE id = @Id;";
-                var parameters = new {  Id = id };
+                var parameters = new { Id = id };
 
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-                    connection.Close();
 
                     if (affectedRows == 0)
                         throw new SQLiteException();
+
+                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
