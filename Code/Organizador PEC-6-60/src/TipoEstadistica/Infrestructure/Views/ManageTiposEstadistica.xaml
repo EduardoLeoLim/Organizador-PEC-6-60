@@ -9,7 +9,7 @@
     <Page.Resources>
         <converter:CollectionToString x:Key="converterInstrumentos" />
     </Page.Resources>
-    <DockPanel LastChildFill="True" Margin="10">
+    <DockPanel LastChildFill="True" Margin="10" Loaded="LoadWindow">
 
         <StackPanel DockPanel.Dock="Top">
             <Label Content="Tipos de Estadistica" Style="{StaticResource h2}" Margin="30,10,30,0" />

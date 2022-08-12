@@ -19,6 +19,11 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
             LoadTable();
         }
 
+        private void LoadWindow(object sender, RoutedEventArgs e)
+        {
+            LoadTable();
+        }
+
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
             FormTipoEstadistica form = new FormTipoEstadistica(_managerTipoEstadistica,
@@ -44,7 +49,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
             string message = "¿Quiere eliminar el registro?";
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
-            
+
             MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
                 MessageBoxImage.Question, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)

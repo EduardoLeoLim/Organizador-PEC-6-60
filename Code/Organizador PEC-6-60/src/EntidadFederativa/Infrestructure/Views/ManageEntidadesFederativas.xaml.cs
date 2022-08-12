@@ -18,6 +18,11 @@ namespace Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Views
             LoadTable();
         }
 
+        private void LoadWindow(object sender, RoutedEventArgs e)
+        {
+            LoadTable();
+        }
+
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
             FormEntidadFederativa form = new FormEntidadFederativa(_manager);

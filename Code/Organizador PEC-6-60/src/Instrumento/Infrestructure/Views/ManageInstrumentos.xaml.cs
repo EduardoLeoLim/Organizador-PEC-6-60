@@ -18,6 +18,11 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
             LoadTable();
         }
 
+        private void LoadWindow(object sender, RoutedEventArgs e)
+        {
+            LoadTable();
+        }
+
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
             FormInstrumento form = new FormInstrumento(_managerInstrumentos);
