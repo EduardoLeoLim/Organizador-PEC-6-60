@@ -19,30 +19,26 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "SELECT m.id as IdMunicipio, m.folio as ClaveMunicipio, m.nombre AS NombreMunicipio, " +
-                               "eF.id AS IdEntidad, eF.folio AS ClaveEntidad, ef.nombre AS NombreEntidad " +
-                               "FROM municipio AS m INNER JOIN entidadFederativa eF on eF.id = m.idEntidadFederativa " +
-                               "WHERE eF.id = @IdEntidadFederativa ORDER BY ClaveEntidad;";
+                string query =
+                    "SELECT m.id as Id, m.folio as Clave, m.nombre AS Nombre, m.idEntidadFederativa AS IdEntidadFederativa " +
+                    "FROM municipio AS m WHERE m.idEntidadFederativa = @IdEntidadFederativa;";
                 var paramenters = new
                 {
                     IdEntidadFederativa = idEntidadFederativa
                 };
 
-                var result = connection.Query(query, paramenters).Select(
-                    row => new Domain.Model.Municipio(
-                        new MunicipioClave((int)row.ClaveMunicipio),
-                        new MunicipioNombre((string)row.NombreMunicipio),
-                        new EntidadFederativa.Domain.Model.EntidadFederativa(
-                            new EntidadFederativaClave((int)row.ClaveEntidad),
-                            new EntidadFederativaNombre((string)row.NombreEntidad),
-                            (int)row.IdEntidad),
-                        (int)row.IdMunicipio
+                var resut = connection.Query(query, paramenters);
+                var municipios = resut.Select(row => new Domain.Model.Municipio(
+                        new MunicipioClave((int)row.Clave),
+                        new MunicipioNombre((string)row.Nombre),
+                        (int)row.IdEntidadFederativa,
+                        id: (int)row.Id
                     )
                 );
 
                 connection.Close();
 
-                return result;
+                return municipios;
             }
         }
 
@@ -53,10 +49,9 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "SELECT m.id as IdMunicipio, m.folio as ClaveMunicipio, m.nombre AS NombreMunicipio, " +
-                               "eF.id AS IdEntidad, eF.folio AS ClaveEntidad, ef.nombre AS NombreEntidad " +
-                               "FROM municipio AS m INNER JOIN entidadFederativa eF on eF.id = m.idEntidadFederativa " +
-                               "WHERE m.id = @IdMunicipio;";
+                string query =
+                    "SELECT m.id as Id, m.folio as Clave, m.nombre AS Nombre, m.idEntidadFederativa AS IdEntidadFederativa " +
+                    "FROM municipio AS m WHERE m.id = @IdMunicipio;";
                 var parameters = new
                 {
                     IdMunicipio = id
@@ -65,15 +60,9 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
 
-                EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa =
-                    new EntidadFederativa.Domain.Model.EntidadFederativa(
-                        new EntidadFederativaClave((int)result.ClaveEntidad),
-                        new EntidadFederativaNombre((string)result.NombreEntidad),
-                        (int)result.IdEntidad);
-                Domain.Model.Municipio municipio =
-                    new Domain.Model.Municipio(new MunicipioClave((int)result.ClaveMunicipio),
-                        new MunicipioNombre((string)result.NombreMunicipio), entidadFederativa,
-                        (int)result.IdMunicipio);
+                Domain.Model.Municipio municipio = new Domain.Model.Municipio(
+                    new MunicipioClave((int)result.Clave), new MunicipioNombre((string)result.Nombre),
+                    (int)result.IdEntidadFederativa, id: (int)result.Id);
 
                 return municipio;
             }
@@ -92,7 +81,7 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
                 {
                     Clave = newMunicipio.Clave.Value,
                     Nombre = newMunicipio.Nombre.Value,
-                    IdEntidadFederativa = newMunicipio.EntidadFederativa.Id
+                    IdEntidadFederativa = newMunicipio.IdEntidadFederativa
                 };
 
                 try
@@ -131,16 +120,16 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Persistence
                     IdMunicipio = municipio.Id,
                     Clave = municipio.Clave.Value,
                     Nombre = municipio.Nombre.Value,
-                    IdEntidadFederativa = municipio.EntidadFederativa.Id
+                    IdEntidadFederativa = municipio.IdEntidadFederativa
                 };
 
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-                    
+
                     if (affectedRows == 0)
                         throw new SQLiteException();
-                    
+
                     connection.Close();
                 }
                 catch (SQLiteException ex)

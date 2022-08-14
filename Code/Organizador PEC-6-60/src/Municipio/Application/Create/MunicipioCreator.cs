@@ -23,7 +23,7 @@ namespace Organizador_PEC_6_60.Municipio.Application.Create
             if (!IsValid(nombre))
                 throw new InvalidNombreMunicipio();
 
-            _repository.Insert(new Domain.Model.Municipio(clave, nombre, entidadFederativa));
+            _repository.Insert(new Domain.Model.Municipio(clave, nombre, entidadFederativa.Id));
         }
 
         private bool IsValid(object obj)

@@ -17,7 +17,7 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
         public ManageMunicipios()
         {
             InitializeComponent();
-            _managerMunicipios = new ManageMunicipio(new SqliteMunicipioRepository());
+            _managerMunicipios = new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
             _managerEntidadesFederativas = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
         }
 

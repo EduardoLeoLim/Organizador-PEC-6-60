@@ -7,10 +7,10 @@ namespace Organizador_PEC_6_60.Municipio.Application
         public int Id { get; }
         public int Clave { get; }
         public string Nombre { get; }
-        public EntidadFederativa.Application.EntidadFederativaResponse EntidadFederativa { get; }
+        public EntidadFederativaResponse EntidadFederativa { get; }
 
         public MunicipioResponse(int id, int clave, string nombre,
-            EntidadFederativa.Application.EntidadFederativaResponse entidadFederativa)
+            EntidadFederativaResponse entidadFederativa)
         {
             Id = id;
             Clave = clave;
@@ -18,12 +18,12 @@ namespace Organizador_PEC_6_60.Municipio.Application
             EntidadFederativa = entidadFederativa;
         }
 
-        public static MunicipioResponse FromAggregate(Domain.Model.Municipio municipio)
+        public static MunicipioResponse FromAggregate(Domain.Model.Municipio municipio,
+            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa)
         {
-            EntidadFederativaResponse entidadFederativa =
-                EntidadFederativaResponse.FromAggregate(municipio.EntidadFederativa);
+            EntidadFederativaResponse entidadFederativaResponse = EntidadFederativaResponse.FromAggregate(entidadFederativa);
             return new MunicipioResponse(municipio.Id, municipio.Clave.Value, municipio.Nombre.Value,
-                entidadFederativa);
+                entidadFederativaResponse);
         }
     }
 }

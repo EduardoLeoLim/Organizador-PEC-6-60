@@ -1,4 +1,6 @@
 ﻿using Organizador_PEC_6_60.EntidadFederativa.Application;
+using Organizador_PEC_6_60.EntidadFederativa.Application.Search;
+using Organizador_PEC_6_60.EntidadFederativa.Domain.Repository;
 using Organizador_PEC_6_60.EntidadFederativa.Domain.ValueObjects;
 using Organizador_PEC_6_60.Municipio.Application.Create;
 using Organizador_PEC_6_60.Municipio.Application.Delete;
@@ -13,27 +15,34 @@ namespace Organizador_PEC_6_60.Municipio.Application
     {
         private AllMunicipioSeacher _allSearcher;
         private MunicipioByIdSearcher _byIdSearcher;
+        private EntidadFederativaByIdSearcher _byIdEntidadFederativaSearcer;
         private MunicipioCreator _creator;
         private MunicipioUpdater _updater;
         private MunicipioDeleter _deleter;
 
-        public ManageMunicipio(MunicipioRepository repository)
+        public ManageMunicipio(MunicipioRepository municipioRepository,
+            EntidadFederativaRepository entidadFederativaRepository)
         {
-            _allSearcher = new AllMunicipioSeacher(repository);
-            _byIdSearcher = new MunicipioByIdSearcher(repository);
-            _creator = new MunicipioCreator(repository);
-            _updater = new MunicipioUpdater(repository);
-            _deleter = new MunicipioDeleter(repository);
+            _allSearcher = new AllMunicipioSeacher(municipioRepository);
+            _byIdSearcher = new MunicipioByIdSearcher(municipioRepository);
+            _byIdEntidadFederativaSearcer = new EntidadFederativaByIdSearcher(entidadFederativaRepository);
+            _creator = new MunicipioCreator(municipioRepository);
+            _updater = new MunicipioUpdater(municipioRepository);
+            _deleter = new MunicipioDeleter(municipioRepository);
         }
 
         public MunicipiosResponse SearchAllMunicipios(int idEntidadFederativa)
         {
-            return new MunicipiosResponse(_allSearcher.SearchAllMunicipios(idEntidadFederativa));
+            return new MunicipiosResponse(_allSearcher.SearchAllMunicipios(idEntidadFederativa),
+                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(idEntidadFederativa));
         }
 
         public MunicipioResponse SearchMunicipioById(int id)
         {
-            return MunicipioResponse.FromAggregate(_byIdSearcher.SearchMunicipioById(id));
+            var municipio = _byIdSearcher.SearchMunicipioById(id);
+            var entidadFederativa =
+                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
+            return MunicipioResponse.FromAggregate(municipio, entidadFederativa);
         }
 
         public void RegisterMunicipio(int clave, string nombre, EntidadFederativaResponse entidadFederativaResponse)
