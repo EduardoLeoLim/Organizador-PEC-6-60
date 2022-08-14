@@ -1,13 +1,12 @@
-﻿using System.Globalization;
-
-namespace Organizador_PEC_6_60.PEC_6_60.Domain.ValueObjects;
-
-public class PEC_6_60MesEstadistico
+﻿namespace Organizador_PEC_6_60.PEC_6_60.Domain.ValueObjects
 {
-    public int Value { get; }
-
-    public PEC_6_60MesEstadistico(int mesEstadistico)
+    public class PEC_6_60MesEstadistico
     {
-        Value = mesEstadistico;
+        public int Value { get; }
+
+        public PEC_6_60MesEstadistico(int mesEstadistico)
+        {
+            Value = mesEstadistico;
+        }
     }
 }

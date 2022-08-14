@@ -17,12 +17,10 @@ namespace Organizador_PEC_6_60.PEC_6_60.Domain.Model
         public int IdTipoEstadistica { get; }
         public int IdMunicipio { get; }
 
-        public PEC_6_60(string fechaRegistro, string fechaModificacion, PEC_6_60AñoEstadistico añoEstadistico,
-            PEC_6_60MesEstadistico mesEstadistico, bool estaGuardado, PEC_6_60Consecutivo consecutivo, byte[] archivo,
-            int idInstrumento, int idTipoEstadistica, int idMunicipio, int id = 0)
+        public PEC_6_60(PEC_6_60AñoEstadistico añoEstadistico, PEC_6_60MesEstadistico mesEstadistico,
+            PEC_6_60Consecutivo consecutivo, byte[] archivo, int idInstrumento, int idTipoEstadistica, int idMunicipio,
+            bool estaGuardado = false, string fechaRegistro = "", string fechaModificacion = "", int id = 0)
         {
-            FechaRegistro = fechaRegistro;
-            FechaModificacion = fechaModificacion;
             AñoEstadistico = añoEstadistico;
             MesEstadistico = mesEstadistico;
             EstaGuardado = estaGuardado;
@@ -31,15 +29,17 @@ namespace Organizador_PEC_6_60.PEC_6_60.Domain.Model
             IdInstrumento = idInstrumento;
             IdTipoEstadistica = idTipoEstadistica;
             IdMunicipio = idMunicipio;
+            FechaRegistro = fechaRegistro;
+            FechaModificacion = fechaModificacion;
             Id = id;
         }
 
-        private void MarcarGuardado()
+        public void MarcarGuardado()
         {
             EstaGuardado = true;
         }
 
-        private void MarcarNoGuardado()
+        public void MarcarNoGuardado()
         {
             EstaGuardado = false;
         }

@@ -1,11 +1,12 @@
-﻿namespace Organizador_PEC_6_60.PEC_6_60.Domain.ValueObjects;
-
-public class PEC_6_60AñoEstadistico
+﻿namespace Organizador_PEC_6_60.PEC_6_60.Domain.ValueObjects
 {
-    public int Value { get; }
-
-    public PEC_6_60AñoEstadistico(int añoEstadistico)
+    public class PEC_6_60AñoEstadistico
     {
-        Value = añoEstadistico;
+        public string Value { get; }
+
+        public PEC_6_60AñoEstadistico(string añoEstadistico)
+        {
+            Value = añoEstadistico;
+        }
     }
 }
