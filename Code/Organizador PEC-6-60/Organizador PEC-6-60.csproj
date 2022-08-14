@@ -10,7 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="src\PEC_6_60\Application" />
         <Folder Include="src\PEC_6_60\Infrestructure" />
     </ItemGroup>
 
