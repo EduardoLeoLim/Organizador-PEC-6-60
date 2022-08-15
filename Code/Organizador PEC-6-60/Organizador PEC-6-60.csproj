@@ -10,10 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="src\PEC_6_60\Infrestructure" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.123" />
         <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.43" />
         <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.43" />
