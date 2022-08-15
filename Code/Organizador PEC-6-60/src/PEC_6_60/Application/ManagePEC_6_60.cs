@@ -76,15 +76,16 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             return PEC_6_60Response.FromAggregate(pec660, tipoEstadistica, instrumento, entidadFederativa, municipio);
         }
 
-        public void RegisterPEC_6_60(string añoEstadistico, int mesEstadistico, int consecutivo, byte[] dataArchivo,
-            int idInstrumento, int idTipoEstadistica, int idMunicipio)
+        public void RegisterPEC_6_60(int idTipoEstadistica, int idInstrumento, int idMunicipio, string añoEstadistico,
+            int mesEstadistico, int consecutivo, byte[] dataArchivo)
         {
             _PEC_6_60Creator.Create(new PEC_6_60AñoEstadistico(añoEstadistico),
                 new PEC_6_60MesEstadistico(mesEstadistico), new PEC_6_60Consecutivo(consecutivo), dataArchivo,
                 idInstrumento, idTipoEstadistica, idMunicipio);
         }
 
-        public void UpdatePEC_6_60(int id, string añoEstadistico, int mesEstadistico, int consecutivo, byte[] dataArchivo,
+        public void UpdatePEC_6_60(int id, string añoEstadistico, int mesEstadistico, int consecutivo,
+            byte[] dataArchivo,
             int idInstrumento, int idTipoEstadistica, int idMunicipio)
         {
             _PEC_6_60Updater.Update(id, new PEC_6_60AñoEstadistico(añoEstadistico),
@@ -96,7 +97,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
         {
             _PEC_6_60SiresoUpdater.SavedInSIRESO(id);
         }
-        
+
         public void PEC_6_60UnsavedInSIRESO(int id)
         {
             _PEC_6_60SiresoUpdater.UnsavedInSIRESO(id);

@@ -20,7 +20,7 @@ public class PEC_6_60Creator
             throw new InvalidAñoEstadisticoPEC_6_60();
         if (!IsValid(mesEstadistico))
             throw new InvalidMesEstadisticoPEC_6_60();
-        if (IsValid(consecutivo))
+        if (!IsValid(consecutivo))
             throw new InvalidConsecutivoPEC_6_60();
 
         Domain.Model.PEC_6_60 pec660 = new(añoEstadistico, mesEstadistico, consecutivo, dataArchivo, idInstrumento,
