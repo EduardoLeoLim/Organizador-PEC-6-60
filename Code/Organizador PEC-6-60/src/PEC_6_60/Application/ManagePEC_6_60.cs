@@ -47,20 +47,43 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
 
         public PEC_6_60sResponse SearchPEC_6_60ByCriteria(int idTipoEstadistica = 0, int idInstrumento = 0,
             string añoEstadistico = "", int mesEstadistico = 0, int idEntidadFederativa = 0, int idMunicipio = 0,
-            int consecutivo = 0)
+            int consecutivo = 0, FilterSIRESO guardadoSIRESO = FilterSIRESO.TODOS)
         {
-            var pec660s = _PEC_6_60ByCriteriaSearcher.SearchPEC_6_0ByCriteria(idTipoEstadistica, idInstrumento,
-                añoEstadistico, mesEstadistico, idEntidadFederativa, idMunicipio, consecutivo);
-
-            return new PEC_6_60sResponse(pec660s.Select(row =>
+            var searcher = _PEC_6_60ByCriteriaSearcher;
+            if (idTipoEstadistica > 0)
+                searcher = searcher.TipoEstadistica(idTipoEstadistica);
+            if (idInstrumento > 0)
+                searcher = searcher.Instrumento(idInstrumento);
+            if (añoEstadistico.Length > 0)
+                searcher = searcher.AñoEstadistico(añoEstadistico);
+            if (Enumerable.Range(1, 12).Contains(mesEstadistico))
+                searcher = searcher.MesEstadistico(mesEstadistico);
+            if (idEntidadFederativa > 0)
+                searcher = searcher.EntidadFederativa(idEntidadFederativa);
+            if (idMunicipio > 0)
+                searcher = searcher.Municipio(idMunicipio);
+            if (consecutivo > 0)
+                searcher = searcher.Consecutivo(consecutivo);
+            switch (guardadoSIRESO)
             {
-                var municipio = _municipioByIdSearcher.SearchMunicipioById(row.IdMunicipio);
+                case FilterSIRESO.SI:
+                    searcher = searcher.GuardadoSIRESO(true);
+                    break;
+                case FilterSIRESO.NO:
+                    searcher = searcher.GuardadoSIRESO(false);
+                    break;
+            }
+
+            var pec660s = searcher.SearchPEC_6_0();
+            return new PEC_6_60sResponse(pec660s.Select(item =>
+            {
+                var municipio = _municipioByIdSearcher.SearchMunicipioById(item.IdMunicipio);
                 var entidadFederativa =
                     _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
-                var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(row.IdTipoEstadistica);
-                var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(row.IdInstrumento);
+                var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(item.IdTipoEstadistica);
+                var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(item.IdInstrumento);
 
-                return PEC_6_60Response.FromAggregate(row, tipoEstadistica, instrumento, entidadFederativa, municipio);
+                return PEC_6_60Response.FromAggregate(item, tipoEstadistica, instrumento, entidadFederativa, municipio);
             }));
         }
 
