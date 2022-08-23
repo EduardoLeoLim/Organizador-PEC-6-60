@@ -12,7 +12,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
         public string FechaModificacion { get; }
         public string AñoEstadistico { get; }
         public MesEstadistico MesEstadistico { get; }
-        public bool EstaGuardado { get; }
+        public bool GuardadoSIRESO { get; }
         public int Consecutivo { get; }
         public byte[] Archivo { get; }
         public InstrumentoResponse Instrumento { get; }
@@ -30,7 +30,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             FechaModificacion = fechaModificacion;
             AñoEstadistico = añoEstadistico;
             MesEstadistico = new MesEstadistico(mesEstadistico);
-            EstaGuardado = estaGuardado;
+            GuardadoSIRESO = estaGuardado;
             Consecutivo = consecutivo;
             Archivo = archivo;
             Instrumento = instrumento;
