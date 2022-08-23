@@ -34,9 +34,14 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence
                 if (dictionary.ContainsKey("@IdMunicipio"))
                     filters.Add("idMunicipio = @IdMunicipio");
                 if (dictionary.ContainsKey("@Consecutivo"))
-                    filters.Add($"consecutivo = @Consecutivo");
-                ;
-                string query = $"SELECT * FROM pec_6_60 WHERE {string.Join(" AND ", filters)};";
+                    filters.Add("consecutivo = @Consecutivo");
+                if (dictionary.ContainsKey("@Guardado"))
+                    filters.Add("guardado = @Guardado");
+
+                string filtersQuery = "";
+                if (filters.Count > 0)
+                    filtersQuery = $"WHERE {string.Join(" AND ", filters)}";
+                string query = $"SELECT * FROM pec_6_60_consultas {filtersQuery};";
                 DynamicParameters parameters = new DynamicParameters(dictionary);
                 var result = connection.Query(query, parameters);
 
