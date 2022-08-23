@@ -15,5 +15,10 @@
         {
             return new InstrumentoResponse(instrumento.Id, instrumento.Nombre.Value);
         }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

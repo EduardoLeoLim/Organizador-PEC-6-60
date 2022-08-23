@@ -26,5 +26,10 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Application
             return new TipoEstadisticaResponse(tipoEstadistica.Id, tipoEstadistica.Clave, tipoEstadistica.Nombre,
                 tipoEstadistica.Instrumentos);
         }
+
+        public override string ToString()
+        {
+            return $"{Clave:000} - {Nombre}";
+        }
     }
 }

@@ -25,5 +25,10 @@ namespace Organizador_PEC_6_60.Municipio.Application
             return new MunicipioResponse(municipio.Id, municipio.Clave.Value, municipio.Nombre.Value,
                 entidadFederativaResponse);
         }
+
+        public override string ToString()
+        {
+            return $"{Clave:000} - {Nombre}";
+        }
     }
 }

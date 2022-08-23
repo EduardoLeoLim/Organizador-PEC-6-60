@@ -18,5 +18,10 @@
             return new EntidadFederativaResponse(entidadFederativa.Id, entidadFederativa.Clave.Value,
                 entidadFederativa.Nombre.Value);
         }
+
+        public override string ToString()
+        {
+            return $"{Clave:00} - {Nombre}";
+        }
     }
 }
