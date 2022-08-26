@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Organizador_PEC_6_60.PEC_6_60.Application
 {
     public class MesEstadistico
     {
+        public static readonly IEnumerable<MesEstadistico> Meses = Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthNames.Take(12).Select((item, index) => new MesEstadistico(index + 1, item.ToUpper()));
         public int Id { get; }
         public string Nombre { get; }
 
