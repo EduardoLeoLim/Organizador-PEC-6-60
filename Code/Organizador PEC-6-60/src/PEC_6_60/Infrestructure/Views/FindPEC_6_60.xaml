@@ -5,94 +5,101 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views"
       mc:Ignorable="d"
+      d:DesignWidth="1000" d:DesignHeight="600"
       Background="White">
-    <DockPanel LastChildFill="True" Margin="10">
-        <StackPanel DockPanel.Dock="Top">
-            <Label Content="Consultar PEC-6-60" Margin="30,10,0,0" />
-        </StackPanel>
-
-        <Grid DockPanel.Dock="Left" Margin="25">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180" />
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Content="Tipo Estadística:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxTipoEstadistica" Grid.Row="0" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="1" Grid.Column="0" Content="Año Estadístico:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxAño" Grid.Row="1" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="2" Grid.Column="0" Content="Mes Estadístico:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxMesEstadistico" Grid.Row="2" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="3" Grid.Column="0" Content="Entidad Federativa:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxEntidadFederativa" Grid.Row="3" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="4" Grid.Column="0" Content="Municipio:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxMunicipio" Grid.Row="4" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="5" Grid.Column="0" Content="Consecutivo:" FontSize="16" VerticalAlignment="Center" />
-            <TextBox x:Name="txtConsecutivo" Grid.Row="5" Grid.Column="1" FontSize="16" Margin="0,5"
-                     TextAlignment="Left" MaxLength="4" />
-
-            <Label Grid.Row="6" Grid.Column="0" Content="Instrumento:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxTipoDocumento" Grid.Row="6" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Label Grid.Row="7" Grid.Column="0" Content="Guardado en SERESO:" FontSize="16" VerticalAlignment="Center" />
-            <ComboBox x:Name="cbxSereso" Grid.Row="7" Grid.Column="1" FontSize="16" Margin="0,5" />
-
-            <Button x:Name="btnBuscar" Grid.Row="8" Grid.Column="1" Content="Buscar" HorizontalAlignment="Right"
-                    Margin="0,10" FontSize="16" />
-        </Grid>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <StackPanel Orientation="Horizontal" Margin="20,20,20,5" Grid.Row="0">
-                <Label Content="Actas PEC-6-60" HorizontalAlignment="Left" />
+    <Grid>
+        <DockPanel LastChildFill="True" Margin="10">
+            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                <Label Content="Consultar PEC-6-60" Style="{StaticResource h2}" Margin="30,10" />
+                <Label Content="Filtros de búsqueda" Style="{StaticResource h4}" Margin="30,0"></Label>
+                <WrapPanel Orientation="Horizontal" Margin="40,10">
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Tipo Estadística:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxTipoEstadistica" Width="200" FontSize="16" Margin="5"
+                                  SelectionChanged="LoadComboBoxInstrumento" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Instrumento:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxInstrumento" Width="200" FontSize="16" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Año Estadístico:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxAñoEstadistico" Width="200" FontSize="16" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Mes Estadístico:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxMesEstadistico" Width="200" FontSize="16" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Entidad Federativa:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxEntidadFederativa" Width="200" FontSize="16" Margin="5"
+                                  SelectionChanged="LoadComboBoxMunicipio" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Municipio:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxMunicipio" Width="200" FontSize="16" Margin="5" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Consecutivo:" FontSize="16" VerticalAlignment="Center" />
+                        <TextBox x:Name="txtConsecutivo" Width="200" FontSize="16" Margin="5" TextAlignment="Left"
+                                 MaxLength="4" PreviewTextInput="ValidateConsecutivoFormat" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <Label Content="Guardado en SIRESO:" FontSize="16" VerticalAlignment="Center" />
+                        <ComboBox x:Name="cbxSireso" Width="150" FontSize="16" Margin="5" />
+                    </StackPanel>
+                    <Button x:Name="btnBuscar" Content="Buscar" Style="{StaticResource btn-success}"
+                            HorizontalAlignment="Right" FontSize="16" Click="Find_PEC_6_60_Click" />
+                </WrapPanel>
             </StackPanel>
 
-            <DataGrid x:Name="tblInstrumentos" Grid.Row="1" Margin="20,0,20,20" AutoGenerateColumns="False"
-                      FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
-                      CanUserResizeRows="False" CanUserResizeColumns="False" ScrollViewer.CanContentScroll="True"
-                      SelectionMode="Single">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="¿Guardado?">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding GuardadoSereso}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Municipio" Binding="{Binding MunicipioActa}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Estadistica" Binding="{Binding TipoEstadisticaActa.Folio}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Header="Mes" Binding="{Binding MesEstadistico}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Año" Binding="{Binding AñoEstadistico}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Entidad" Binding="{Binding MunicipioActa.Entidad.Folio}"
-                                        IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Margin="20,0,20,20" Background="red" Visibility="Hidden">
-                <Label Content="PEC" />
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,10,0,0">
+                    <Label Content="PEC-6-60 encontrados" Style="{StaticResource h4}" Margin="30,0" />
+                </StackPanel>
+
+                <DataGrid x:Name="tblInstrumentos" Grid.Row="1" ColumnWidth="*" Margin="40,10"
+                          AutoGenerateColumns="False"
+                          FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                          CanUserResizeRows="False" CanUserResizeColumns="False" HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto" SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="¿Guardado?" MinWidth="100" MaxWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox HorizontalAlignment="Center"
+                                              IsChecked="{Binding Path=uardadoSIRESO, Mode=OneWay}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Tipo Estadistica" Binding="{Binding TipoEstadistica}"
+                                            IsReadOnly="True"
+                                            MinWidth="150" />
+                        <DataGridTextColumn Header="Entidad Federativa" Binding="{Binding EntidadFederativa}"
+                                            IsReadOnly="True" MinWidth="170" />
+                        <DataGridTextColumn Header="Municipio" Binding="{Binding Municipio}" IsReadOnly="True"
+                                            MinWidth="170" />
+                        <DataGridTextColumn Header="Año" Binding="{Binding AñoEstadistico}" IsReadOnly="True"
+                                            MinWidth="80" />
+                        <DataGridTextColumn Header="Mes" Binding="{Binding MesEstadistico}" IsReadOnly="True"
+                                            MinWidth="150" />
+                        <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Detalles" Style="{StaticResource btn-primary}" FontSize="16"
+                                            FontWeight="16" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-        </Grid>
-    </DockPanel>
+        </DockPanel>
+        
+    </Grid>
 </Page>
