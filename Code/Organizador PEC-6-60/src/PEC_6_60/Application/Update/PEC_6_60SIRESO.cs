@@ -14,15 +14,21 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application.Update
         public void SavedInSIRESO(int id)
         {
             Domain.Model.PEC_6_60 pec660 = _repository.SearchById(id);
-            pec660.MarcarGuardado();
-            _repository.Update(pec660);
+            if (!pec660.EstaGuardado)
+            {
+                pec660.MarcarGuardado();
+                _repository.Update(pec660);
+            }
         }
 
         public void UnsavedInSIRESO(int id)
         {
             Domain.Model.PEC_6_60 pec660 = _repository.SearchById(id);
-            pec660.MarcarNoGuardado();
-            _repository.Update(pec660);
+            if (pec660.EstaGuardado)
+            {
+                pec660.MarcarNoGuardado();
+                _repository.Update(pec660);
+            }
         }
     }
 }
