@@ -10,16 +10,16 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
+using Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 using Organizador_PEC_6_60.Instrumento.Application;
 using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.PEC_6_60.Application;
 using Organizador_PEC_6_60.PEC_6_60.Application.Search;
 using Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence;
-using Organizador_PEC_6_60.TipoEstadistica.Application;
-using Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence;
 
 namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
 {

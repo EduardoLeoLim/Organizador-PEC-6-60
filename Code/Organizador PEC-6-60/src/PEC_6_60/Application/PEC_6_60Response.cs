@@ -1,9 +1,9 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
 using Organizador_PEC_6_60.Instrumento.Application;
 using Organizador_PEC_6_60.Municipio.Application;
-using Organizador_PEC_6_60.TipoEstadistica.Application;
 
 namespace Organizador_PEC_6_60.PEC_6_60.Application
 {
@@ -54,7 +54,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
 
         public static PEC_6_60Response FromAggregate(
             Domain.Model.PEC_6_60 PEC_6_60,
-            TipoEstadistica.Domain.Model.TipoEstadistica tipoEstadistica,
+            Organizador_PEC_6_60.Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica,
             TipoInstrumento tipoInstrumento,
             Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa,
             Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio)
