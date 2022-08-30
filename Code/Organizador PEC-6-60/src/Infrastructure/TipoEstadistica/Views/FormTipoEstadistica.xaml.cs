@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.Exceptions;
 using Organizador_PEC_6_60.Instrumento.Application;
@@ -17,7 +19,8 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         private bool isNewRecord;
         private TipoEstadisticaResponse _tipoEstadistica;
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageTiposInstrumento managerTiposInstrumento)
+        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica,
+            ManageTiposInstrumento managerTiposInstrumento)
         {
             InitializeComponent();
             _managerTipoEstadistica = managerTipoEstadistica;
@@ -26,7 +29,8 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             LoadForm();
         }
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageTiposInstrumento managerTiposInstrumento,
+        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica,
+            ManageTiposInstrumento managerTiposInstrumento,
             int idTipoEstadistica) : this(managerTipoEstadistica, managerTiposInstrumento)
         {
             isNewRecord = false;
@@ -95,6 +99,12 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ValidateClaveFormat(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void LoadForm()
@@ -175,7 +185,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
 
             if (IsThereEmptyFields())
             {
-                MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
+                MessageBox.Show("Hay campos vacios en el formulario.", "Campos vacíos", MessageBoxButton.OK,
                     MessageBoxImage.Warning);
                 return false;
             }

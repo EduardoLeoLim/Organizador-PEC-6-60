@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="Clave:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="20,30,15,10" />
-        <TextBox x:Name="txtClave" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="15,30,20,10" />
+        <TextBox x:Name="txtClave" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="15,30,20,10" PreviewTextInput="ValidateClaveFormat"/>
 
         <Label Content="Nombre:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="20,10,15,10" />
         <TextBox x:Name="txtNombre" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="15,10,20,10" />
