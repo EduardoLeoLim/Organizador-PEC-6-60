@@ -48,9 +48,16 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence
                 return result.Select(item => new Domain.Model.PEC_6_60(
                     new PEC_6_60AñoEstadistico((string)item.añoEstadistico),
                     new PEC_6_60MesEstadistico((int)item.mesEstadistico),
-                    new PEC_6_60Consecutivo((int)item.consecutivo), (byte[])item.archivo, (int)item.idInstrumento,
-                    (int)item.idTipoEstadistica, (int)item.idMunicipio, estaGuardado: (int)item.guardado == 1,
-                    (string)item.fechaRegistro, (string)item.fechaModificacion, (int)item.id));
+                    new PEC_6_60Consecutivo((int)item.consecutivo),
+                    (byte[])item.archivo,
+                    (int)item.idInstrumento,
+                    (int)item.idTipoEstadistica,
+                    (int)item.idMunicipio,
+                    (int)item.guardado == 1,
+                    (string)item.fechaRegistro,
+                    (string)item.fechaModificacion,
+                    (int)item.id)
+                );
             }
         }
 
@@ -86,18 +93,18 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence
                     "guardado, consecutivo, archivo, idTipoEstadistica, idInstrumento, idMunicipio) " +
                     "VALUES (date('now'),'', @AñoEstadistico, @MesEstadistico, 0, @Consecutivo, @Archivo, " +
                     "@IdTipoEstadistica, @IdInstrumento, @IdMunicipio);";
-                DynamicParameters paramenters = new DynamicParameters();
-                paramenters.Add("@AñoEstadistico", newPec660.AñoEstadistico.Value, DbType.String);
-                paramenters.Add("@MesEstadistico", newPec660.MesEstadistico.Value, DbType.Int32);
-                paramenters.Add("@Consecutivo", newPec660.Consecutivo.Value, DbType.Int32);
-                paramenters.Add("@Archivo", newPec660.Archivo, DbType.Binary);
-                paramenters.Add("@IdTipoEstadistica", newPec660.IdTipoEstadistica, DbType.Int32);
-                paramenters.Add("@IdInstrumento", newPec660.IdInstrumento, DbType.Int32);
-                paramenters.Add("@IdMunicipio", newPec660.IdMunicipio, DbType.Int32);
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@AñoEstadistico", newPec660.AñoEstadistico.Value, DbType.String);
+                parameters.Add("@MesEstadistico", newPec660.MesEstadistico.Value, DbType.Int32);
+                parameters.Add("@Consecutivo", newPec660.Consecutivo.Value, DbType.Int32);
+                parameters.Add("@Archivo", newPec660.Archivo, DbType.Binary);
+                parameters.Add("@IdTipoEstadistica", newPec660.IdTipoEstadistica, DbType.Int32);
+                parameters.Add("@IdInstrumento", newPec660.IdInstrumento, DbType.Int32);
+                parameters.Add("@IdMunicipio", newPec660.IdMunicipio, DbType.Int32);
 
                 try
                 {
-                    int affectedRows = connection.Execute(query, paramenters);
+                    int affectedRows = connection.Execute(query, parameters);
 
                     if (affectedRows == 0)
                         throw new SQLiteException();
@@ -119,7 +126,48 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence
 
         public void Update(Domain.Model.PEC_6_60 pec660)
         {
-            throw new System.NotImplementedException();
+            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
+            {
+                if (connection == null)
+                    throw new SQLiteException("Base de datos no disponible.");
+
+                string query = "UPDATE pec_6_60 " +
+                               "SET fechaModificacion = DATE('now'), añoEstadistico = @AñoEstadistico, " +
+                               "mesEstadistico = @MesEstadistico, guardado = @Guardado, consecutivo = @Consecutivo, " +
+                               "archivo = @Archivo, idInstrumento = @IdInstrumento, idTipoEstadistica = @IdTipoEstadistica, " +
+                               "idMunicipio = @IdMunicipio " +
+                               "WHERE id = @Id;";
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@AñoEstadistico", pec660.AñoEstadistico.Value, DbType.String);
+                parameters.Add("@MesEstadistico", pec660.MesEstadistico.Value, DbType.Int32);
+                parameters.Add("@Guardado", pec660.EstaGuardado ? 1 : 0, DbType.Int32);
+                parameters.Add("@Consecutivo", pec660.Consecutivo.Value, DbType.Int32);
+                parameters.Add("@Archivo", pec660.Archivo, DbType.Binary);
+                parameters.Add("@IdInstrumento", pec660.IdInstrumento, DbType.Int32);
+                parameters.Add("@IdTipoEstadistica", pec660.IdTipoEstadistica, DbType.Int32);
+                parameters.Add("@IdMunicipio", pec660.IdMunicipio, DbType.Int32);
+                parameters.Add("@Id", pec660.Id, DbType.Int32);
+
+                try
+                {
+                    int affectedRows = connection.Execute(query, parameters);
+
+                    if (affectedRows == 0)
+                        throw new SQLiteException();
+
+                    connection.Close();
+                }
+                catch (SQLiteException ex)
+                {
+                    string errorMessage = "No fue posible actualizar el PEC-6-60, Intentalo más tarde.";
+                    if (ex.ErrorCode == 19)
+                        errorMessage = "Ya hay una PEC-6-60 registrado con los datos seleccionados.";
+
+                    connection.Close();
+
+                    throw new InvalidOperationException(errorMessage);
+                }
+            }
         }
 
         public void Delete(int id)
