@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using Dapper;
-using Organizador_PEC_6_60.Instrumento.Domain.Repository;
-using Organizador_PEC_6_60.Instrumento.Domain.ValueObjects;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 using Organizador_PEC_6_60.Resources.Database;
 
-namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
+namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
 {
-    public class SqliteInstrumentoRepository : InstrumentoRepository
+    public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
     {
-        public IEnumerable<Domain.Model.Instrumento> SearchAll()
+        public IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> SearchAll()
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -20,8 +20,8 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
 
                 string query = "SELECT * FROM instrumento ORDER BY nombre;";
                 var result = connection.Query(query).Select(
-                    row => new Domain.Model.Instrumento(
-                        new InstrumentoNombre((string)row.nombre),
+                    row => new Domain.TipoInstrumento.Model.TipoInstrumento(
+                        new TipoInstrumentoNombre((string)row.nombre),
                         (int)row.id
                     )
                 );
@@ -30,7 +30,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
             }
         }
 
-        public Domain.Model.Instrumento SearchById(int id)
+        public Domain.TipoInstrumento.Model.TipoInstrumento SearchById(int id)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -42,13 +42,13 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
 
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
-                Domain.Model.Instrumento instrumento =
-                    new Domain.Model.Instrumento(new InstrumentoNombre((string)result.nombre), (int)result.id);
-                return instrumento;
+                Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento =
+                    new Domain.TipoInstrumento.Model.TipoInstrumento(new TipoInstrumentoNombre((string)result.nombre), (int)result.id);
+                return tipoInstrumento;
             }
         }
 
-        public void Insert(Domain.Model.Instrumento newInstrumento)
+        public void Insert(Domain.TipoInstrumento.Model.TipoInstrumento newTipoInstrumento)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -56,7 +56,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                     throw new SQLiteException("Base de datos no disponible.");
 
                 string query = "INSERT INTO instrumento (nombre) VALUES (@Nombre);";
-                var parameters = new { Nombre = newInstrumento.Nombre.Value };
+                var parameters = new { Nombre = newTipoInstrumento.Nombre.Value };
 
                 try
                 {
@@ -69,9 +69,9 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible registrar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible registrar el TipoInstrumento, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un instrumento registrado con ese nombre.";
+                        errorMessage = "Ya hay un tipoInstrumento registrado con ese nombre.";
 
                     connection.Close();
 
@@ -80,7 +80,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
             }
         }
 
-        public void Update(Domain.Model.Instrumento instrumento)
+        public void Update(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -88,7 +88,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                     throw new SQLiteException("Base de datos no disponible.");
 
                 string query = "UPDATE instrumento SET nombre = @Nombre WHERE id = @Id;";
-                var parameters = new { Nombre = instrumento.Nombre.Value, Id = instrumento.Id };
+                var parameters = new { Nombre = tipoInstrumento.Nombre.Value, Id = tipoInstrumento.Id };
 
                 try
                 {
@@ -101,9 +101,9 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible actualizar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible actualizar el TipoInstrumento, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un instrumento registrada con ese nombre.";
+                        errorMessage = "Ya hay un tipoInstrumento registrada con ese nombre.";
 
                     connection.Close();
 
@@ -133,9 +133,9 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible eliminar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible eliminar el TipoInstrumento, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "No es posible eliminar el instrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
+                        errorMessage = "No es posible eliminar el tipoInstrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
 
                     connection.Close();
 

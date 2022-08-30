@@ -12,8 +12,8 @@ using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
+using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence;
 using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.PEC_6_60.Application;
 using Organizador_PEC_6_60.PEC_6_60.Application.Search;
@@ -33,7 +33,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
         public FindPEC_6_60()
         {
             InitializeComponent();
-            _managerPEC_6_60 = new ManagePEC_6_60(new SqlitePEC_6_60Repository(), new SqliteInstrumentoRepository(),
+            _managerPEC_6_60 = new ManagePEC_6_60(new SqlitePEC_6_60Repository(), new SqliteTipoInstrumentoRepository(),
                 new SqliteTipoEstadisticaRepository(), new SqliteEntidadFederativaRepository(),
                 new SqliteMunicipioRepository());
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
@@ -89,8 +89,8 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
                 ? tipoEstadistica.Id
                 : 0;
 
-            int idInstrumento = cbxInstrumento.SelectedItem is InstrumentoResponse instrumento
-                ? instrumento.Id
+            int idInstrumento = cbxInstrumento.SelectedItem is TipoInstrumentoResponse tipoInstrumento
+                ? tipoInstrumento.Id
                 : 0;
 
             int añoSeleccionado;
@@ -117,7 +117,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
             tblInstrumentos.ItemsSource = _managerPEC_6_60
                 .SearchPEC_6_60ByCriteria(
                     idTipoEstadistica: idTipoEstadistica,
-                    idInstrumento: idInstrumento,
+                    idTipoInstrumento: idInstrumento,
                     añoEstadistico: añoEstadistico,
                     mesEstadistico: idMesEstadistico,
                     idEntidadFederativa: idEntidadFederativa,

@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application.Update
         }
 
         public void Update(int id, PEC_6_60AñoEstadistico añoEstadistico, PEC_6_60MesEstadistico mesEstadistico,
-            PEC_6_60Consecutivo consecutivo, byte[] dataArchivo, int idInstrumento, int idTipoEstadistica,
+            PEC_6_60Consecutivo consecutivo, byte[] dataArchivo, int idTipoInstrumento, int idTipoEstadistica,
             int idMunicipio)
         {
             if (!IsValid(añoEstadistico))
@@ -24,7 +24,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application.Update
             if (IsValid(consecutivo))
                 throw new InvalidConsecutivoPEC_6_60();
             
-            Domain.Model.PEC_6_60 pec660 = new(añoEstadistico, mesEstadistico, consecutivo, dataArchivo, idInstrumento,
+            Domain.Model.PEC_6_60 pec660 = new(añoEstadistico, mesEstadistico, consecutivo, dataArchivo, idTipoInstrumento,
                 idTipoEstadistica, idMunicipio, id: id);
             _repository.Update(pec660);
         }

@@ -2,25 +2,25 @@
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Exceptions;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Domain.Exceptions;
 
-namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
+namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 {
     public partial class FormInstrumento : Window
     {
-        private readonly ManageInstrumento _managerInstrumentos;
+        private readonly ManageTiposInstrumento _managerTiposInstrumentos;
         private bool isNewRecord;
-        private InstrumentoResponse _instrumento;
+        private TipoInstrumentoResponse _instrumento;
 
-        public FormInstrumento(ManageInstrumento managerInstrumentos)
+        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos)
         {
             InitializeComponent();
-            _managerInstrumentos = managerInstrumentos;
+            _managerTiposInstrumentos = managerTiposInstrumentos;
             isNewRecord = true;
         }
 
-        public FormInstrumento(ManageInstrumento managerInstrumentos, int idInstrumento) : this(managerInstrumentos)
+        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(managerTiposInstrumentos)
         {
             isNewRecord = false;
             LoadForm(idInstrumento);
@@ -37,21 +37,21 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
                 {
                     if (isNewRecord)
                     {
-                        _managerInstrumentos.RegisterInstrumento(txtNombre.Text);
-                        MessageBox.Show("Instrumento registrado.", "Exito", MessageBoxButton.OK,
+                        _managerTiposInstrumentos.RegisterInstrumento(txtNombre.Text);
+                        MessageBox.Show("TipoInstrumento registrado.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
                     else
                     {
-                        _managerInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
-                        MessageBox.Show("Instrumento editado.", "Exito", MessageBoxButton.OK,
+                        _managerTiposInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
+                        MessageBox.Show("TipoInstrumento editado.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
                 }
             }
-            catch (InvalidNombreInstrumento ex)
+            catch (InvalidNombreTipoInstrumento ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -80,7 +80,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
         {
             try
             {
-                _instrumento = _managerInstrumentos.SearchInstrumentoById(idInstrumento);
+                _instrumento = _managerTiposInstrumentos.SearchInstrumentoById(idInstrumento);
                 txtNombre.Text = _instrumento.Nombre;
             }
             catch (DbException ex)

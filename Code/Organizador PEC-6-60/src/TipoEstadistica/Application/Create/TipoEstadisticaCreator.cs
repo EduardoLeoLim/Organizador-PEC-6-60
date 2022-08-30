@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Exceptions;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Repository;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.ValueObjects;
@@ -15,7 +16,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Application.Create
         }
 
         public void Create(TipoEstadisticaClave clave, TipoEstadisticaNombre nombre,
-            List<Instrumento.Domain.Model.Instrumento> instrumentos)
+            List<TipoInstrumento> instrumentos)
         {
             if (!IsValid(clave))
                 throw new InvalidClaveTipoEstadistica();
@@ -52,9 +53,9 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Application.Create
                 return true;
             }
 
-            if (obj is List<Instrumento.Domain.Model.Instrumento>)
+            if (obj is List<TipoInstrumento>)
             {
-                List<Instrumento.Domain.Model.Instrumento> list = (List<Instrumento.Domain.Model.Instrumento>)obj;
+                List<TipoInstrumento> list = (List<TipoInstrumento>)obj;
 
                 if (list.Count == 0)
                     return false;

@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence;
 
@@ -27,7 +27,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
             FormTipoEstadistica form = new FormTipoEstadistica(_managerTipoEstadistica,
-                new ManageInstrumento(new SqliteInstrumentoRepository()));
+                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()));
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -37,7 +37,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
         {
             TipoEstadisticaResponse record = (TipoEstadisticaResponse)((Button)e.Source).DataContext;
             FormTipoEstadistica form = new FormTipoEstadistica(_managerTipoEstadistica,
-                new ManageInstrumento(new SqliteInstrumentoRepository()), record.Id);
+                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()), record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();

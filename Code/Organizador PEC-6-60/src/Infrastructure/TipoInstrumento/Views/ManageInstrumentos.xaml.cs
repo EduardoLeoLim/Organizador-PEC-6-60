@@ -2,19 +2,19 @@
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence;
 
-namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
+namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 {
     public partial class ManageInstrumentos : Page
     {
-        private readonly ManageInstrumento _managerInstrumentos;
+        private readonly ManageTiposInstrumento _managerTiposInstrumentos;
 
         public ManageInstrumentos()
         {
             InitializeComponent();
-            _managerInstrumentos = new ManageInstrumento(new SqliteInstrumentoRepository());
+            _managerTiposInstrumentos = new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository());
             LoadTable();
         }
 
@@ -25,7 +25,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            FormInstrumento form = new FormInstrumento(_managerInstrumentos);
+            Infrastructure.TipoInstrumento.Views.FormInstrumento form = new Infrastructure.TipoInstrumento.Views.FormInstrumento(_managerTiposInstrumentos);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -33,8 +33,8 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
 
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
-            InstrumentoResponse record = (InstrumentoResponse)((Button)e.Source).DataContext;
-            FormInstrumento form = new FormInstrumento(_managerInstrumentos, record.Id);
+            TipoInstrumentoResponse record = (TipoInstrumentoResponse)((Button)e.Source).DataContext;
+            FormInstrumento form = new FormInstrumento(_managerTiposInstrumentos, record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -42,7 +42,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
 
         private void DeleteRecord_Click(object sender, RoutedEventArgs e)
         {
-            InstrumentoResponse record = (InstrumentoResponse)((Button)e.Source).DataContext;
+            TipoInstrumentoResponse record = (TipoInstrumentoResponse)((Button)e.Source).DataContext;
             string message = "¿Quiere eliminar el registro?";
             message += $"\nNombre: {record.Nombre}";
 
@@ -52,7 +52,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
             {
                 try
                 {
-                    _managerInstrumentos.DeleteInstrumento(record.Id);
+                    _managerTiposInstrumentos.DeleteInstrumento(record.Id);
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -71,7 +71,7 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Views
         {
             try
             {
-                var instrumentos = _managerInstrumentos.SearchAllInstrumentos().Instrumentos;
+                var instrumentos = _managerTiposInstrumentos.SearchAllInstrumentos().TiposInstrumento;
                 tblInstrumentos.ItemsSource = instrumentos;
             }
             catch (DbException ex)

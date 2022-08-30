@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,9 +10,8 @@ using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
+using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence;
-using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.PEC_6_60.Application;
 using Organizador_PEC_6_60.PEC_6_60.Infrestructure.Persistence;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
@@ -31,7 +29,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
         public SavePEC_6_60()
         {
             InitializeComponent();
-            _managerPEC_6_60 = new ManagePEC_6_60(new SqlitePEC_6_60Repository(), new SqliteInstrumentoRepository(),
+            _managerPEC_6_60 = new ManagePEC_6_60(new SqlitePEC_6_60Repository(), new SqliteTipoInstrumentoRepository(),
                 new SqliteTipoEstadisticaRepository(), new SqliteEntidadFederativaRepository(),
                 new SqliteMunicipioRepository());
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
@@ -92,7 +90,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
                 if (IsValidFormData())
                 {
                     int idTipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem).Id;
-                    int idInstrumento = ((InstrumentoResponse)cbxInstrumento.SelectedItem).Id;
+                    int idTipoInstrumento = ((TipoInstrumentoResponse)cbxInstrumento.SelectedItem).Id;
                     int idMunicipio = ((MunicipioResponse)cbxMunicipio.SelectedItem).Id;
                     string añoEstadistico = cbxAñoEstadistico.SelectedValue.ToString();
                     int mesEstadistico = (int)((dynamic)cbxMesEstadistico.SelectedItem).Id;
@@ -102,7 +100,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
                     pdfViewer.LoadedDocument.Save(memoryStream);
                     byte[] dataArchivo = memoryStream.ToArray();
 
-                    _managerPEC_6_60.RegisterPEC_6_60(idTipoEstadistica, idInstrumento, idMunicipio, añoEstadistico,
+                    _managerPEC_6_60.RegisterPEC_6_60(idTipoEstadistica, idTipoInstrumento, idMunicipio, añoEstadistico,
                         mesEstadistico, consecutivo, dataArchivo);
                     MessageBox.Show("PEC-6-60 registrado", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
                     txtLastSave.Text = pdfViewer.DocumentInfo.FilePath + pdfViewer.DocumentInfo.FileName;

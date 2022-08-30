@@ -34,7 +34,7 @@
             <ComboBox x:Name="cbxTipoEstadistica" Grid.Row="0" Grid.Column="1" FontSize="16" Margin="0,5"
                       SelectionChanged="LoadComboBoxInstrumento" />
 
-            <Label Grid.Row="1" Grid.Column="0" Content="Instrumento:" FontSize="16" VerticalAlignment="Center" />
+            <Label Grid.Row="1" Grid.Column="0" Content="TipoInstrumento:" FontSize="16" VerticalAlignment="Center" />
             <ComboBox x:Name="cbxInstrumento" Grid.Row="1" Grid.Column="1" FontSize="16" Margin="0,5" />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Año Estadístico:" FontSize="16" VerticalAlignment="Center" />

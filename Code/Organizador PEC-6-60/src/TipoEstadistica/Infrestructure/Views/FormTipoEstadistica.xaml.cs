@@ -13,21 +13,21 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
     public partial class FormTipoEstadistica : Window
     {
         private ManageTipoEstadistica _managerTipoEstadistica;
-        private ManageInstrumento _managerInstrumento;
+        private ManageTiposInstrumento _managerTiposInstrumento;
         private bool isNewRecord;
         private TipoEstadisticaResponse _tipoEstadistica;
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageInstrumento managerInstrumento)
+        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageTiposInstrumento managerTiposInstrumento)
         {
             InitializeComponent();
             _managerTipoEstadistica = managerTipoEstadistica;
-            _managerInstrumento = managerInstrumento;
+            _managerTiposInstrumento = managerTiposInstrumento;
             isNewRecord = true;
             LoadForm();
         }
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageInstrumento managerInstrumento,
-            int idTipoEstadistica) : this(managerTipoEstadistica, managerInstrumento)
+        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica, ManageTiposInstrumento managerTiposInstrumento,
+            int idTipoEstadistica) : this(managerTipoEstadistica, managerTiposInstrumento)
         {
             isNewRecord = false;
             LoadTipoEstadisitca(idTipoEstadistica);
@@ -101,7 +101,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
         {
             try
             {
-                var instrumentos = _managerInstrumento.SearchAllInstrumentos().Instrumentos;
+                var instrumentos = _managerTiposInstrumento.SearchAllInstrumentos().TiposInstrumento;
                 foreach (var instrumento in instrumentos)
                 {
                     CheckBox item = new CheckBox();
@@ -132,7 +132,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
                     if (child is CheckBox)
                     {
                         CheckBox checkBox = (CheckBox)child;
-                        var instrumento = (InstrumentoResponse)checkBox.DataContext;
+                        var instrumento = (TipoInstrumentoResponse)checkBox.DataContext;
                         int count = _tipoEstadistica.Instrumentos.Where(item => item.Id == instrumento.Id).Count();
                         if (count == 1)
                         {
@@ -148,9 +148,9 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
             }
         }
 
-        private List<InstrumentoResponse> GetSelectedInstrumentos()
+        private List<TipoInstrumentoResponse> GetSelectedInstrumentos()
         {
-            List<InstrumentoResponse> listSelectedInstrumentos = new List<InstrumentoResponse>();
+            List<TipoInstrumentoResponse> listSelectedInstrumentos = new List<TipoInstrumentoResponse>();
 
             foreach (var item in listInstrumentos.Children)
             {
@@ -159,7 +159,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views
                     CheckBox checkBox = (CheckBox)item;
                     if (checkBox.IsChecked == true)
                     {
-                        InstrumentoResponse instrumento = (InstrumentoResponse)checkBox.DataContext;
+                        TipoInstrumentoResponse instrumento = (TipoInstrumentoResponse)checkBox.DataContext;
                         listSelectedInstrumentos.Add(instrumento);
                     }
                 }

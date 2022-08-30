@@ -19,7 +19,7 @@
                                   SelectionChanged="LoadComboBoxInstrumento" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <Label Content="Instrumento:" FontSize="16" VerticalAlignment="Center" />
+                        <Label Content="TipoInstrumento:" FontSize="16" VerticalAlignment="Center" />
                         <ComboBox x:Name="cbxInstrumento" Width="200" FontSize="16" Margin="5" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0">

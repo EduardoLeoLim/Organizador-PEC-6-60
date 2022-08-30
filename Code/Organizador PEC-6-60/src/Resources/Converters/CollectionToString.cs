@@ -11,9 +11,9 @@ namespace Organizador_PEC_6_60.Resources.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is IEnumerable<InstrumentoResponse>)
+            if (value is IEnumerable<TipoInstrumentoResponse>)
             {
-                var instrumentos = (IEnumerable<InstrumentoResponse>)value;
+                var instrumentos = (IEnumerable<TipoInstrumentoResponse>)value;
                 return string.Join(", ", instrumentos.Select(item => item.Nombre));
             }
 

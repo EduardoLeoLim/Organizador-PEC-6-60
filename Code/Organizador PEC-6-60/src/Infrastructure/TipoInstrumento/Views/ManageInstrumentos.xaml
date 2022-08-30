@@ -1,9 +1,9 @@
-﻿<Page x:Class="Organizador_PEC_6_60.Instrumento.Infrestructure.Views.ManageInstrumentos"
+﻿<Page x:Class="Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views.ManageInstrumentos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Organizador_PEC_6_60.Instrumento.Infrestructure.Views"
+      xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views"
       mc:Ignorable="d">
     <DockPanel LastChildFill="True" Margin="10" Loaded="LoadWindow">
         <StackPanel DockPanel.Dock="Top">

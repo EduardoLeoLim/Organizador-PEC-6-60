@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.Instrumento.Domain.ValueObjects;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Create;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Delete;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
@@ -38,18 +39,18 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Application
             return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
         }
 
-        public void RegisterTipoEstadistica(int clave, string nombre, List<InstrumentoResponse> instrumentos)
+        public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
         {
-            List<Instrumento.Domain.Model.Instrumento> listInstrumentos = instrumentos.Select(row =>
-                new Instrumento.Domain.Model.Instrumento(new InstrumentoNombre(row.Nombre), row.Id)).ToList();
+            List<TipoInstrumento> listInstrumentos = instrumentos.Select(row =>
+                new TipoInstrumento(new TipoInstrumentoNombre(row.Nombre), row.Id)).ToList();
 
             _creator.Create(new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
         }
 
-        public void UpdateTipoEstadistica(int id, int clave, string nombre, List<InstrumentoResponse> instrumentos)
+        public void UpdateTipoEstadistica(int id, int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
         {
-            List<Instrumento.Domain.Model.Instrumento> listInstrumentos = instrumentos.Select(row =>
-                new Instrumento.Domain.Model.Instrumento(new InstrumentoNombre(row.Nombre), row.Id)).ToList();
+            List<TipoInstrumento> listInstrumentos = instrumentos.Select(row =>
+                new TipoInstrumento(new TipoInstrumentoNombre(row.Nombre), row.Id)).ToList();
 
             _updater.Update(id, new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
         }

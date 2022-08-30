@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio.Search;
+using Organizador_PEC_6_60.Application.TipoInstrumento.Search;
 using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
 using Organizador_PEC_6_60.Domain.Municipio.Repository;
-using Organizador_PEC_6_60.Instrumento.Application.Search;
-using Organizador_PEC_6_60.Instrumento.Domain.Repository;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 using Organizador_PEC_6_60.PEC_6_60.Application.Create;
 using Organizador_PEC_6_60.PEC_6_60.Application.Delete;
 using Organizador_PEC_6_60.PEC_6_60.Application.Search;
@@ -25,11 +25,11 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
         private PEC_6_60SIRESO _PEC_6_60SiresoUpdater;
         private PEC_6_60Deleter _PEC_6_60Deleter;
         private TipoEstadisticaByIdSearcher _tipoEstadisticaByIdSearcher;
-        private InstrumentoByIdSearcher _instrumentoByIdSearcher;
+        private TipoInstrumentoByIdSearcher _tipoInstrumentoByIdSearcher;
         private MunicipioByIdSearcher _municipioByIdSearcher;
         private EntidadFederativaByIdSearcher _entidadFederativaByIdSearcher;
 
-        public ManagePEC_6_60(PEC_6_60Repository PEC_6_60Repository, InstrumentoRepository instrumentoRepository,
+        public ManagePEC_6_60(PEC_6_60Repository PEC_6_60Repository, TipoInstrumentoRepository instrumentoRepository,
             TipoEstadisticaRepository tipoEstadisticaRepository,
             EntidadFederativaRepository entidadFederativaRepository, MunicipioRepository municipioRepository)
         {
@@ -40,20 +40,20 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             _PEC_6_60SiresoUpdater = new PEC_6_60SIRESO(PEC_6_60Repository);
             _PEC_6_60Deleter = new PEC_6_60Deleter(PEC_6_60Repository);
             _tipoEstadisticaByIdSearcher = new TipoEstadisticaByIdSearcher(tipoEstadisticaRepository);
-            _instrumentoByIdSearcher = new InstrumentoByIdSearcher(instrumentoRepository);
+            _tipoInstrumentoByIdSearcher = new TipoInstrumentoByIdSearcher(instrumentoRepository);
             _entidadFederativaByIdSearcher = new EntidadFederativaByIdSearcher(entidadFederativaRepository);
             _municipioByIdSearcher = new MunicipioByIdSearcher(municipioRepository);
         }
 
-        public PEC_6_60sResponse SearchPEC_6_60ByCriteria(int idTipoEstadistica = 0, int idInstrumento = 0,
+        public PEC_6_60sResponse SearchPEC_6_60ByCriteria(int idTipoEstadistica = 0, int idTipoInstrumento = 0,
             string añoEstadistico = "", int mesEstadistico = 0, int idEntidadFederativa = 0, int idMunicipio = 0,
             int consecutivo = 0, FilterSIRESO guardadoSIRESO = FilterSIRESO.TODOS)
         {
             var searcher = _PEC_6_60ByCriteriaSearcher;
             if (idTipoEstadistica > 0)
                 searcher = searcher.TipoEstadistica(idTipoEstadistica);
-            if (idInstrumento > 0)
-                searcher = searcher.Instrumento(idInstrumento);
+            if (idTipoInstrumento > 0)
+                searcher = searcher.TipoInstrumento(idTipoInstrumento);
             if (añoEstadistico.Length > 0)
                 searcher = searcher.AñoEstadistico(añoEstadistico);
             if (Enumerable.Range(1, 12).Contains(mesEstadistico))
@@ -81,7 +81,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
                 var entidadFederativa =
                     _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
                 var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(item.IdTipoEstadistica);
-                var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(item.IdInstrumento);
+                var instrumento = _tipoInstrumentoByIdSearcher.SearchInstrumentoById(item.IdInstrumento);
 
                 return PEC_6_60Response.FromAggregate(item, tipoEstadistica, instrumento, entidadFederativa, municipio);
             }));
@@ -94,7 +94,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             var entidadFederativa =
                 _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
             var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(pec660.IdTipoEstadistica);
-            var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(pec660.IdInstrumento);
+            var instrumento = _tipoInstrumentoByIdSearcher.SearchInstrumentoById(pec660.IdInstrumento);
 
             return PEC_6_60Response.FromAggregate(pec660, tipoEstadistica, instrumento, entidadFederativa, municipio);
         }

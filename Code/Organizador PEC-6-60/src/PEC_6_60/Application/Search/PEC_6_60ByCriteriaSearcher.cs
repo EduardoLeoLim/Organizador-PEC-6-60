@@ -20,9 +20,9 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application.Search
             return this;
         }
 
-        public PEC_6_60ByCriteriaSearcher Instrumento(int idInstrumento)
+        public PEC_6_60ByCriteriaSearcher TipoInstrumento(int idTipoInstrumento)
         {
-            criteria["@IdInstrumento"] = idInstrumento;
+            criteria["@IdInstrumento"] = idTipoInstrumento;
             return this;
         }
 

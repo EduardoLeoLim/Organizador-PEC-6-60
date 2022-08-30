@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using Dapper;
-using Organizador_PEC_6_60.Instrumento.Domain.ValueObjects;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 using Organizador_PEC_6_60.Resources.Database;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Repository;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.ValueObjects;
@@ -31,10 +32,10 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence
                 foreach (dynamic item in resultTipoEstadistica)
                 {
                     var parameters = new { IdTipoEstadistica = (int)item.id };
-                    List<Instrumento.Domain.Model.Instrumento> listInstrumentos = connection
+                    List<TipoInstrumento> listInstrumentos = connection
                         .Query(queryInstrumentos, parameters)
-                        .Select(row => new Instrumento.Domain.Model.Instrumento(
-                            new InstrumentoNombre((string)row.nombre),
+                        .Select(row => new TipoInstrumento(
+                            new TipoInstrumentoNombre((string)row.nombre),
                             (int)row.id)
                         ).ToList();
 
@@ -72,8 +73,8 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence
 
                 var instrumentos = connection.Query(queryInstrumentos, paramentersInstrumentos)
                     .Select(row =>
-                        new Instrumento.Domain.Model.Instrumento(
-                            new InstrumentoNombre((string)row.nombre),
+                        new TipoInstrumento(
+                            new TipoInstrumentoNombre((string)row.nombre),
                             (int)row.id
                         )
                     ).ToList();
@@ -114,7 +115,7 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence
                             parametersTipoEstadistica,
                             transaction);
 
-                        //Insert list of Instrumento
+                        //Insert list of TipoInstrumento
                         string queryInsertInstrumentos =
                             "INSERT INTO estadistica_instrumento(idEstadistica, idInstrumento) " +
                             "VALUES (@IdTipoEstadistica, @IdInstrumento)";
@@ -156,13 +157,13 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Persistence
                         };
                         connection.Execute(query, paramenters, transaction);
 
-                        //Delete List of Instrumento of TipoEstadistica
+                        //Delete List of TipoInstrumento of TipoEstadistica
                         string queryDeleteInstrumentos =
                             "DELETE FROM estadistica_instrumento WHERE idEstadistica = @IdEstadistica;";
                         var parametersDeleteInstrumentos = new { IdEstadistica = tipoEstadistica.Id };
                         connection.Execute(queryDeleteInstrumentos, parametersDeleteInstrumentos, transaction);
                     
-                        //Insert list of Instrumento
+                        //Insert list of TipoInstrumento
                         string queryInsertInstrumentos =
                             "INSERT INTO estadistica_instrumento(idEstadistica, idInstrumento) " +
                             "VALUES (@IdTipoEstadistica, @IdInstrumento)";

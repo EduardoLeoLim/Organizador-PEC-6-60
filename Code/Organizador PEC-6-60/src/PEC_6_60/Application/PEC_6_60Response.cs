@@ -1,5 +1,6 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
 using Organizador_PEC_6_60.Instrumento.Application;
 using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
@@ -16,16 +17,25 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
         public bool GuardadoSIRESO { get; }
         public int Consecutivo { get; }
         public byte[] Archivo { get; }
-        public InstrumentoResponse Instrumento { get; }
+        public TipoInstrumentoResponse TipoInstrumento { get; }
         public TipoEstadisticaResponse TipoEstadistica { get; }
         public EntidadFederativaResponse EntidadFederativa { get; }
         public MunicipioResponse Municipio { get; }
 
-        public string Nombre => $"{TipoEstadistica.Clave:000}{EntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
+        public string Nombre =>
+            $"{TipoEstadistica.Clave:000}{EntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
 
-        public PEC_6_60Response(int id, string fechaRegistro, string fechaModificacion, string añoEstadistico,
-            int mesEstadistico, bool estaGuardado, int consecutivo, byte[] archivo, InstrumentoResponse instrumento,
-            TipoEstadisticaResponse tipoEstadistica, EntidadFederativaResponse entidadFederativa,
+        public PEC_6_60Response(
+            int id,
+            string fechaRegistro,
+            string fechaModificacion,
+            string añoEstadistico,
+            int mesEstadistico,
+            bool estaGuardado,
+            int consecutivo,
+            byte[] archivo, TipoInstrumentoResponse tipoInstrumento,
+            TipoEstadisticaResponse tipoEstadistica,
+            EntidadFederativaResponse entidadFederativa,
             MunicipioResponse municipio)
         {
             Id = id;
@@ -36,21 +46,28 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             GuardadoSIRESO = estaGuardado;
             Consecutivo = consecutivo;
             Archivo = archivo;
-            Instrumento = instrumento;
+            TipoInstrumento = tipoInstrumento;
             TipoEstadistica = tipoEstadistica;
             EntidadFederativa = entidadFederativa;
             Municipio = municipio;
         }
 
-        public static PEC_6_60Response FromAggregate(Domain.Model.PEC_6_60 PEC_6_60,
+        public static PEC_6_60Response FromAggregate(
+            Domain.Model.PEC_6_60 PEC_6_60,
             TipoEstadistica.Domain.Model.TipoEstadistica tipoEstadistica,
-            Instrumento.Domain.Model.Instrumento instrumento,
+            TipoInstrumento tipoInstrumento,
             Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa,
             Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio)
         {
-            return new PEC_6_60Response(PEC_6_60.Id, PEC_6_60.FechaModificacion, PEC_6_60.FechaModificacion,
-                PEC_6_60.AñoEstadistico.Value, PEC_6_60.MesEstadistico.Value, PEC_6_60.EstaGuardado,
-                PEC_6_60.Consecutivo.Value, PEC_6_60.Archivo, InstrumentoResponse.FromAggregate(instrumento),
+            return new PEC_6_60Response(
+                PEC_6_60.Id,
+                PEC_6_60.FechaModificacion,
+                PEC_6_60.FechaModificacion,
+                PEC_6_60.AñoEstadistico.Value,
+                PEC_6_60.MesEstadistico.Value,
+                PEC_6_60.EstaGuardado,
+                PEC_6_60.Consecutivo.Value, PEC_6_60.Archivo,
+                TipoInstrumentoResponse.FromAggregate(tipoInstrumento),
                 TipoEstadisticaResponse.FromAggregate(tipoEstadistica),
                 EntidadFederativaResponse.FromAggregate(entidadFederativa),
                 MunicipioResponse.FromAggregate(municipio, entidadFederativa));
