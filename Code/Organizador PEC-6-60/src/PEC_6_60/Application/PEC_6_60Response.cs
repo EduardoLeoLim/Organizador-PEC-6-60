@@ -20,6 +20,8 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
         public EntidadFederativaResponse EntidadFederativa { get; }
         public MunicipioResponse Municipio { get; }
 
+        public string Nombre => $"{TipoEstadistica.Clave:000}{EntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
+
         public PEC_6_60Response(int id, string fechaRegistro, string fechaModificacion, string añoEstadistico,
             int mesEstadistico, bool estaGuardado, int consecutivo, byte[] archivo, InstrumentoResponse instrumento,
             TipoEstadisticaResponse tipoEstadistica, EntidadFederativaResponse entidadFederativa,
