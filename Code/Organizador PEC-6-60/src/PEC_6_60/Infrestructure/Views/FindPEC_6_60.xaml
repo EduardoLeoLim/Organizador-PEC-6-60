@@ -48,7 +48,7 @@
                         <Label Content="Guardado en SIRESO:" FontSize="16" VerticalAlignment="Center" />
                         <ComboBox x:Name="cbxSireso" Width="150" FontSize="16" Margin="5" />
                     </StackPanel>
-                    <Button x:Name="btnBuscar" Content="Buscar" Style="{StaticResource btn-success}"
+                    <Button x:Name="btnFind" Content="Buscar" Style="{StaticResource btn-success}"
                             HorizontalAlignment="Right" FontSize="16" Click="Find_PEC_6_60_Click" />
                 </WrapPanel>
             </StackPanel>
@@ -73,26 +73,82 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CheckBox HorizontalAlignment="Center"
-                                              IsChecked="{Binding Path=uardadoSIRESO, Mode=OneWay}" />
+                                              IsChecked="{Binding Path=GuardadoSIRESO, Mode=OneWay}"
+                                              Click="UpdateStatusSIRESO_isChecked">
+                                        <CheckBox.LayoutTransform>
+                                            <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                                        </CheckBox.LayoutTransform>
+                                    </CheckBox>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+
                         <DataGridTextColumn Header="Tipo Estadistica" Binding="{Binding TipoEstadistica}"
-                                            IsReadOnly="True"
-                                            MinWidth="150" />
+                                            IsReadOnly="True" MinWidth="170">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
                         <DataGridTextColumn Header="Entidad Federativa" Binding="{Binding EntidadFederativa}"
-                                            IsReadOnly="True" MinWidth="170" />
+                                            IsReadOnly="True" MinWidth="170">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Municipio" Binding="{Binding Municipio}" IsReadOnly="True"
-                                            MinWidth="170" />
+                                            MinWidth="170">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
                         <DataGridTextColumn Header="Año" Binding="{Binding AñoEstadistico}" IsReadOnly="True"
-                                            MinWidth="80" />
+                                            MinWidth="80">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
                         <DataGridTextColumn Header="Mes" Binding="{Binding MesEstadistico}" IsReadOnly="True"
-                                            MinWidth="150" />
-                        <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
+                                            MinWidth="150">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Content="Detalles" Style="{StaticResource btn-primary}" FontSize="16"
-                                            FontWeight="16" />
+                                    <Button ToolTip="Copiar instrumento al portapapeles."
+                                            Style="{StaticResource btn-primary}">
+                                        <StackPanel>
+                                            <Image Source="../../../Resources/Images/Portapapeles.png" Height="20" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button ToolTip="Detalles" Style="{StaticResource btn-success}"
+                                            Click="Show_PEC_6_60Details_Click">
+                                        <StackPanel>
+                                            <Image Source="../../../Resources/Images/Detalles.png" Height="20" />
+                                        </StackPanel>
+                                    </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -100,6 +156,6 @@
                 </DataGrid>
             </Grid>
         </DockPanel>
-        
+        <local:ShowPEC_6_60Details x:Name="ctrlPEC_6_60Details" Margin="0" Visibility="Hidden" />
     </Grid>
 </Page>

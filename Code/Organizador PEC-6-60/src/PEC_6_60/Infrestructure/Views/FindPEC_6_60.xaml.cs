@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -123,6 +124,33 @@ namespace Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views
                     consecutivo: consecutivo,
                     guardadoSIRESO: guardadoSIRESO
                 ).PEC_6_60s;
+        }
+
+        private void UpdateStatusSIRESO_isChecked(object sender, RoutedEventArgs e)
+        {
+            var pec660 = ((PEC_6_60Response)((CheckBox)sender).DataContext);
+            bool isChecked = ((CheckBox)sender).IsChecked.Value;
+            if (isChecked)
+            {
+                _managerPEC_6_60.PEC_6_60SavedInSIRESO(pec660.Id);
+            }
+            else
+            {
+                MessageBoxResult resultado = MessageBox.Show(Window.GetWindow(this),
+                    $"¿Deseas marcar el instrumento {pec660.Nombre} como no guardado en SIRESO?", "Confirmación",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultado == MessageBoxResult.Yes)
+                    _managerPEC_6_60.PEC_6_60UnsavedInSIRESO(pec660.Id);
+                else
+                    ((CheckBox)e.Source).IsChecked = true;
+            }
+        }
+
+        private void Show_PEC_6_60Details_Click(object sender, RoutedEventArgs e)
+        {
+            int idPEC_6_60 = ((PEC_6_60Response)((Button)sender).DataContext).Id;
+            var pec660 = _managerPEC_6_60.SearchPEC_6_60ById(idPEC_6_60);
+            ctrlPEC_6_60Details.LoadDetails(pec660);
         }
 
         private void LoadForm()
