@@ -1,4 +1,4 @@
-﻿using Organizador_PEC_6_60.EntidadFederativa.Application;
+﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
 
 namespace Organizador_PEC_6_60.Municipio.Application
 {
@@ -19,7 +19,7 @@ namespace Organizador_PEC_6_60.Municipio.Application
         }
 
         public static MunicipioResponse FromAggregate(Domain.Model.Municipio municipio,
-            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa)
+            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             EntidadFederativaResponse entidadFederativaResponse = EntidadFederativaResponse.FromAggregate(entidadFederativa);
             return new MunicipioResponse(municipio.Id, municipio.Clave.Value, municipio.Nombre.Value,

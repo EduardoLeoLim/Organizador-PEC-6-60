@@ -1,6 +1,4 @@
-﻿using Organizador_PEC_6_60.EntidadFederativa.Application;
-using Organizador_PEC_6_60.EntidadFederativa.Domain.ValueObjects;
-using Organizador_PEC_6_60.Municipio.Domain.Exceptions;
+﻿using Organizador_PEC_6_60.Municipio.Domain.Exceptions;
 using Organizador_PEC_6_60.Municipio.Domain.Repository;
 using Organizador_PEC_6_60.Municipio.Domain.ValueObjects;
 
@@ -16,7 +14,7 @@ namespace Organizador_PEC_6_60.Municipio.Application.Create
         }
 
         public void Create(MunicipioClave clave, MunicipioNombre nombre,
-            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa)
+            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             if (!IsValid(clave))
                 throw new InvalidClaveMunicipio();

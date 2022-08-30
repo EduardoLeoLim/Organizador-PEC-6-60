@@ -1,7 +1,7 @@
-﻿using Organizador_PEC_6_60.EntidadFederativa.Application;
-using Organizador_PEC_6_60.EntidadFederativa.Application.Search;
-using Organizador_PEC_6_60.EntidadFederativa.Domain.Repository;
-using Organizador_PEC_6_60.EntidadFederativa.Domain.ValueObjects;
+﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 using Organizador_PEC_6_60.Municipio.Application.Create;
 using Organizador_PEC_6_60.Municipio.Application.Delete;
 using Organizador_PEC_6_60.Municipio.Application.Search;
@@ -47,8 +47,8 @@ namespace Organizador_PEC_6_60.Municipio.Application
 
         public void RegisterMunicipio(int clave, string nombre, EntidadFederativaResponse entidadFederativaResponse)
         {
-            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa =
-                new EntidadFederativa.Domain.Model.EntidadFederativa(
+            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
+                new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
                     new EntidadFederativaClave(entidadFederativaResponse.Clave),
                     new EntidadFederativaNombre(entidadFederativaResponse.Nombre), entidadFederativaResponse.Id);
             _creator.Create(new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
@@ -57,8 +57,8 @@ namespace Organizador_PEC_6_60.Municipio.Application
         public void UpdateMunicipio(int id, int clave, string nombre,
             EntidadFederativaResponse entidadFederativaResponse)
         {
-            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa =
-                new EntidadFederativa.Domain.Model.EntidadFederativa(
+            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
+                new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
                     new EntidadFederativaClave(entidadFederativaResponse.Clave),
                     new EntidadFederativaNombre(entidadFederativaResponse.Nombre), entidadFederativaResponse.Id);
             _updater.Update(id, new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);

@@ -3,7 +3,6 @@ using Dapper;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
-using Organizador_PEC_6_60.EntidadFederativa.Domain.ValueObjects;
 using Organizador_PEC_6_60.Municipio.Domain.Repository;
 using Organizador_PEC_6_60.Municipio.Domain.ValueObjects;
 using Organizador_PEC_6_60.Resources.Database;

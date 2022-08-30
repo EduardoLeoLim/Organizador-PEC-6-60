@@ -2,8 +2,8 @@
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
-using Organizador_PEC_6_60.EntidadFederativa.Application;
-using Organizador_PEC_6_60.EntidadFederativa.Infrestructure.Persistence;
+using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.Municipio.Infrestructure.Persistence;
 

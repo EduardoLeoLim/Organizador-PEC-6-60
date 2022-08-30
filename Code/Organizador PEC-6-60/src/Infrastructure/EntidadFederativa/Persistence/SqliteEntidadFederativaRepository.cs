@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using Dapper;
-using Organizador_PEC_6_60.Instrumento.Domain.Repository;
-using Organizador_PEC_6_60.Instrumento.Domain.ValueObjects;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 using Organizador_PEC_6_60.Resources.Database;
 
-namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
+namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
 {
-    public class SqliteInstrumentoRepository : InstrumentoRepository
+    public class SqliteEntidadFederativaRepository : EntidadFederativaRepository
     {
-        public IEnumerable<Domain.Model.Instrumento> SearchAll()
+        public IEnumerable<Domain.EntidadFederativa.Model.EntidadFederativa> SearchAll()
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "SELECT * FROM instrumento ORDER BY nombre;";
+                string query = "SELECT * FROM entidadFederativa ORDER BY folio;";
                 var result = connection.Query(query).Select(
-                    row => new Domain.Model.Instrumento(
-                        new InstrumentoNombre((string)row.nombre),
+                    row => new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
+                        new EntidadFederativaClave((int)row.folio),
+                        new EntidadFederativaNombre((string)row.nombre),
                         (int)row.id
                     )
                 );
@@ -30,48 +31,48 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
             }
         }
 
-        public Domain.Model.Instrumento SearchById(int id)
+        public Domain.EntidadFederativa.Model.EntidadFederativa SeacrhById(int id)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "SELECT * FROM instrumento WHERE id = @Id;";
+                string query = "SELECT * FROM entidadFederativa WHERE id = @Id";
                 var parameters = new { Id = id };
-
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
-                Domain.Model.Instrumento instrumento =
-                    new Domain.Model.Instrumento(new InstrumentoNombre((string)result.nombre), (int)result.id);
-                return instrumento;
+                Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa = new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
+                    new EntidadFederativaClave((int)result.folio),
+                    new EntidadFederativaNombre((string)result.nombre), (int)result.id);
+                return entidadFederativa;
             }
         }
 
-        public void Insert(Domain.Model.Instrumento newInstrumento)
+        public void Insert(Domain.EntidadFederativa.Model.EntidadFederativa newEntidadFederativa)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "INSERT INTO instrumento (nombre) VALUES (@Nombre);";
-                var parameters = new { Nombre = newInstrumento.Nombre.Value };
+                string query = "INSERT INTO entidadFederativa (folio, nombre) VALUES (@Folio, @Nombre);";
+                var parameters = new
+                    { Folio = newEntidadFederativa.Clave.Value, Nombre = newEntidadFederativa.Nombre.Value };
 
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-
+                    connection.Close();
+                    
                     if (affectedRows == 0)
                         throw new SQLiteException();
-
-                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible registrar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible registrar la Entidad Federativa, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un instrumento registrado con ese nombre.";
+                        errorMessage = "Ya hay una entidad federativa registrada con esa clave.";
 
                     connection.Close();
 
@@ -80,30 +81,33 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
             }
         }
 
-        public void Update(Domain.Model.Instrumento instrumento)
+        public void Update(Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "UPDATE instrumento SET nombre = @Nombre WHERE id = @Id;";
-                var parameters = new { Nombre = instrumento.Nombre.Value, Id = instrumento.Id };
+                string query = "UPDATE entidadFederativa SET folio = @Folio, nombre = @Nombre WHERE id = @Id;";
+                var parameters = new
+                {
+                    Folio = entidadFederativa.Clave.Value, Nombre = entidadFederativa.Nombre.Value,
+                    Id = entidadFederativa.Id
+                };
 
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
-
+                    connection.Close();
+                    
                     if (affectedRows == 0)
                         throw new SQLiteException();
-
-                    connection.Close();
                 }
                 catch (SQLiteException ex)
                 {
-                    string errorMessage = "No fue posible actualizar el Instrumento, Intentalo más tarde.";
+                    string errorMessage = "No fue posible actualizar la Entidad Federativa, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un instrumento registrada con ese nombre.";
+                        errorMessage = "Ya hay una entidad federativa registrada con esa clave.";
 
                     connection.Close();
 
@@ -119,28 +123,10 @@ namespace Organizador_PEC_6_60.Instrumento.Infrestructure.Persistence
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "DELETE FROM instrumento WHERE id = @Id;";
+                string query = "DELETE FROM entidadFederativa WHERE id = @Id";
                 var parameters = new { Id = id };
-
-                try
-                {
-                    int affectedRows = connection.Execute(query, parameters);
-
-                    if (affectedRows == 0)
-                        throw new SQLiteException();
-
-                    connection.Close();
-                }
-                catch (SQLiteException ex)
-                {
-                    string errorMessage = "No fue posible eliminar el Instrumento, Intentalo más tarde.";
-                    if (ex.ErrorCode == 19)
-                        errorMessage = "No es posible eliminar el instrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
-
-                    connection.Close();
-
-                    throw new InvalidOperationException(errorMessage);
-                }
+                connection.Execute(query, parameters);
+                connection.Close();
             }
         }
     }

@@ -1,81 +1,66 @@
 ﻿using System;
 using System.Data.Common;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
-using Organizador_PEC_6_60.Municipio.Application;
-using Organizador_PEC_6_60.Municipio.Domain.Exceptions;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.Exceptions;
 
-namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
+namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
 {
-    public partial class FormMunicipio : Window
+    public partial class FormEntidadFederativa : Window
     {
-        private readonly ManageMunicipio _managerMunicipios;
-        private readonly ManageEntidadFederativa _managerEntidadesFederativas;
+        private readonly ManageEntidadFederativa _manager;
         private bool isNewRecord;
-        private MunicipioResponse _municipio;
+        private EntidadFederativaResponse _entidadFederativa;
 
-        public FormMunicipio(ManageMunicipio managetMunicipios, ManageEntidadFederativa managerEntidadesFederativas)
+        public FormEntidadFederativa(ManageEntidadFederativa manager)
         {
             InitializeComponent();
-            _managerMunicipios = managetMunicipios;
-            _managerEntidadesFederativas = managerEntidadesFederativas;
+            _manager = manager;
             isNewRecord = true;
-            var entidades = managerEntidadesFederativas.SearchAllEntidadesFederativas().EntidadesFederativas;
-            cbxEntidadFederativa.ItemsSource = entidades;
         }
 
-        public FormMunicipio(ManageMunicipio managetMunicipios, ManageEntidadFederativa managerEntidadesFederativas,
-            int idMunicipio) : this(managetMunicipios, managerEntidadesFederativas)
+        public FormEntidadFederativa(ManageEntidadFederativa manager, int idEntidadFederativa) : this(manager)
         {
             isNewRecord = false;
-            LoadForm(idMunicipio);
-        }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
+            LoadForm(idEntidadFederativa);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                cbxEntidadFederativa.IsEnabled = false;
                 txtClave.IsEnabled = false;
                 txtNombre.IsEnabled = false;
+                btnSave.IsEnabled = false;
 
                 if (IsValidFormData())
                 {
-                    EntidadFederativaResponse entidadFederativaSeleccionada =
-                        (EntidadFederativaResponse)cbxEntidadFederativa.SelectionBoxItem;
                     if (isNewRecord)
                     {
-                        _managerMunicipios.RegisterMunicipio(int.Parse(txtClave.Text), txtNombre.Text,
-                            entidadFederativaSeleccionada);
-                        MessageBox.Show("Municipio registrado.", "Exito", MessageBoxButton.OK,
+                        _manager.RegisterEntidadFederativa(int.Parse(txtClave.Text), txtNombre.Text);
+                        MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
                     else
                     {
-                        _managerMunicipios.UpdateMunicipio(_municipio.Id, int.Parse(txtClave.Text), txtNombre.Text,
-                            entidadFederativaSeleccionada);
-                        MessageBox.Show("Municipio actualizado.", "Exito", MessageBoxButton.OK,
+                        _manager.UpdateEntidadFederativa(_entidadFederativa.Id, int.Parse(txtClave.Text),
+                            txtNombre.Text);
+                        MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
                             MessageBoxImage.Information);
                         Close();
                     }
                 }
             }
-            catch (InvalidClaveMunicipio ex)
+            catch (InvalidClaveEntidadFederativa ex)
             {
                 txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 MessageBox.Show(ex.Message, "Error Clave", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (InvalidNombreMunicipio ex)
+            catch (InvalidNombreEntidadFederativa ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
                 MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -90,10 +75,15 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
             }
             finally
             {
-                cbxEntidadFederativa.IsEnabled = true;
                 txtClave.IsEnabled = true;
                 txtNombre.IsEnabled = true;
+                btnSave.IsEnabled = true;
             }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void ValidateClaveFormat(object sender, TextCompositionEventArgs e)
@@ -102,18 +92,13 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void LoadForm(int idMunicipio)
+        private void LoadForm(int idEntidadFederativa)
         {
             try
             {
-                _municipio = _managerMunicipios.SearchMunicipioById(idMunicipio);
-                txtClave.Text = _municipio.Clave.ToString();
-                txtNombre.Text = _municipio.Nombre;
-                var entidades = cbxEntidadFederativa.ItemsSource.Cast<EntidadFederativaResponse>();
-                int indexEntidadFederativa =
-                    entidades.ToList().FindIndex(item => item.Id == _municipio.EntidadFederativa.Id);
-
-                cbxEntidadFederativa.SelectedIndex = indexEntidadFederativa;
+                _entidadFederativa = _manager.SearchEntidadFederativaById(idEntidadFederativa);
+                txtClave.Text = _entidadFederativa.Clave.ToString();
+                txtNombre.Text = _entidadFederativa.Nombre;
             }
             catch (DbException ex)
             {
@@ -126,7 +111,6 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
         {
             txtClave.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
             txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
-            cbxEntidadFederativa.Style = System.Windows.Application.Current.TryFindResource(typeof(ComboBox)) as Style;
 
             if (IsThereEmptyFields())
             {
@@ -151,13 +135,6 @@ namespace Organizador_PEC_6_60.Municipio.Infrestructure.Views
             if (txtNombre.Text.Length == 0)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            if (cbxEntidadFederativa.SelectedIndex < 0)
-            {
-                cbxEntidadFederativa.Style =
-                    System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
                 isThere = true;
             }
 

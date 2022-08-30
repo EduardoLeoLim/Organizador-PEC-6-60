@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Organizador_PEC_6_60.EntidadFederativa.Application.Search;
-using Organizador_PEC_6_60.EntidadFederativa.Domain.Repository;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
 using Organizador_PEC_6_60.Instrumento.Application.Search;
 using Organizador_PEC_6_60.Instrumento.Domain.Repository;
 using Organizador_PEC_6_60.Municipio.Application.Search;

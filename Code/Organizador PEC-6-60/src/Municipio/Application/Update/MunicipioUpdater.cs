@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.Municipio.Application.Update
         }
 
         public void Update(int id, MunicipioClave clave, MunicipioNombre nombre,
-            EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa)
+            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             if (!IsValid(clave))
                 throw new InvalidClaveMunicipio();
