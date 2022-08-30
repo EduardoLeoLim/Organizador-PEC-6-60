@@ -1,4 +1,5 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Instrumento.Application;
 using Organizador_PEC_6_60.Municipio.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
@@ -45,7 +46,7 @@ namespace Organizador_PEC_6_60.PEC_6_60.Application
             TipoEstadistica.Domain.Model.TipoEstadistica tipoEstadistica,
             Instrumento.Domain.Model.Instrumento instrumento,
             Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa,
-            Municipio.Domain.Model.Municipio municipio)
+            Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio)
         {
             return new PEC_6_60Response(PEC_6_60.Id, PEC_6_60.FechaModificacion, PEC_6_60.FechaModificacion,
                 PEC_6_60.AñoEstadistico.Value, PEC_6_60.MesEstadistico.Value, PEC_6_60.EstaGuardado,

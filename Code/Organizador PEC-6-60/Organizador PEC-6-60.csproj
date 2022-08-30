@@ -49,4 +49,11 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="src\Domain\EntidadFederativa" />
+      <Folder Include="src\Domain\Municipio" />
+      <Folder Include="src\Infrastructure\EntidadFederativa" />
+      <Folder Include="src\Infrastructure\Municipio" />
+    </ItemGroup>
+
 </Project>

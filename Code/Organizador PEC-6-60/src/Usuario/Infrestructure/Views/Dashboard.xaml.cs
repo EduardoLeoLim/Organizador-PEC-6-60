@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.Instrumento.Infrestructure.Views;
-using Organizador_PEC_6_60.Municipio.Infrestructure.Views;
 using Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views;
 using Organizador_PEC_6_60.TipoEstadistica.Infrestructure.Views;
 using Organizador_PEC_6_60.Usuario.Application;
 using ManageEntidadesFederativas = Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views.ManageEntidadesFederativas;
+using ManageMunicipios = Organizador_PEC_6_60.Infrastructure.Municipio.Views.ManageMunicipios;
 
 namespace Organizador_PEC_6_60.Usuario.Infrestructure.Views
 {
