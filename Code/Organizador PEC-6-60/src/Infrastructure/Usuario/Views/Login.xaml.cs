@@ -60,8 +60,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
 
             if (IsThereEmptyFields())
             {
-                MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Hay campos vacios en el formulario",
+                    "Campos vacios",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+
                 return false;
             }
 

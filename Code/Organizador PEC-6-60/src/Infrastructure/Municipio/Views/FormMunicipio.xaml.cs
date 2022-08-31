@@ -28,8 +28,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
             cbxEntidadFederativa.ItemsSource = entidades;
         }
 
-        public FormMunicipio(ManageMunicipio managetMunicipios, ManageEntidadFederativa managerEntidadesFederativas,
-            int idMunicipio) : this(managetMunicipios, managerEntidadesFederativas)
+        public FormMunicipio(
+            ManageMunicipio managetMunicipios,
+            ManageEntidadFederativa managerEntidadesFederativas,
+            int idMunicipio
+        ) : this(managetMunicipios, managerEntidadesFederativas)
         {
             isNewRecord = false;
             LoadForm(idMunicipio);
@@ -52,20 +55,39 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
                 {
                     EntidadFederativaResponse entidadFederativaSeleccionada =
                         (EntidadFederativaResponse)cbxEntidadFederativa.SelectionBoxItem;
+
                     if (isNewRecord)
                     {
-                        _managerMunicipios.RegisterMunicipio(int.Parse(txtClave.Text), txtNombre.Text,
-                            entidadFederativaSeleccionada);
-                        MessageBox.Show("Municipio registrado.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        _managerMunicipios.RegisterMunicipio(
+                            int.Parse(txtClave.Text),
+                            txtNombre.Text,
+                            entidadFederativaSeleccionada
+                        );
+
+                        MessageBox.Show(
+                            "Municipio registrado.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                     else
                     {
-                        _managerMunicipios.UpdateMunicipio(_municipio.Id, int.Parse(txtClave.Text), txtNombre.Text,
-                            entidadFederativaSeleccionada);
-                        MessageBox.Show("Municipio actualizado.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        _managerMunicipios.UpdateMunicipio(
+                            _municipio.Id,
+                            int.Parse(txtClave.Text),
+                            txtNombre.Text,
+                            entidadFederativaSeleccionada
+                        );
+
+                        MessageBox.Show(
+                            "Municipio actualizado.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
+
                         Close();
                     }
                 }
@@ -73,20 +95,39 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
             catch (InvalidClaveMunicipio ex)
             {
                 txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Clave", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Clave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidNombreMunicipio ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Nombre",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             finally
             {

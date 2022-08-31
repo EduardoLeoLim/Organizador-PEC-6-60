@@ -2,8 +2,8 @@
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Exceptions;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 {
@@ -20,7 +20,8 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
             isNewRecord = true;
         }
 
-        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(managerTiposInstrumentos)
+        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(
+            managerTiposInstrumentos)
         {
             isNewRecord = false;
             LoadForm(idInstrumento);
@@ -38,15 +39,25 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
                     if (isNewRecord)
                     {
                         _managerTiposInstrumentos.RegisterInstrumento(txtNombre.Text);
-                        MessageBox.Show("TipoInstrumento registrado.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+
+                        MessageBox.Show(
+                            "TipoInstrumento registrado.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                     else
                     {
                         _managerTiposInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
-                        MessageBox.Show("TipoInstrumento editado.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+
+                        MessageBox.Show(
+                            "TipoInstrumento editado.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                 }
@@ -54,15 +65,30 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
             catch (InvalidNombreTipoInstrumento ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Nombre",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             finally
             {
@@ -86,7 +112,12 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
             catch (DbException ex)
             {
                 btnSave.IsEnabled = false;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
@@ -96,8 +127,13 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 
             if (IsThereEmptyFields())
             {
-                MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Hay campos vacios en el formulario",
+                    "Campos vacios",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+
                 return false;
             }
 

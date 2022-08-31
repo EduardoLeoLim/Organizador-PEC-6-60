@@ -5,7 +5,7 @@ using Organizador_PEC_6_60.Application.TipoInstrumento.Update;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 
-namespace Organizador_PEC_6_60.Instrumento.Application
+namespace Organizador_PEC_6_60.Application.TipoInstrumento
 {
     public class ManageTiposInstrumento
     {
@@ -31,7 +31,7 @@ namespace Organizador_PEC_6_60.Instrumento.Application
 
         public TipoInstrumentoResponse SearchInstrumentoById(int id)
         {
-            return TipoInstrumentoResponse.FromAggregate(_byIdSearcher.SearchInstrumentoById(id));
+            return TipoInstrumentoResponse.FromAggregate(_byIdSearcher.SearchTipoInstrumentoById(id));
         }
 
         public void RegisterInstrumento(string nombre)

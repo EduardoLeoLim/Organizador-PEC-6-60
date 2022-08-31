@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 
-namespace Organizador_PEC_6_60.PEC_6_60.Application
+namespace Organizador_PEC_6_60.Application.Instrumento
 {
     public class MesEstadistico
     {

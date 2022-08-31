@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.ValueObjects;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Application.TipoEstadistica
 {
@@ -12,7 +12,10 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica
         public string Nombre { get; }
         public IEnumerable<TipoInstrumentoResponse> Instrumentos { get; }
 
-        public TipoEstadisticaResponse(int id, TipoEstadisticaClave clave, TipoEstadisticaNombre nombre,
+        public TipoEstadisticaResponse(
+            int id,
+            TipoEstadisticaClave clave,
+            TipoEstadisticaNombre nombre,
             IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos)
         {
             Id = id;
@@ -21,10 +24,15 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica
             Instrumentos = instrumentos.Select(row => TipoInstrumentoResponse.FromAggregate(row));
         }
 
-        public static TipoEstadisticaResponse FromAggregate(Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica)
+        public static TipoEstadisticaResponse FromAggregate(
+            Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica)
         {
-            return new TipoEstadisticaResponse(tipoEstadistica.Id, tipoEstadistica.Clave, tipoEstadistica.Nombre,
-                tipoEstadistica.Instrumentos);
+            return new TipoEstadisticaResponse(
+                tipoEstadistica.Id,
+                tipoEstadistica.Clave,
+                tipoEstadistica.Nombre,
+                tipoEstadistica.Instrumentos
+            );
         }
 
         public override string ToString()

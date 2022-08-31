@@ -13,45 +13,54 @@ using Organizador_PEC_6_60.Domain.Instrumento.ValueObjects;
 using Organizador_PEC_6_60.Domain.Municipio.Repository;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.Repository;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
-using Organizador_PEC_6_60.PEC_6_60.Application;
-using Organizador_PEC_6_60.PEC_6_60.Application.Search;
 
 namespace Organizador_PEC_6_60.Application.Instrumento
 {
     public class ManageInstrumento
     {
-        private InstrumentoByCriteriaSearcher _PEC_6_60ByCriteriaSearcher;
-        private InstrumentoByIdSearcher _PEC_6_60ByIdSearcher;
-        private InstrumentoCreator _PEC_6_60Creator;
-        private InstrumentoUpdater _PEC_6_60Updater;
-        private InstrumentoSIRESO _PEC_6_60SiresoUpdater;
-        private InstrumentoDeleter _PEC_6_60Deleter;
+        private InstrumentoByCriteriaSearcher _instrumentoByCriteriaSearcher;
+        private InstrumentoByIdSearcher _instrumentoByIdSearcher;
+        private InstrumentoCreator _instrumentoCreator;
+        private InstrumentoUpdater _instrumentoUpdater;
+        private InstrumentoSIRESO _instrumentoSiresoUpdater;
+        private InstrumentoDeleter _instrumentoDeleter;
         private TipoEstadisticaByIdSearcher _tipoEstadisticaByIdSearcher;
         private TipoInstrumentoByIdSearcher _tipoInstrumentoByIdSearcher;
         private MunicipioByIdSearcher _municipioByIdSearcher;
         private EntidadFederativaByIdSearcher _entidadFederativaByIdSearcher;
 
-        public ManageInstrumento(InstrumentoRepository PEC_6_60Repository, TipoInstrumentoRepository instrumentoRepository,
+        public ManageInstrumento(
+            InstrumentoRepository instrumentoRepository,
+            TipoInstrumentoRepository tipoInstrumentoRepository,
             TipoEstadisticaRepository tipoEstadisticaRepository,
-            EntidadFederativaRepository entidadFederativaRepository, MunicipioRepository municipioRepository)
+            EntidadFederativaRepository entidadFederativaRepository,
+            MunicipioRepository municipioRepository
+        )
         {
-            _PEC_6_60ByCriteriaSearcher = new InstrumentoByCriteriaSearcher(PEC_6_60Repository);
-            _PEC_6_60ByIdSearcher = new InstrumentoByIdSearcher(PEC_6_60Repository);
-            _PEC_6_60Creator = new InstrumentoCreator(PEC_6_60Repository);
-            _PEC_6_60Updater = new InstrumentoUpdater(PEC_6_60Repository);
-            _PEC_6_60SiresoUpdater = new InstrumentoSIRESO(PEC_6_60Repository);
-            _PEC_6_60Deleter = new InstrumentoDeleter(PEC_6_60Repository);
+            _instrumentoByCriteriaSearcher = new InstrumentoByCriteriaSearcher(instrumentoRepository);
+            _instrumentoByIdSearcher = new InstrumentoByIdSearcher(instrumentoRepository);
+            _instrumentoCreator = new InstrumentoCreator(instrumentoRepository);
+            _instrumentoUpdater = new InstrumentoUpdater(instrumentoRepository);
+            _instrumentoSiresoUpdater = new InstrumentoSIRESO(instrumentoRepository);
+            _instrumentoDeleter = new InstrumentoDeleter(instrumentoRepository);
             _tipoEstadisticaByIdSearcher = new TipoEstadisticaByIdSearcher(tipoEstadisticaRepository);
-            _tipoInstrumentoByIdSearcher = new TipoInstrumentoByIdSearcher(instrumentoRepository);
+            _tipoInstrumentoByIdSearcher = new TipoInstrumentoByIdSearcher(tipoInstrumentoRepository);
             _entidadFederativaByIdSearcher = new EntidadFederativaByIdSearcher(entidadFederativaRepository);
             _municipioByIdSearcher = new MunicipioByIdSearcher(municipioRepository);
         }
 
-        public InstrumentosResponse SearchPEC_6_60ByCriteria(int idTipoEstadistica = 0, int idTipoInstrumento = 0,
-            string añoEstadistico = "", int mesEstadistico = 0, int idEntidadFederativa = 0, int idMunicipio = 0,
-            int consecutivo = 0, FilterSIRESO guardadoSIRESO = FilterSIRESO.TODOS)
+        public InstrumentosResponse SearchInstrumentoByCriteria(
+            int idTipoEstadistica = 0,
+            int idTipoInstrumento = 0,
+            string añoEstadistico = "",
+            int mesEstadistico = 0,
+            int idEntidadFederativa = 0,
+            int idMunicipio = 0,
+            int consecutivo = 0,
+            FilterSIRESO guardadoSIRESO = FilterSIRESO.TODOS
+        )
         {
-            var searcher = _PEC_6_60ByCriteriaSearcher;
+            var searcher = _instrumentoByCriteriaSearcher;
             if (idTipoEstadistica > 0)
                 searcher = searcher.TipoEstadistica(idTipoEstadistica);
             if (idTipoInstrumento > 0)
@@ -76,61 +85,106 @@ namespace Organizador_PEC_6_60.Application.Instrumento
                     break;
             }
 
-            var pec660s = searcher.SearchPEC_6_0();
-            return new InstrumentosResponse(pec660s.Select(item =>
-            {
-                var municipio = _municipioByIdSearcher.SearchMunicipioById(item.IdMunicipio);
-                var entidadFederativa =
-                    _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
-                var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(item.IdTipoEstadistica);
-                var instrumento = _tipoInstrumentoByIdSearcher.SearchInstrumentoById(item.IdInstrumento);
+            var instrumentos = searcher.SearchInstrumentos();
 
-                return InstrumentoResponse.FromAggregate(item, tipoEstadistica, instrumento, entidadFederativa, municipio);
-            }));
+            return new InstrumentosResponse(
+                instrumentos.Select(
+                    item =>
+                    {
+                        var municipio = _municipioByIdSearcher.SearchMunicipioById(item.IdMunicipio);
+                        var entidadFederativa =
+                            _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
+                        var tipoEstadistica =
+                            _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(item.IdTipoEstadistica);
+                        var instrumento = _tipoInstrumentoByIdSearcher.SearchTipoInstrumentoById(item.IdInstrumento);
+
+                        return InstrumentoResponse.FromAggregate(
+                            item,
+                            tipoEstadistica,
+                            instrumento,
+                            entidadFederativa,
+                            municipio
+                        );
+                    }
+                )
+            );
         }
 
-        public InstrumentoResponse SearchPEC_6_60ById(int id)
+        public InstrumentoResponse SearchInstrumentoById(int id)
         {
-            var pec660 = _PEC_6_60ByIdSearcher.SearchPEC_6_60ById(id);
-            var municipio = _municipioByIdSearcher.SearchMunicipioById(pec660.IdMunicipio);
+            var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(id);
+            var municipio = _municipioByIdSearcher.SearchMunicipioById(instrumento.IdMunicipio);
             var entidadFederativa =
                 _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
-            var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(pec660.IdTipoEstadistica);
-            var instrumento = _tipoInstrumentoByIdSearcher.SearchInstrumentoById(pec660.IdInstrumento);
+            var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(instrumento.IdTipoEstadistica);
+            var tipoInstrumento = _tipoInstrumentoByIdSearcher.SearchTipoInstrumentoById(instrumento.IdInstrumento);
 
-            return InstrumentoResponse.FromAggregate(pec660, tipoEstadistica, instrumento, entidadFederativa, municipio);
+            return InstrumentoResponse.FromAggregate(
+                instrumento,
+                tipoEstadistica,
+                tipoInstrumento,
+                entidadFederativa,
+                municipio
+            );
         }
 
-        public void RegisterPEC_6_60(int idTipoEstadistica, int idInstrumento, int idMunicipio, string añoEstadistico,
-            int mesEstadistico, int consecutivo, byte[] dataArchivo)
+        public void RegisterPEC_6_60(
+            int idTipoEstadistica,
+            int idInstrumento,
+            int idMunicipio,
+            string añoEstadistico,
+            int mesEstadistico,
+            int consecutivo,
+            byte[] dataArchivo
+        )
         {
-            _PEC_6_60Creator.Create(new InstrumentoAñoEstadistico(añoEstadistico),
-                new InstrumentoMesEstadistico(mesEstadistico), new InstrumentoConsecutivo(consecutivo), dataArchivo,
-                idInstrumento, idTipoEstadistica, idMunicipio);
+            _instrumentoCreator.Create(
+                new InstrumentoAñoEstadistico(añoEstadistico),
+                new InstrumentoMesEstadistico(mesEstadistico),
+                new InstrumentoConsecutivo(consecutivo),
+                dataArchivo,
+                idInstrumento,
+                idTipoEstadistica,
+                idMunicipio
+            );
         }
 
-        public void UpdatePEC_6_60(int id, string añoEstadistico, int mesEstadistico, int consecutivo,
+        public void UpdateInstrumento(
+            int id,
+            string añoEstadistico,
+            int mesEstadistico,
+            int consecutivo,
             byte[] dataArchivo,
-            int idInstrumento, int idTipoEstadistica, int idMunicipio)
+            int idInstrumento,
+            int idTipoEstadistica,
+            int idMunicipio
+        )
         {
-            _PEC_6_60Updater.Update(id, new InstrumentoAñoEstadistico(añoEstadistico),
-                new InstrumentoMesEstadistico(mesEstadistico), new InstrumentoConsecutivo(consecutivo), dataArchivo,
-                idInstrumento, idTipoEstadistica, idMunicipio);
+            _instrumentoUpdater.Update(
+                id,
+                new InstrumentoAñoEstadistico(añoEstadistico),
+                new InstrumentoMesEstadistico(mesEstadistico),
+                new InstrumentoConsecutivo(consecutivo),
+                dataArchivo,
+                idInstrumento,
+                idTipoEstadistica,
+                idMunicipio
+            );
         }
 
-        public void PEC_6_60SavedInSIRESO(int id)
+        public void InstrumentoSavedInSIRESO(int id)
         {
-            _PEC_6_60SiresoUpdater.SavedInSIRESO(id);
+            _instrumentoSiresoUpdater.SavedInSIRESO(id);
         }
 
-        public void PEC_6_60UnsavedInSIRESO(int id)
+        public void InstrumentoUnsavedInSIRESO(int id)
         {
-            _PEC_6_60SiresoUpdater.UnsavedInSIRESO(id);
+            _instrumentoSiresoUpdater.UnsavedInSIRESO(id);
         }
 
-        public void DeletePEC_6_60(int id)
+        public void DeleteInstrumento(int id)
         {
-            _PEC_6_60Deleter.Delete(id);
+            _instrumentoDeleter.Delete(id);
         }
     }
 }

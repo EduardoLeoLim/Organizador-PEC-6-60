@@ -1,4 +1,4 @@
-﻿namespace Organizador_PEC_6_60.PEC_6_60.Application.Search
+﻿namespace Organizador_PEC_6_60.Application.Instrumento.Search
 {
     public enum FilterSIRESO
     {

@@ -30,6 +30,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
                 };
                 dynamic result = connection.QuerySingle(quuery, parameters);
                 connection.Close();
+                
                 Domain.Usuario.Model.Usuario usuario = new Domain.Usuario.Model.Usuario(
                     new UsuarioUsername((string)result.username),
                     new UsuarioPassword((string)result.password),
@@ -37,6 +38,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
                     new UsuarioApellidos((string)result.apellidos),
                     (int)result.id
                 );
+                
                 return usuario;
             }
         }

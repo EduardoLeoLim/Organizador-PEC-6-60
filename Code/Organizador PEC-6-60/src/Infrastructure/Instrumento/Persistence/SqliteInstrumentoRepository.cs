@@ -12,7 +12,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence
 {
     public class SqliteInstrumentoRepository : InstrumentoRepository
     {
-        public IEnumerable<Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento> SearchByCriteria(Dictionary<string, object> dictionary)
+        public IEnumerable<Domain.Instrumento.Model.Instrumento> SearchByCriteria(Dictionary<string, object> dictionary)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -61,7 +61,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence
             }
         }
 
-        public Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento SearchById(int id)
+        public Domain.Instrumento.Model.Instrumento SearchById(int id)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
             {
@@ -73,11 +73,19 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence
                 parameters.Add("@Id", id, DbType.Int32);
 
                 var result = connection.QuerySingle(query, parameters);
-                return new Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento(new InstrumentoAñoEstadistico((string)result.añoEstadistico),
+                return new Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento(
+                    new InstrumentoAñoEstadistico((string)result.añoEstadistico),
                     new InstrumentoMesEstadistico((int)result.mesEstadistico),
-                    new InstrumentoConsecutivo((int)result.consecutivo), (byte[])result.archivo, (int)result.idInstrumento,
-                    (int)result.idTipoEstadistica, (int)result.idMunicipio, estaGuardado: (int)result.guardado == 1,
-                    (string)result.fechaRegistro, (string)result.fechaModificacion, (int)result.id);
+                    new InstrumentoConsecutivo((int)result.consecutivo),
+                    (byte[])result.archivo,
+                    (int)result.idInstrumento,
+                    (int)result.idTipoEstadistica,
+                    (int)result.idMunicipio,
+                    estaGuardado: (int)result.guardado == 1,
+                    (string)result.fechaRegistro,
+                    (string)result.fechaModificacion,
+                    (int)result.id
+                );
             }
         }
 

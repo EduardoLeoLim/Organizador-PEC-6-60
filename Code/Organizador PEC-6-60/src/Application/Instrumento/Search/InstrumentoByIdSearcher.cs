@@ -11,7 +11,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Search
             _repository = repository;
         }
 
-        public Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento SearchPEC_6_60ById(int id)
+        public Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento SearchInstrumentoById(int id)
         {
             return _repository.SearchById(id);
         }

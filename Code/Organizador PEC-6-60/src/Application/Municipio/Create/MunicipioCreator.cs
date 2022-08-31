@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.Application.Municipio.Create
         }
 
         public void Create(MunicipioClave clave, MunicipioNombre nombre,
-            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
+            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             if (!IsValid(clave))
                 throw new InvalidClaveMunicipio();

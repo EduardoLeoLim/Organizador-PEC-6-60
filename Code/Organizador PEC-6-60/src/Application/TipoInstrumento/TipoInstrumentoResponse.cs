@@ -1,6 +1,4 @@
-﻿using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
-
-namespace Organizador_PEC_6_60.Instrumento.Application
+﻿namespace Organizador_PEC_6_60.Application.TipoInstrumento
 {
     public class TipoInstrumentoResponse
     {
@@ -13,7 +11,7 @@ namespace Organizador_PEC_6_60.Instrumento.Application
             Nombre = nombre;
         }
 
-        public static TipoInstrumentoResponse FromAggregate(TipoInstrumento tipoInstrumento)
+        public static TipoInstrumentoResponse FromAggregate(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
         {
             return new TipoInstrumentoResponse(tipoInstrumento.Id, tipoInstrumento.Nombre.Value);
         }

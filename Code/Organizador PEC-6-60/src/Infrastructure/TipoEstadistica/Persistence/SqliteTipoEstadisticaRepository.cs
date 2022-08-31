@@ -19,7 +19,8 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                 if (connection == null)
                     throw new SQLiteException("Base de datos no disponible.");
 
-                List<Domain.TipoEstadistica.Model.TipoEstadistica> collection = new List<Domain.TipoEstadistica.Model.TipoEstadistica>();
+                List<Domain.TipoEstadistica.Model.TipoEstadistica> collection =
+                    new List<Domain.TipoEstadistica.Model.TipoEstadistica>();
 
                 string queryTipoEstadistica = "SELECT * FROM tipoEstadistica ORDER BY folio;";
                 string queryInstrumentos =
@@ -38,15 +39,17 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                             (int)row.id)
                         ).ToList();
 
-                    Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica = new Domain.TipoEstadistica.Model.TipoEstadistica(
-                        new TipoEstadisticaClave((int)item.folio),
-                        new TipoEstadisticaNombre((string)item.nombre),
-                        listInstrumentos,
-                        (int)item.id
-                    );
+                    Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica =
+                        new Domain.TipoEstadistica.Model.TipoEstadistica(
+                            new TipoEstadisticaClave((int)item.folio),
+                            new TipoEstadisticaNombre((string)item.nombre),
+                            listInstrumentos,
+                            (int)item.id
+                        );
 
                     collection.Add(tipoEstadistica);
                 }
+
                 connection.Close();
 
                 return collection;
@@ -79,12 +82,13 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                     ).ToList();
                 connection.Close();
 
-                Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica = new Domain.TipoEstadistica.Model.TipoEstadistica(
-                    new TipoEstadisticaClave((int)resultTipoEstadistica.folio),
-                    new TipoEstadisticaNombre((string)resultTipoEstadistica.nombre),
-                    instrumentos,
-                    (int)resultTipoEstadistica.id
-                );
+                Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica =
+                    new Domain.TipoEstadistica.Model.TipoEstadistica(
+                        new TipoEstadisticaClave((int)resultTipoEstadistica.folio),
+                        new TipoEstadisticaNombre((string)resultTipoEstadistica.nombre),
+                        instrumentos,
+                        (int)resultTipoEstadistica.id
+                    );
 
                 return tipoEstadistica;
             }
@@ -119,7 +123,12 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                             "INSERT INTO estadistica_instrumento(idEstadistica, idInstrumento) " +
                             "VALUES (@IdTipoEstadistica, @IdInstrumento)";
                         var parametersInsertInstrumento = newTipoEstadistica.Instrumentos.Select(
-                            row => new { IdTipoEstadistica = (int)resultTipoEstadistica.id, IdInstrumento = row.Id });
+                            row => new
+                            {
+                                IdTipoEstadistica = (int)resultTipoEstadistica.id,
+                                IdInstrumento = row.Id
+                            });
+
                         connection.Execute(queryInsertInstrumentos, parametersInsertInstrumento, transaction);
 
                         transaction.Commit();
@@ -161,13 +170,18 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                             "DELETE FROM estadistica_instrumento WHERE idEstadistica = @IdEstadistica;";
                         var parametersDeleteInstrumentos = new { IdEstadistica = tipoEstadistica.Id };
                         connection.Execute(queryDeleteInstrumentos, parametersDeleteInstrumentos, transaction);
-                    
+
                         //Insert list of TipoInstrumento
                         string queryInsertInstrumentos =
                             "INSERT INTO estadistica_instrumento(idEstadistica, idInstrumento) " +
                             "VALUES (@IdTipoEstadistica, @IdInstrumento)";
                         var parametersInsertInstrumento = tipoEstadistica.Instrumentos.Select(
-                            row => new { IdTipoEstadistica = tipoEstadistica.Id, IdInstrumento = row.Id });
+                            row => new
+                            {
+                                IdTipoEstadistica = tipoEstadistica.Id,
+                                IdInstrumento = row.Id
+                            });
+
                         connection.Execute(queryInsertInstrumentos, parametersInsertInstrumento, transaction);
 
                         transaction.Commit();
@@ -196,13 +210,13 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
                     {
                         string queryDeleteInstrumentos =
                             "DELETE FROM estadistica_instrumento WHERE idEstadistica = @IdTipoEstadistica;";
-                        var parametersInstrumento = new { IdTipoEstadistica = id};
+                        var parametersInstrumento = new { IdTipoEstadistica = id };
                         connection.Execute(queryDeleteInstrumentos, parametersInstrumento, transaction);
-                    
+
                         string queryDeleteTipoEstadistica = "DELETE FROM tipoEstadistica WHERE id = @Id";
                         var parametersTipoEstadistica = new { Id = id };
                         connection.Execute(queryDeleteTipoEstadistica, parametersTipoEstadistica, transaction);
-                        
+
                         transaction.Commit();
                         connection.Close();
                     }

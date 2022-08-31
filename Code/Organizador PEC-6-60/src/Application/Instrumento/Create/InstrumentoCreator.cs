@@ -13,9 +13,15 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Create
             _repository = repository;
         }
 
-        public void Create(InstrumentoAñoEstadistico añoEstadistico, InstrumentoMesEstadistico mesEstadistico,
-            InstrumentoConsecutivo consecutivo, byte[] dataArchivo, int idInstrumento, int idTipoEstadistica,
-            int idMunicipio)
+        public void Create(
+            InstrumentoAñoEstadistico añoEstadistico,
+            InstrumentoMesEstadistico mesEstadistico,
+            InstrumentoConsecutivo consecutivo,
+            byte[] dataArchivo,
+            int idInstrumento,
+            int idTipoEstadistica,
+            int idMunicipio
+        )
         {
             if (!IsValid(añoEstadistico))
                 throw new InvalidAñoEstadisticoInareumento();
@@ -24,9 +30,15 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Create
             if (!IsValid(consecutivo))
                 throw new InvalidConsecutivoInstrumento();
 
-            Domain.Instrumento.Model.Instrumento pec660 = new(añoEstadistico, mesEstadistico,
-                consecutivo, dataArchivo, idInstrumento,
-                idTipoEstadistica, idMunicipio);
+            Domain.Instrumento.Model.Instrumento pec660 = new(
+                añoEstadistico,
+                mesEstadistico,
+                consecutivo,
+                dataArchivo,
+                idInstrumento,
+                idTipoEstadistica,
+                idMunicipio);
+
             _repository.Insert(pec660);
         }
 

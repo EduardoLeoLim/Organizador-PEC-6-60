@@ -1,8 +1,7 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
-using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.PEC_6_60.Application;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 
 namespace Organizador_PEC_6_60.Application.Instrumento
 {
@@ -35,7 +34,8 @@ namespace Organizador_PEC_6_60.Application.Instrumento
             byte[] archivo, TipoInstrumentoResponse tipoInstrumento,
             TipoEstadisticaResponse tipoEstadistica,
             EntidadFederativaResponse entidadFederativa,
-            MunicipioResponse municipio)
+            MunicipioResponse municipio
+        )
         {
             Id = id;
             FechaRegistro = fechaRegistro;
@@ -52,24 +52,27 @@ namespace Organizador_PEC_6_60.Application.Instrumento
         }
 
         public static InstrumentoResponse FromAggregate(
-            Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento PEC_6_60,
-            Organizador_PEC_6_60.Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica,
+            Domain.Instrumento.Model.Instrumento instrumento,
+            Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica,
             Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento,
-            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa,
-            Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio)
+            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa,
+            Domain.Municipio.Model.Municipio municipio
+        )
         {
             return new InstrumentoResponse(
-                PEC_6_60.Id,
-                PEC_6_60.FechaModificacion,
-                PEC_6_60.FechaModificacion,
-                PEC_6_60.AñoEstadistico.Value,
-                PEC_6_60.MesEstadistico.Value,
-                PEC_6_60.EstaGuardado,
-                PEC_6_60.Consecutivo.Value, PEC_6_60.Archivo,
+                instrumento.Id,
+                instrumento.FechaRegistro,
+                instrumento.FechaModificacion,
+                instrumento.AñoEstadistico.Value,
+                instrumento.MesEstadistico.Value,
+                instrumento.EstaGuardado,
+                instrumento.Consecutivo.Value,
+                instrumento.Archivo,
                 TipoInstrumentoResponse.FromAggregate(tipoInstrumento),
                 TipoEstadisticaResponse.FromAggregate(tipoEstadistica),
                 EntidadFederativaResponse.FromAggregate(entidadFederativa),
-                MunicipioResponse.FromAggregate(municipio, entidadFederativa));
+                MunicipioResponse.FromAggregate(municipio, entidadFederativa)
+            );
         }
     }
 }

@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.Exceptions;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
 {
@@ -19,8 +19,10 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         private bool isNewRecord;
         private TipoEstadisticaResponse _tipoEstadistica;
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica,
-            ManageTiposInstrumento managerTiposInstrumento)
+        public FormTipoEstadistica(
+            ManageTipoEstadistica managerTipoEstadistica,
+            ManageTiposInstrumento managerTiposInstrumento
+        )
         {
             InitializeComponent();
             _managerTipoEstadistica = managerTipoEstadistica;
@@ -29,9 +31,11 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             LoadForm();
         }
 
-        public FormTipoEstadistica(ManageTipoEstadistica managerTipoEstadistica,
+        public FormTipoEstadistica(
+            ManageTipoEstadistica managerTipoEstadistica,
             ManageTiposInstrumento managerTiposInstrumento,
-            int idTipoEstadistica) : this(managerTipoEstadistica, managerTiposInstrumento)
+            int idTipoEstadistica
+        ) : this(managerTipoEstadistica, managerTiposInstrumento)
         {
             isNewRecord = false;
             LoadTipoEstadisitca(idTipoEstadistica);
@@ -49,19 +53,35 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
                 {
                     if (isNewRecord)
                     {
-                        _managerTipoEstadistica.RegisterTipoEstadistica(int.Parse(txtClave.Text), txtNombre.Text,
-                            GetSelectedInstrumentos());
-                        MessageBox.Show("Tipo de estadística registrada.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        _managerTipoEstadistica.RegisterTipoEstadistica(
+                            int.Parse(txtClave.Text),
+                            txtNombre.Text,
+                            GetSelectedInstrumentos()
+                        );
+
+                        MessageBox.Show(
+                            "Tipo de estadística registrada.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                     else
                     {
-                        _managerTipoEstadistica.UpdateTipoEstadistica(_tipoEstadistica.Id, int.Parse(txtClave.Text),
+                        _managerTipoEstadistica.UpdateTipoEstadistica(
+                            _tipoEstadistica.Id,
+                            int.Parse(txtClave.Text),
                             txtNombre.Text,
-                            GetSelectedInstrumentos());
-                        MessageBox.Show("Tipo de estadística editada.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                            GetSelectedInstrumentos()
+                        );
+
+                        MessageBox.Show(
+                            "Tipo de estadística editada.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                 }
@@ -69,24 +89,49 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             catch (InvalidClaveTipoEstadistica ex)
             {
                 txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Nombre",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidNombreTipoEstadistica ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Nombre",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidInstrumentosTipoEstadistica ex)
             {
-                MessageBox.Show(ex.Message, "Error Instrumentos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Instrumentos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             finally
             {

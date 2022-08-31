@@ -7,7 +7,8 @@ namespace Organizador_PEC_6_60.Application.EntidadFederativa
     {
         public IEnumerable<EntidadFederativaResponse> EntidadesFederativas { get; }
 
-        public EntidadesFederativasResponse(IEnumerable<Domain.EntidadFederativa.Model.EntidadFederativa> entidadesFederativas)
+        public EntidadesFederativasResponse(
+            IEnumerable<Domain.EntidadFederativa.Model.EntidadFederativa> entidadesFederativas)
         {
             EntidadesFederativas = entidadesFederativas.Select(row => EntidadFederativaResponse.FromAggregate(row));
         }

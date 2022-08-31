@@ -16,9 +16,19 @@ namespace Organizador_PEC_6_60.Domain.Instrumento.Model
         public int IdTipoEstadistica { get; }
         public int IdMunicipio { get; }
 
-        public Instrumento(InstrumentoAñoEstadistico añoEstadistico, InstrumentoMesEstadistico mesEstadistico,
-            InstrumentoConsecutivo consecutivo, byte[] archivo, int idInstrumento, int idTipoEstadistica, int idMunicipio,
-            bool estaGuardado = false, string fechaRegistro = "", string fechaModificacion = "", int id = 0)
+        public Instrumento(
+            InstrumentoAñoEstadistico añoEstadistico,
+            InstrumentoMesEstadistico mesEstadistico,
+            InstrumentoConsecutivo consecutivo,
+            byte[] archivo,
+            int idInstrumento,
+            int idTipoEstadistica,
+            int idMunicipio,
+            bool estaGuardado = false,
+            string fechaRegistro = "",
+            string fechaModificacion = "",
+            int id = 0
+        )
         {
             AñoEstadistico = añoEstadistico;
             MesEstadistico = mesEstadistico;

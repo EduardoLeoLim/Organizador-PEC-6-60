@@ -9,7 +9,7 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica
 
         public TiposEstadisticaResponse(IEnumerable<Domain.TipoEstadistica.Model.TipoEstadistica> tiposEstadistica)
         {
-            TiposEstadistica = tiposEstadistica.Select(row => TipoEstadisticaResponse.FromAggregate(row));
+            TiposEstadistica = tiposEstadistica.Select(item => TipoEstadisticaResponse.FromAggregate(item));
         }
     }
 }

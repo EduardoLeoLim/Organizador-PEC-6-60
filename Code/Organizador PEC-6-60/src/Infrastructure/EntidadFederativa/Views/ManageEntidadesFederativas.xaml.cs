@@ -24,7 +24,7 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            Infrastructure.EntidadFederativa.Views.FormEntidadFederativa form = new Infrastructure.EntidadFederativa.Views.FormEntidadFederativa(_manager);
+            FormEntidadFederativa form = new FormEntidadFederativa(_manager);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -33,7 +33,7 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
             EntidadFederativaResponse record = (EntidadFederativaResponse)((Button)e.Source).DataContext;
-            Infrastructure.EntidadFederativa.Views.FormEntidadFederativa form = new Infrastructure.EntidadFederativa.Views.FormEntidadFederativa(_manager, record.Id);
+            FormEntidadFederativa form = new FormEntidadFederativa(_manager, record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -46,8 +46,14 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
 
-            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
-                MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(
+                message,
+                "Eliminar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.No
+            );
+
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -56,7 +62,12 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
                 }
                 catch (DbException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error base de datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
 
                 LoadTable();
@@ -72,7 +83,12 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 tblEntidades.Items.Clear();
             }
         }

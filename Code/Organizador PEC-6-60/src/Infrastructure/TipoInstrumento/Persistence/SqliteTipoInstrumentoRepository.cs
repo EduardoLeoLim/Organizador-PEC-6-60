@@ -26,6 +26,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
                     )
                 );
                 connection.Close();
+
                 return result;
             }
         }
@@ -43,7 +44,11 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
                 Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento =
-                    new Domain.TipoInstrumento.Model.TipoInstrumento(new TipoInstrumentoNombre((string)result.nombre), (int)result.id);
+                    new Domain.TipoInstrumento.Model.TipoInstrumento(
+                        new TipoInstrumentoNombre((string)result.nombre),
+                        (int)result.id
+                    );
+
                 return tipoInstrumento;
             }
         }
@@ -135,7 +140,8 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
                 {
                     string errorMessage = "No fue posible eliminar el TipoInstrumento, Intentalo más tarde.";
                     if (ex.ErrorCode == 19)
-                        errorMessage = "No es posible eliminar el tipoInstrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
+                        errorMessage =
+                            "No es posible eliminar el tipoInstrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
 
                     connection.Close();
 

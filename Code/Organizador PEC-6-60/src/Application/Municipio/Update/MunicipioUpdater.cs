@@ -2,7 +2,7 @@
 using Organizador_PEC_6_60.Domain.Municipio.Repository;
 using Organizador_PEC_6_60.Domain.Municipio.ValueObjects;
 
-namespace Organizador_PEC_6_60.Municipio.Application.Update
+namespace Organizador_PEC_6_60.Application.Municipio.Update
 {
     public class MunicipioUpdater
     {
@@ -13,15 +13,19 @@ namespace Organizador_PEC_6_60.Municipio.Application.Update
             _repository = repository;
         }
 
-        public void Update(int id, MunicipioClave clave, MunicipioNombre nombre,
-            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
+        public void Update(
+            int id,
+            MunicipioClave clave,
+            MunicipioNombre nombre,
+            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa
+        )
         {
             if (!IsValid(clave))
                 throw new InvalidClaveMunicipio();
             if (!IsValid(nombre))
                 throw new InvalidNombreMunicipio();
 
-            _repository.Update(new Organizador_PEC_6_60.Domain.Municipio.Model.Municipio(clave, nombre, entidadFederativa.Id, id));
+            _repository.Update(new Domain.Municipio.Model.Municipio(clave, nombre, entidadFederativa.Id, id));
         }
 
         private bool IsValid(object obj)

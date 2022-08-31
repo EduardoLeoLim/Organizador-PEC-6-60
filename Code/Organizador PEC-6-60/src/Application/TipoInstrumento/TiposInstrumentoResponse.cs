@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Organizador_PEC_6_60.Domain.TipoInstrumento.Model;
 
-namespace Organizador_PEC_6_60.Instrumento.Application
+namespace Organizador_PEC_6_60.Application.TipoInstrumento
 {
     public class TiposInstrumentoResponse
     {
         public IEnumerable<TipoInstrumentoResponse> TiposInstrumento { get; }
 
-        public TiposInstrumentoResponse(IEnumerable<TipoInstrumento> instrumentos)
+        public TiposInstrumentoResponse(IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos)
         {
             TiposInstrumento = instrumentos.Select(row => TipoInstrumentoResponse.FromAggregate(row));
         }

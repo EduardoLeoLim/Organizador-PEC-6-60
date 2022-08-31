@@ -11,7 +11,7 @@ namespace Organizador_PEC_6_60.Application.TipoInstrumento.Search
             _repository = repository;
         }
 
-        public Domain.TipoInstrumento.Model.TipoInstrumento SearchInstrumentoById(int id)
+        public Domain.TipoInstrumento.Model.TipoInstrumento SearchTipoInstrumentoById(int id)
         {
             return _repository.SearchById(id);
         }

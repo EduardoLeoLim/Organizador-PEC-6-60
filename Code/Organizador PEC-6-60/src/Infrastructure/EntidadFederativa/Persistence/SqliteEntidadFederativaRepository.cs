@@ -20,13 +20,14 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
 
                 string query = "SELECT * FROM entidadFederativa ORDER BY folio;";
                 var result = connection.Query(query).Select(
-                    row => new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
-                        new EntidadFederativaClave((int)row.folio),
-                        new EntidadFederativaNombre((string)row.nombre),
-                        (int)row.id
+                    item => new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
+                        new EntidadFederativaClave((int)item.folio),
+                        new EntidadFederativaNombre((string)item.nombre),
+                        (int)item.id
                     )
                 );
                 connection.Close();
+
                 return result;
             }
         }
@@ -42,9 +43,14 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
                 var parameters = new { Id = id };
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
-                Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa = new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
-                    new EntidadFederativaClave((int)result.folio),
-                    new EntidadFederativaNombre((string)result.nombre), (int)result.id);
+
+                Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
+                    new Domain.EntidadFederativa.Model.EntidadFederativa(
+                        new EntidadFederativaClave((int)result.folio),
+                        new EntidadFederativaNombre((string)result.nombre),
+                        (int)result.id
+                    );
+
                 return entidadFederativa;
             }
         }
@@ -58,13 +64,16 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
 
                 string query = "INSERT INTO entidadFederativa (folio, nombre) VALUES (@Folio, @Nombre);";
                 var parameters = new
-                    { Folio = newEntidadFederativa.Clave.Value, Nombre = newEntidadFederativa.Nombre.Value };
+                {
+                    Folio = newEntidadFederativa.Clave.Value,
+                    Nombre = newEntidadFederativa.Nombre.Value
+                };
 
                 try
                 {
                     int affectedRows = connection.Execute(query, parameters);
                     connection.Close();
-                    
+
                     if (affectedRows == 0)
                         throw new SQLiteException();
                 }
@@ -91,7 +100,8 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
                 string query = "UPDATE entidadFederativa SET folio = @Folio, nombre = @Nombre WHERE id = @Id;";
                 var parameters = new
                 {
-                    Folio = entidadFederativa.Clave.Value, Nombre = entidadFederativa.Nombre.Value,
+                    Folio = entidadFederativa.Clave.Value,
+                    Nombre = entidadFederativa.Nombre.Value,
                     Id = entidadFederativa.Id
                 };
 
@@ -99,7 +109,7 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
                 {
                     int affectedRows = connection.Execute(query, parameters);
                     connection.Close();
-                    
+
                     if (affectedRows == 0)
                         throw new SQLiteException();
                 }

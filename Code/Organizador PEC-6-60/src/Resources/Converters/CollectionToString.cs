@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using Organizador_PEC_6_60.Instrumento.Application;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 
 namespace Organizador_PEC_6_60.Resources.Converters
 {

@@ -13,7 +13,8 @@
             Nombre = nombre;
         }
 
-        public static EntidadFederativaResponse FromAggregate(Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
+        public static EntidadFederativaResponse FromAggregate(
+            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
             return new EntidadFederativaResponse(entidadFederativa.Id, entidadFederativa.Clave.Value,
                 entidadFederativa.Nombre.Value);

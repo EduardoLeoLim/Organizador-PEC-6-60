@@ -3,11 +3,11 @@ using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio.Create;
 using Organizador_PEC_6_60.Application.Municipio.Delete;
 using Organizador_PEC_6_60.Application.Municipio.Search;
+using Organizador_PEC_6_60.Application.Municipio.Update;
 using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
 using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 using Organizador_PEC_6_60.Domain.Municipio.Repository;
 using Organizador_PEC_6_60.Domain.Municipio.ValueObjects;
-using Organizador_PEC_6_60.Municipio.Application.Update;
 
 namespace Organizador_PEC_6_60.Application.Municipio
 {
@@ -20,8 +20,10 @@ namespace Organizador_PEC_6_60.Application.Municipio
         private MunicipioUpdater _updater;
         private MunicipioDeleter _deleter;
 
-        public ManageMunicipio(MunicipioRepository municipioRepository,
-            EntidadFederativaRepository entidadFederativaRepository)
+        public ManageMunicipio(
+            MunicipioRepository municipioRepository,
+            EntidadFederativaRepository entidadFederativaRepository
+        )
         {
             _allSearcher = new AllMunicipioSeacher(municipioRepository);
             _byIdSearcher = new MunicipioByIdSearcher(municipioRepository);
@@ -33,8 +35,10 @@ namespace Organizador_PEC_6_60.Application.Municipio
 
         public MunicipiosResponse SearchAllMunicipios(int idEntidadFederativa)
         {
-            return new MunicipiosResponse(_allSearcher.SearchAllMunicipios(idEntidadFederativa),
-                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(idEntidadFederativa));
+            return new MunicipiosResponse(
+                _allSearcher.SearchAllMunicipios(idEntidadFederativa),
+                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(idEntidadFederativa)
+            );
         }
 
         public MunicipioResponse SearchMunicipioById(int id)
@@ -42,15 +46,19 @@ namespace Organizador_PEC_6_60.Application.Municipio
             var municipio = _byIdSearcher.SearchMunicipioById(id);
             var entidadFederativa =
                 _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
+
             return MunicipioResponse.FromAggregate(municipio, entidadFederativa);
         }
 
         public void RegisterMunicipio(int clave, string nombre, EntidadFederativaResponse entidadFederativaResponse)
         {
-            Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
-                new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
+            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
+                new Domain.EntidadFederativa.Model.EntidadFederativa(
                     new EntidadFederativaClave(entidadFederativaResponse.Clave),
-                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre), entidadFederativaResponse.Id);
+                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre),
+                    entidadFederativaResponse.Id
+                );
+
             _creator.Create(new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
         }
 
@@ -60,7 +68,10 @@ namespace Organizador_PEC_6_60.Application.Municipio
             Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
                 new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
                     new EntidadFederativaClave(entidadFederativaResponse.Clave),
-                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre), entidadFederativaResponse.Id);
+                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre),
+                    entidadFederativaResponse.Id
+                );
+
             _updater.Update(id, new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
         }
 

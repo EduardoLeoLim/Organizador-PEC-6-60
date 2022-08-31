@@ -10,12 +10,12 @@ using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Instrumento;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
@@ -29,9 +29,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public SaveInstrumento()
         {
             InitializeComponent();
-            _managerInstrumento = new ManageInstrumento(new SqliteInstrumentoRepository(), new SqliteTipoInstrumentoRepository(),
-                new SqliteTipoEstadisticaRepository(), new SqliteEntidadFederativaRepository(),
-                new SqliteMunicipioRepository());
+            _managerInstrumento = new ManageInstrumento(
+                new SqliteInstrumentoRepository(),
+                new SqliteTipoInstrumentoRepository(),
+                new SqliteTipoEstadisticaRepository(),
+                new SqliteEntidadFederativaRepository(),
+                new SqliteMunicipioRepository()
+            );
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
             _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
             _managerMunicipio =
@@ -100,9 +104,23 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                     pdfViewer.LoadedDocument.Save(memoryStream);
                     byte[] dataArchivo = memoryStream.ToArray();
 
-                    _managerInstrumento.RegisterPEC_6_60(idTipoEstadistica, idTipoInstrumento, idMunicipio, añoEstadistico,
-                        mesEstadistico, consecutivo, dataArchivo);
-                    MessageBox.Show("PEC-6-60 registrado", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _managerInstrumento.RegisterPEC_6_60(
+                        idTipoEstadistica,
+                        idTipoInstrumento,
+                        idMunicipio,
+                        añoEstadistico,
+                        mesEstadistico,
+                        consecutivo,
+                        dataArchivo
+                    );
+
+                    MessageBox.Show(
+                        "PEC-6-60 registrado",
+                        "Exito",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+
                     txtLastSave.Text = pdfViewer.DocumentInfo.FilePath + pdfViewer.DocumentInfo.FileName;
                     LoadForm();
                 }

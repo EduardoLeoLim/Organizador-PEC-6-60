@@ -13,7 +13,14 @@ public class UsuarioLogger
 
     public UsuarioConnected LogInUsuario(string username, string password)
     {
-        Organizador_PEC_6_60.Domain.Usuario.Model.Usuario usuario = _repository.LogIn(username, password);
-        return new UsuarioConnected(usuario.Id, usuario.Nombre.Value, usuario.Apellidos.Value, usuario.Username.Value, usuario.Password.Value);
+        Domain.Usuario.Model.Usuario usuario = _repository.LogIn(username, password);
+
+        return new UsuarioConnected(
+            usuario.Id,
+            usuario.Nombre.Value,
+            usuario.Apellidos.Value,
+            usuario.Username.Value,
+            usuario.Password.Value
+        );
     }
 }

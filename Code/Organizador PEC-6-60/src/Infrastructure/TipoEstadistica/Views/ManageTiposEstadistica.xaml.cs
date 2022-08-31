@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
 {
@@ -26,8 +26,10 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            FormTipoEstadistica form = new FormTipoEstadistica(_managerTipoEstadistica,
-                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()));
+            FormTipoEstadistica form = new FormTipoEstadistica(
+                _managerTipoEstadistica,
+                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository())
+            );
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -36,8 +38,11 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
             TipoEstadisticaResponse record = (TipoEstadisticaResponse)((Button)e.Source).DataContext;
-            FormTipoEstadistica form = new FormTipoEstadistica(_managerTipoEstadistica,
-                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()), record.Id);
+            FormTipoEstadistica form = new FormTipoEstadistica(
+                _managerTipoEstadistica,
+                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()),
+                record.Id
+            );
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -50,8 +55,14 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
 
-            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
-                MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(
+                message,
+                "Eliminar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.No
+            );
+
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -60,7 +71,12 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
                 }
                 catch (DbException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error base de datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
 
                 LoadTable();
@@ -76,7 +92,13 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+
                 tblTiposEstadistica.Items.Clear();
             }
         }

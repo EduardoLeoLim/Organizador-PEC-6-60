@@ -13,9 +13,16 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Update
             _repository = repository;
         }
 
-        public void Update(int id, InstrumentoAñoEstadistico añoEstadistico, InstrumentoMesEstadistico mesEstadistico,
-            InstrumentoConsecutivo consecutivo, byte[] dataArchivo, int idTipoInstrumento, int idTipoEstadistica,
-            int idMunicipio)
+        public void Update(
+            int id,
+            InstrumentoAñoEstadistico añoEstadistico,
+            InstrumentoMesEstadistico mesEstadistico,
+            InstrumentoConsecutivo consecutivo,
+            byte[] dataArchivo,
+            int idTipoInstrumento,
+            int idTipoEstadistica,
+            int idMunicipio
+        )
         {
             if (!IsValid(añoEstadistico))
                 throw new InvalidAñoEstadisticoInareumento();
@@ -23,10 +30,18 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Update
                 throw new InvalidMesEstadisticoInstrumento();
             if (IsValid(consecutivo))
                 throw new InvalidConsecutivoInstrumento();
-            
-            Domain.Instrumento.Model.Instrumento pec660 = new(añoEstadistico, mesEstadistico, consecutivo, dataArchivo, idTipoInstrumento,
-                idTipoEstadistica, idMunicipio, id: id);
-            _repository.Update(pec660);
+
+            Domain.Instrumento.Model.Instrumento instrumento = new(
+                añoEstadistico,
+                mesEstadistico,
+                consecutivo,
+                dataArchivo,
+                idTipoInstrumento,
+                idTipoEstadistica,
+                idMunicipio,
+                id: id
+            );
+            _repository.Update(instrumento);
         }
 
         private bool IsValid(object obj)

@@ -16,7 +16,8 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         public ManageMunicipios()
         {
             InitializeComponent();
-            _managerMunicipios = new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
+            _managerMunicipios =
+                new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
             _managerEntidadesFederativas = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
         }
 
@@ -38,7 +39,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            Infrastructure.Municipio.Views.FormMunicipio form = new Infrastructure.Municipio.Views.FormMunicipio(_managerMunicipios, _managerEntidadesFederativas);
+            FormMunicipio form = new FormMunicipio(_managerMunicipios, _managerEntidadesFederativas);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -47,7 +48,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
             MunicipioResponse record = (MunicipioResponse)((Button)e.Source).DataContext;
-            Infrastructure.Municipio.Views.FormMunicipio form = new Infrastructure.Municipio.Views.FormMunicipio(_managerMunicipios, _managerEntidadesFederativas, record.Id);
+            FormMunicipio form = new FormMunicipio(_managerMunicipios, _managerEntidadesFederativas, record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -60,8 +61,14 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
 
-            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
-                MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(
+                message,
+                "Eliminar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.No
+            );
+
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -70,7 +77,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
                 }
                 catch (DbException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error base de datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
 
                 LoadPage();

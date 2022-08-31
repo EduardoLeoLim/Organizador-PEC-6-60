@@ -14,8 +14,6 @@ namespace Organizador_PEC_6_60.Domain.Usuario.Model
 
         #endregion
 
-        #region Constructors
-
         public Usuario(UsuarioUsername username, UsuarioPassword password, UsuarioNombre nombre,
             UsuarioApellidos apellidos, int id = 0)
         {
@@ -25,7 +23,5 @@ namespace Organizador_PEC_6_60.Domain.Usuario.Model
             Nombre = nombre;
             Apellidos = apellidos;
         }
-
-        #endregion
     }
 }

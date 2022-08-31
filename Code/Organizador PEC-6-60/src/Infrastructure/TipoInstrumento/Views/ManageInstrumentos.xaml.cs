@@ -2,8 +2,8 @@
 using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
-using Organizador_PEC_6_60.Instrumento.Application;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 {
@@ -25,7 +25,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            Infrastructure.TipoInstrumento.Views.FormInstrumento form = new Infrastructure.TipoInstrumento.Views.FormInstrumento(_managerTiposInstrumentos);
+            FormInstrumento form = new FormInstrumento(_managerTiposInstrumentos);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadTable();
@@ -46,8 +46,14 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
             string message = "¿Quiere eliminar el registro?";
             message += $"\nNombre: {record.Nombre}";
 
-            MessageBoxResult result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo,
-                MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = MessageBox.Show(
+                message,
+                "Eliminar",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question,
+                MessageBoxResult.No
+            );
+
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -56,11 +62,21 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
                 }
                 catch (InvalidOperationException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
                 catch (DbException ex)
                 {
-                    MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                        ex.Message,
+                        "Error base de datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 }
 
                 LoadTable();
@@ -76,7 +92,12 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 tblInstrumentos.Items.Clear();
             }
         }

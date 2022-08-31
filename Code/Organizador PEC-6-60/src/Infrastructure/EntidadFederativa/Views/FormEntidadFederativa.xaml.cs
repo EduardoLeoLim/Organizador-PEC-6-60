@@ -40,17 +40,33 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
                 {
                     if (isNewRecord)
                     {
-                        _manager.RegisterEntidadFederativa(int.Parse(txtClave.Text), txtNombre.Text);
-                        MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        _manager.RegisterEntidadFederativa(
+                            int.Parse(txtClave.Text),
+                            txtNombre.Text
+                        );
+
+                        MessageBox.Show(
+                            "Entidad Federativa registrada.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                     else
                     {
-                        _manager.UpdateEntidadFederativa(_entidadFederativa.Id, int.Parse(txtClave.Text),
-                            txtNombre.Text);
-                        MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+                        _manager.UpdateEntidadFederativa(
+                            _entidadFederativa.Id,
+                            int.Parse(txtClave.Text),
+                            txtNombre.Text
+                        );
+
+                        MessageBox.Show(
+                            "Entidad Federativa editada.",
+                            "Exito",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
                         Close();
                     }
                 }
@@ -58,20 +74,40 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
             catch (InvalidClaveEntidadFederativa ex)
             {
                 txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Clave", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Clave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidNombreEntidadFederativa ex)
             {
                 txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error Nombre",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             catch (DbException ex)
             {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Error base de datos",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             finally
             {
@@ -114,8 +150,12 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
 
             if (IsThereEmptyFields())
             {
-                MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show(
+                    "Hay campos vacios en el formulario",
+                    "Campos vacios",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return false;
             }
 

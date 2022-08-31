@@ -14,8 +14,12 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica.Update
             _repository = repository;
         }
 
-        public void Update(int id, TipoEstadisticaClave clave, TipoEstadisticaNombre nombre,
-            List<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos)
+        public void Update(
+            int id,
+            TipoEstadisticaClave clave,
+            TipoEstadisticaNombre nombre,
+            List<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos
+        )
         {
             if (!IsValid(clave))
                 throw new InvalidClaveTipoEstadistica();
@@ -54,7 +58,8 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica.Update
 
             if (obj is List<Domain.TipoInstrumento.Model.TipoInstrumento>)
             {
-                List<Domain.TipoInstrumento.Model.TipoInstrumento> list = (List<Domain.TipoInstrumento.Model.TipoInstrumento>)obj;
+                List<Domain.TipoInstrumento.Model.TipoInstrumento> list =
+                    (List<Domain.TipoInstrumento.Model.TipoInstrumento>)obj;
 
                 if (list.Count == 0)
                     return false;

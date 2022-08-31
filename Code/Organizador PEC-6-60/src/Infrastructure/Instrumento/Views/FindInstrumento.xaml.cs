@@ -7,16 +7,15 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Instrumento;
+using Organizador_PEC_6_60.Application.Instrumento.Search;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
+using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
-using Organizador_PEC_6_60.Instrumento.Application;
-using Organizador_PEC_6_60.PEC_6_60.Application;
-using Organizador_PEC_6_60.PEC_6_60.Application.Search;
 
 namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
@@ -30,13 +29,18 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public FindInstrumento()
         {
             InitializeComponent();
-            _managerInstrumento = new ManageInstrumento(new SqliteInstrumentoRepository(), new SqliteTipoInstrumentoRepository(),
-                new SqliteTipoEstadisticaRepository(), new SqliteEntidadFederativaRepository(),
-                new SqliteMunicipioRepository());
+            _managerInstrumento = new ManageInstrumento(
+                new SqliteInstrumentoRepository(),
+                new SqliteTipoInstrumentoRepository(),
+                new SqliteTipoEstadisticaRepository(),
+                new SqliteEntidadFederativaRepository(),
+                new SqliteMunicipioRepository()
+            );
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
             _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
             _managerMunicipio =
                 new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
+
             LoadForm();
         }
 
@@ -111,17 +115,16 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 
             FilterSIRESO guardadoSIRESO = cbxSireso.SelectedItem is FilterSIRESO filter ? filter : FilterSIRESO.TODOS;
 
-            tblInstrumentos.ItemsSource = _managerInstrumento
-                .SearchPEC_6_60ByCriteria(
-                    idTipoEstadistica: idTipoEstadistica,
-                    idTipoInstrumento: idInstrumento,
-                    añoEstadistico: añoEstadistico,
-                    mesEstadistico: idMesEstadistico,
-                    idEntidadFederativa: idEntidadFederativa,
-                    idMunicipio: idMunicipio,
-                    consecutivo: consecutivo,
-                    guardadoSIRESO: guardadoSIRESO
-                ).Instrumentos;
+            tblInstrumentos.ItemsSource = _managerInstrumento.SearchInstrumentoByCriteria(
+                idTipoEstadistica: idTipoEstadistica,
+                idTipoInstrumento: idInstrumento,
+                añoEstadistico: añoEstadistico,
+                mesEstadistico: idMesEstadistico,
+                idEntidadFederativa: idEntidadFederativa,
+                idMunicipio: idMunicipio,
+                consecutivo: consecutivo,
+                guardadoSIRESO: guardadoSIRESO
+            ).Instrumentos;
         }
 
         private void UpdateStatusSIRESO_isChecked(object sender, RoutedEventArgs e)
@@ -130,15 +133,20 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             bool isChecked = ((CheckBox)sender).IsChecked.Value;
             if (isChecked)
             {
-                _managerInstrumento.PEC_6_60SavedInSIRESO(pec660.Id);
+                _managerInstrumento.InstrumentoSavedInSIRESO(pec660.Id);
             }
             else
             {
-                MessageBoxResult resultado = MessageBox.Show(Window.GetWindow(this),
-                    $"¿Deseas marcar el instrumento {pec660.Nombre} como no guardado en SIRESO?", "Confirmación",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult resultado = MessageBox.Show(
+                    Window.GetWindow(this),
+                    $"¿Deseas marcar el instrumento {pec660.Nombre} como no guardado en SIRESO?",
+                    "Confirmación",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
+
                 if (resultado == MessageBoxResult.Yes)
-                    _managerInstrumento.PEC_6_60UnsavedInSIRESO(pec660.Id);
+                    _managerInstrumento.InstrumentoUnsavedInSIRESO(pec660.Id);
                 else
                     ((CheckBox)e.Source).IsChecked = true;
             }
@@ -147,7 +155,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         private void Show_PEC_6_60Details_Click(object sender, RoutedEventArgs e)
         {
             int idPEC_6_60 = ((InstrumentoResponse)((Button)sender).DataContext).Id;
-            var pec660 = _managerInstrumento.SearchPEC_6_60ById(idPEC_6_60);
+            var pec660 = _managerInstrumento.SearchInstrumentoById(idPEC_6_60);
             ctrlPEC_6_60Details.LoadDetails(pec660);
         }
 

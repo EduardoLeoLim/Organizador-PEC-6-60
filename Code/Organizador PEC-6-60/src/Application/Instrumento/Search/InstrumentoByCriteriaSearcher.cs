@@ -62,7 +62,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Search
             return this;
         }
         
-        public IEnumerable<Organizador_PEC_6_60.Domain.Instrumento.Model.Instrumento> SearchPEC_6_0()
+        public IEnumerable<Domain.Instrumento.Model.Instrumento> SearchInstrumentos()
         {
             var result = _repository.SearchByCriteria(criteria);
             criteria.Clear();//Clear filters if a instance of this class is reused

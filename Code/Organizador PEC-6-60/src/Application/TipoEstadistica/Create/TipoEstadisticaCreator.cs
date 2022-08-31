@@ -14,8 +14,11 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica.Create
             _repository = repository;
         }
 
-        public void Create(TipoEstadisticaClave clave, TipoEstadisticaNombre nombre,
-            List<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos)
+        public void Create(
+            TipoEstadisticaClave clave,
+            TipoEstadisticaNombre nombre,
+            List<Domain.TipoInstrumento.Model.TipoInstrumento> instrumentos
+        )
         {
             if (!IsValid(clave))
                 throw new InvalidClaveTipoEstadistica();
@@ -23,7 +26,7 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica.Create
                 throw new InvalidNombreTipoEstadistica();
             if (!IsValid(instrumentos))
                 throw new InvalidInstrumentosTipoEstadistica();
-            
+
             _repository.Insert(new Domain.TipoEstadistica.Model.TipoEstadistica(clave, nombre, instrumentos));
         }
 
@@ -54,7 +57,8 @@ namespace Organizador_PEC_6_60.Application.TipoEstadistica.Create
 
             if (obj is List<Domain.TipoInstrumento.Model.TipoInstrumento>)
             {
-                List<Domain.TipoInstrumento.Model.TipoInstrumento> list = (List<Domain.TipoInstrumento.Model.TipoInstrumento>)obj;
+                List<Domain.TipoInstrumento.Model.TipoInstrumento> list =
+                    (List<Domain.TipoInstrumento.Model.TipoInstrumento>)obj;
 
                 if (list.Count == 0)
                     return false;

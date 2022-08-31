@@ -27,11 +27,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Persistence
                 };
 
                 var resut = connection.Query(query, paramenters);
-                var municipios = resut.Select(row => new Organizador_PEC_6_60.Domain.Municipio.Model.Municipio(
-                        new MunicipioClave((int)row.Clave),
-                        new MunicipioNombre((string)row.Nombre),
-                        (int)row.IdEntidadFederativa,
-                        id: (int)row.Id
+                var municipios = resut.Select(
+                    item => new Organizador_PEC_6_60.Domain.Municipio.Model.Municipio(
+                        new MunicipioClave((int)item.Clave),
+                        new MunicipioNombre((string)item.Nombre),
+                        (int)item.IdEntidadFederativa,
+                        id: (int)item.Id
                     )
                 );
 
@@ -59,9 +60,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Persistence
                 var result = connection.QuerySingle(query, parameters);
                 connection.Close();
 
-                Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio = new Organizador_PEC_6_60.Domain.Municipio.Model.Municipio(
-                    new MunicipioClave((int)result.Clave), new MunicipioNombre((string)result.Nombre),
-                    (int)result.IdEntidadFederativa, id: (int)result.Id);
+                Organizador_PEC_6_60.Domain.Municipio.Model.Municipio municipio =
+                    new Organizador_PEC_6_60.Domain.Municipio.Model.Municipio(
+                        new MunicipioClave((int)result.Clave),
+                        new MunicipioNombre((string)result.Nombre),
+                        (int)result.IdEntidadFederativa,
+                        id: (int)result.Id
+                    );
 
                 return municipio;
             }
