@@ -51,11 +51,13 @@
 
     <ItemGroup>
       <Folder Include="src\Domain\EntidadFederativa" />
+      <Folder Include="src\Domain\Instrumento" />
       <Folder Include="src\Domain\Municipio" />
       <Folder Include="src\Domain\TipoEstadistica" />
       <Folder Include="src\Domain\TipoInstrumento" />
       <Folder Include="src\Domain\Usuario" />
       <Folder Include="src\Infrastructure\EntidadFederativa" />
+      <Folder Include="src\Infrastructure\Instrumento" />
       <Folder Include="src\Infrastructure\Municipio" />
       <Folder Include="src\Infrastructure\TipoEstadistica" />
       <Folder Include="src\Infrastructure\TipoInstrumento" />

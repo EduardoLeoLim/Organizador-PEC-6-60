@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.Application.Usuario;
-using Organizador_PEC_6_60.PEC_6_60.Infrestructure.Views;
+using Organizador_PEC_6_60.Infrastructure.Instrumento.Views;
 using ManageEntidadesFederativas = Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views.ManageEntidadesFederativas;
 using ManageInstrumentos = Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views.ManageInstrumentos;
 using ManageMunicipios = Organizador_PEC_6_60.Infrastructure.Municipio.Views.ManageMunicipios;
@@ -12,8 +12,8 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
     public partial class Dashboard : Window
     {
         private UsuarioConnected _usuarioConnected;
-        private readonly SavePEC_6_60 _windowSavePec660;
-        private readonly FindPEC_6_60 _windowFindPec660;
+        private readonly SaveInstrumento _windowSavePec660;
+        private readonly FindInstrumento _windowFindPec660;
         private readonly ManageTiposEstadistica _windowManageTipoEstadistica;
         private readonly ManageInstrumentos _windowManageInstrumento;
         private readonly ManageEntidadesFederativas _windowManageEntidadFederativa;
@@ -24,8 +24,8 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
             InitializeComponent();
             _usuarioConnected = usuarioConnected;
 
-            _windowSavePec660 = new SavePEC_6_60();
-            _windowFindPec660 = new FindPEC_6_60();
+            _windowSavePec660 = new SaveInstrumento();
+            _windowFindPec660 = new FindInstrumento();
             _windowManageTipoEstadistica = new ManageTiposEstadistica();
             _windowManageInstrumento = new ManageInstrumentos();
             _windowManageEntidadFederativa = new ManageEntidadesFederativas();
