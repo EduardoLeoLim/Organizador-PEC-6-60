@@ -26,6 +26,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
                     _createUsuario.RegisterUsuario(
                         txtUsername.Text,
                         txtPassword.Password,
+                        txtPassword2.Password,
                         txtNombre.Text,
                         txtApellidos.Text
                     );
@@ -114,18 +115,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
                 return false;
             }
 
-            if (!IsSamePassword())
-            {
-                MessageBox.Show(
-                    "Las contraseñas no coinciden",
-                    "Error contraseña",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
-                );
-
-                return false;
-            }
-
             return true;
         }
 
@@ -164,18 +153,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
             }
 
             return result;
-        }
-
-        private bool IsSamePassword()
-        {
-            bool isSame = txtPassword.Password == txtPassword2.Password;
-            if (!isSame)
-            {
-                txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                txtPassword2.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            }
-
-            return isSame;
         }
     }
 }

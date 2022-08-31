@@ -7,5 +7,9 @@ namespace Organizador_PEC_6_60.Domain.Usuario.Exceptions
         public InvalidPassword() : base("Formato de contraseña inválido.")
         {
         }
+
+        public InvalidPassword(string message) : base(message)
+        {
+        }
     }
 }

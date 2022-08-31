@@ -13,8 +13,12 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
             _repository = repository;
         }
 
-        public void Create(UsuarioUsername username, UsuarioPassword password, UsuarioNombre nombre,
-            UsuarioApellidos apellidos)
+        public void Create(
+            UsuarioUsername username,
+            UsuarioPassword password,
+            UsuarioNombre nombre,
+            UsuarioApellidos apellidos
+        )
         {
             //Validation
             if (!IsValid(nombre))
@@ -26,7 +30,7 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
             if (!IsValid(password))
                 throw new InvalidPassword();
 
-            _repository.Insert(new Domain.Usuario.Model.Usuario(username,password,nombre,apellidos));
+            _repository.Insert(new Domain.Usuario.Model.Usuario(username, password, nombre, apellidos));
         }
 
         private bool IsValid(object obj)
@@ -40,7 +44,7 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
                 if (nombre.Trim().Length == 0)
                     return false;
                 //Add more validations here
-                
+
                 return true;
             }
 
@@ -53,14 +57,14 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
                 if (apellidos.Trim().Length == 0)
                     return false;
                 //Add more validations here
-                
+
                 return true;
             }
 
             if (obj is UsuarioUsername)
             {
                 string username = ((UsuarioUsername)obj).Value;
-                
+
                 if (string.IsNullOrEmpty(username))
                     return false;
                 if (username.Trim().Length == 0)
@@ -73,7 +77,7 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
             if (obj is UsuarioPassword)
             {
                 string password = ((UsuarioPassword)obj).Value;
-                
+
                 if (string.IsNullOrEmpty(password))
                     return false;
                 if (password.Trim().Length == 0)
@@ -82,7 +86,7 @@ namespace Organizador_PEC_6_60.Application.Usuario.Create
 
                 return true;
             }
-            
+
             return false;
         }
     }
