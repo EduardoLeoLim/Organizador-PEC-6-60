@@ -5,7 +5,7 @@ using Organizador_PEC_6_60.Application.TipoInstrumento;
 
 namespace Organizador_PEC_6_60.Application.Instrumento
 {
-    public class InstrumentoResponse
+    public class InstrumentoData
     {
         public int Id { get; }
         public string FechaRegistro { get; }
@@ -23,7 +23,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
         public string Nombre =>
             $"{TipoEstadistica.Clave:000}{EntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
 
-        public InstrumentoResponse(
+        public InstrumentoData(
             int id,
             string fechaRegistro,
             string fechaModificacion,
@@ -51,7 +51,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
             Municipio = municipio;
         }
 
-        public static InstrumentoResponse FromAggregate(
+        public static InstrumentoData FromAggregate(
             Domain.Instrumento.Model.Instrumento instrumento,
             Domain.TipoEstadistica.Model.TipoEstadistica tipoEstadistica,
             Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento,
@@ -59,7 +59,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
             Domain.Municipio.Model.Municipio municipio
         )
         {
-            return new InstrumentoResponse(
+            return new InstrumentoData(
                 instrumento.Id,
                 instrumento.FechaRegistro,
                 instrumento.FechaModificacion,

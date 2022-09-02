@@ -2,11 +2,11 @@
 
 namespace Organizador_PEC_6_60.Application.Instrumento.Update
 {
-    public class InstrumentoSIRESO
+    public class InstrumentoSavedInSireso
     {
         private readonly InstrumentoRepository _repository;
 
-        public InstrumentoSIRESO(InstrumentoRepository repository)
+        public InstrumentoSavedInSireso(InstrumentoRepository repository)
         {
             _repository = repository;
         }
