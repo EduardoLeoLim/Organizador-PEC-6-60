@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Instrumento;
+using Organizador_PEC_6_60.Application.Instrumento.Create;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
@@ -21,7 +22,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
     public partial class SaveInstrumento : Page
     {
-        private readonly ManageInstrumento _managerInstrumento;
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
         private readonly ManageEntidadFederativa _managerEntidadFederativa;
         private readonly ManageMunicipio _managerMunicipio;
@@ -29,13 +29,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public SaveInstrumento()
         {
             InitializeComponent();
-            _managerInstrumento = new ManageInstrumento(
-                new SqliteInstrumentoRepository(),
-                new SqliteTipoInstrumentoRepository(),
-                new SqliteTipoEstadisticaRepository(),
-                new SqliteEntidadFederativaRepository(),
-                new SqliteMunicipioRepository()
-            );
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
             _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
             _managerMunicipio =
@@ -102,17 +95,18 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 
                     MemoryStream memoryStream = new MemoryStream();
                     pdfViewer.LoadedDocument.Save(memoryStream);
-                    byte[] dataArchivo = memoryStream.ToArray();
+                    byte[] byteArrayInstrumento = memoryStream.ToArray();
 
-                    _managerInstrumento.RegisterPEC_6_60(
-                        idTipoEstadistica,
-                        idTipoInstrumento,
-                        idMunicipio,
-                        añoEstadistico,
-                        mesEstadistico,
-                        consecutivo,
-                        dataArchivo
-                    );
+                    new CreateInstrumento(new SqliteInstrumentoRepository())
+                        .CreateNewInstrumento(
+                            idTipoEstadistica,
+                            idTipoInstrumento,
+                            idMunicipio,
+                            añoEstadistico,
+                            mesEstadistico,
+                            consecutivo,
+                            byteArrayInstrumento
+                        );
 
                     MessageBox.Show(
                         "PEC-6-60 registrado",

@@ -8,7 +8,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
     public partial class ShowInstrumentoDetails : UserControl
     {
-        private InstrumentoResponse _pec660;
+        private InstrumentoData _pec660;
 
         public ShowInstrumentoDetails()
         {
@@ -48,7 +48,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             MessageBox.Show(filePath);
         }
 
-        public void LoadDetails(InstrumentoResponse pec660)
+        public void LoadDetails(InstrumentoData pec660)
         {
             _pec660 = pec660;
             lblNombrePEC_6_60.Text = $"PEC-6-60 - {_pec660.Nombre}";

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Instrumento;
 using Organizador_PEC_6_60.Application.Instrumento.Search;
+using Organizador_PEC_6_60.Application.Instrumento.Update;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
@@ -21,7 +22,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
     public partial class FindInstrumento : Page
     {
-        private readonly ManageInstrumento _managerInstrumento;
+        //private readonly ManageInstrumento _managerInstrumento;
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
         private readonly ManageEntidadFederativa _managerEntidadFederativa;
         private readonly ManageMunicipio _managerMunicipio;
@@ -29,13 +30,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public FindInstrumento()
         {
             InitializeComponent();
-            _managerInstrumento = new ManageInstrumento(
-                new SqliteInstrumentoRepository(),
-                new SqliteTipoInstrumentoRepository(),
-                new SqliteTipoEstadisticaRepository(),
-                new SqliteEntidadFederativaRepository(),
-                new SqliteMunicipioRepository()
-            );
             _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
             _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
             _managerMunicipio =
@@ -51,16 +45,16 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 
         private void LoadComboBoxInstrumento(object sender, SelectionChangedEventArgs e)
         {
-            cbxInstrumento.Items.Clear();
-            cbxInstrumento.Items.Add("TODOS");
+            cbxTipoInstrumento.Items.Clear();
+            cbxTipoInstrumento.Items.Add("TODOS");
             if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse)
             {
                 var tipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem);
                 foreach (var instrumento in tipoEstadistica.Instrumentos)
-                    cbxInstrumento.Items.Add(instrumento);
+                    cbxTipoInstrumento.Items.Add(instrumento);
             }
 
-            cbxInstrumento.SelectedIndex = 0;
+            cbxTipoInstrumento.SelectedIndex = 0;
         }
 
         private void LoadComboBoxMunicipio(object sender, SelectionChangedEventArgs e)
@@ -86,67 +80,85 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 
         private void Find_PEC_6_60_Click(object sender, RoutedEventArgs e)
         {
-            int idTipoEstadistica = cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse tipoEstadistica
-                ? tipoEstadistica.Id
-                : 0;
+            var finder = new SearchInstrumentoByCriteria(
+                new SqliteInstrumentoRepository(),
+                new SqliteMunicipioRepository(),
+                new SqliteEntidadFederativaRepository(),
+                new SqliteTipoEstadisticaRepository(),
+                new SqliteTipoInstrumentoRepository()
+            );
 
-            int idInstrumento = cbxInstrumento.SelectedItem is TipoInstrumentoResponse tipoInstrumento
-                ? tipoInstrumento.Id
-                : 0;
+            if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse)
+            {
+                int idTipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem).Id;
+                finder = finder.TipoEstadistica(idTipoEstadistica);
+            }
 
-            int añoSeleccionado;
-            string añoEstadistico = int.TryParse(cbxAñoEstadistico.SelectedItem.ToString(), out añoSeleccionado)
-                ? añoSeleccionado.ToString()
-                : "";
+            if (cbxTipoInstrumento.SelectedItem is TipoInstrumentoResponse)
+            {
+                int idTipoInstrumento = ((TipoInstrumentoResponse)cbxTipoInstrumento.SelectedItem).Id;
+                finder = finder.TipoInstrumento(idTipoInstrumento);
+            }
 
-            int idMesEstadistico = cbxMesEstadistico.SelectedItem is MesEstadistico mesEstadistico
-                ? mesEstadistico.Id
-                : 0;
+            if (int.TryParse(cbxAñoEstadistico.SelectedItem.ToString(), out _))
+            {
+                string añoEstadistico = cbxAñoEstadistico.SelectedItem.ToString();
+                finder = finder.AñoEstadistico(añoEstadistico);
+            }
 
-            int idEntidadFederativa = cbxEntidadFederativa.SelectedItem is EntidadFederativaResponse entidadFederativa
-                ? entidadFederativa.Id
-                : 0;
+            if (cbxMesEstadistico.SelectedItem is MesEstadistico)
+            {
+                int idMesEstadistico = ((MesEstadistico)cbxMesEstadistico.SelectedItem).Id;
+                finder = finder.MesEstadistico(idMesEstadistico);
+            }
 
-            int idMunicipio = cbxMunicipio.SelectedItem is MunicipioResponse municipio
-                ? municipio.Id
-                : 0;
+            if (cbxEntidadFederativa.SelectedItem is EntidadFederativaResponse)
+            {
+                int idEntidadFederativa = ((EntidadFederativaResponse)cbxEntidadFederativa.SelectedItem).Id;
+                finder = finder.EntidadFederativa(idEntidadFederativa);
+            }
 
-            int consecutivo = int.TryParse(txtConsecutivo.Text, out _) ? int.Parse(txtConsecutivo.Text) : 0;
+            if (cbxMunicipio.SelectedItem is MunicipioResponse)
+            {
+                int idMunicipio = ((MunicipioResponse)cbxMunicipio.SelectedItem).Id;
+                finder = finder.Municipio(idMunicipio);
+            }
 
-            FilterSIRESO guardadoSIRESO = cbxSireso.SelectedItem is FilterSIRESO filter ? filter : FilterSIRESO.TODOS;
+            int consecutivo;
+            if (int.TryParse(txtConsecutivo.Text, out consecutivo))
+            {
+                finder = finder.Consecutivo(consecutivo);
+            }
 
-            tblInstrumentos.ItemsSource = _managerInstrumento.SearchInstrumentoByCriteria(
-                idTipoEstadistica: idTipoEstadistica,
-                idTipoInstrumento: idInstrumento,
-                añoEstadistico: añoEstadistico,
-                mesEstadistico: idMesEstadistico,
-                idEntidadFederativa: idEntidadFederativa,
-                idMunicipio: idMunicipio,
-                consecutivo: consecutivo,
-                guardadoSIRESO: guardadoSIRESO
-            ).Instrumentos;
+            if (cbxSireso.SelectedValue.ToString() == "SI")
+                finder.GuardadoSIRESO(true);
+
+            if (cbxSireso.SelectedValue.ToString() == "NO")
+                finder.GuardadoSIRESO(false);
+
+            tblInstrumentos.ItemsSource = finder.SearchInstrumentos().Instrumentos;
         }
 
         private void UpdateStatusSIRESO_isChecked(object sender, RoutedEventArgs e)
         {
-            var pec660 = ((InstrumentoResponse)((CheckBox)sender).DataContext);
+            var instrumento = ((InstrumentoData)((CheckBox)sender).DataContext);
             bool isChecked = ((CheckBox)sender).IsChecked.Value;
             if (isChecked)
             {
-                _managerInstrumento.InstrumentoSavedInSIRESO(pec660.Id);
+                new InstrumentoSavedInSireso(new SqliteInstrumentoRepository()).SavedInSIRESO(instrumento.Id);
             }
             else
             {
                 MessageBoxResult resultado = MessageBox.Show(
                     Window.GetWindow(this),
-                    $"¿Deseas marcar el instrumento {pec660.Nombre} como no guardado en SIRESO?",
+                    $"¿Deseas marcar el instrumento {instrumento.Nombre} como no guardado en SIRESO?",
                     "Confirmación",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question
                 );
 
                 if (resultado == MessageBoxResult.Yes)
-                    _managerInstrumento.InstrumentoUnsavedInSIRESO(pec660.Id);
+                    new InstrumentoSavedInSireso(new SqliteInstrumentoRepository()).UnsavedInSIRESO(instrumento.Id);
                 else
                     ((CheckBox)e.Source).IsChecked = true;
             }
@@ -154,9 +166,15 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 
         private void Show_PEC_6_60Details_Click(object sender, RoutedEventArgs e)
         {
-            int idPEC_6_60 = ((InstrumentoResponse)((Button)sender).DataContext).Id;
-            var pec660 = _managerInstrumento.SearchInstrumentoById(idPEC_6_60);
-            ctrlPEC_6_60Details.LoadDetails(pec660);
+            int idInstrumento = ((InstrumentoData)((Button)sender).DataContext).Id;
+            var instrumento = new SearchInstrumentoById(
+                new SqliteInstrumentoRepository(),
+                new SqliteMunicipioRepository(),
+                new SqliteEntidadFederativaRepository(),
+                new SqliteTipoEstadisticaRepository(),
+                new SqliteTipoInstrumentoRepository()
+            ).SearchInstrumento(idInstrumento);
+            ctrlPEC_6_60Details.LoadDetails(instrumento);
         }
 
         private void LoadForm()
@@ -168,9 +186,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 cbxTipoEstadistica.Items.Add(tipoEstadistica);
             cbxTipoEstadistica.SelectedIndex = 0;
 
-            cbxInstrumento.Items.Clear();
-            cbxInstrumento.Items.Add("TODOS");
-            cbxInstrumento.SelectedIndex = 0;
+            cbxTipoInstrumento.Items.Clear();
+            cbxTipoInstrumento.Items.Add("TODOS");
+            cbxTipoInstrumento.SelectedIndex = 0;
 
             IEnumerable<int> years = Enumerable.Range(2020, DateTime.Now.Year - 2020 + 1);
             cbxAñoEstadistico.Items.Clear();
@@ -200,9 +218,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             txtConsecutivo.Text = "";
 
             cbxSireso.Items.Clear();
-            cbxSireso.Items.Add(FilterSIRESO.TODOS);
-            cbxSireso.Items.Add(FilterSIRESO.SI);
-            cbxSireso.Items.Add(FilterSIRESO.NO);
+            cbxSireso.Items.Add("TODOS");
+            cbxSireso.Items.Add("SI");
+            cbxSireso.Items.Add("NO");
             cbxSireso.SelectedIndex = 0;
         }
     }

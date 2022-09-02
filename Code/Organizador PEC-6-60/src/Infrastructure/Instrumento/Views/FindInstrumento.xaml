@@ -20,7 +20,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <Label Content="TipoInstrumento:" FontSize="16" VerticalAlignment="Center" />
-                        <ComboBox x:Name="cbxInstrumento" Width="200" FontSize="16" Margin="5" />
+                        <ComboBox x:Name="cbxTipoInstrumento" Width="200" FontSize="16" Margin="5" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <Label Content="Año Estadístico:" FontSize="16" VerticalAlignment="Center" />
@@ -127,27 +127,27 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn MinWidth="60" MaxWidth="60">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button ToolTip="Copiar instrumento al portapapeles."
-                                            Style="{StaticResource btn-primary}">
-                                        <StackPanel>
-                                            <Image Source="../../../Resources/Images/Portapapeles.png" Height="20" />
-                                        </StackPanel>
+                                            Style="{StaticResource btn-danger}">
+                                        <Grid Height="22" Width="22">
+                                            <Image Source="../../../Resources/Images/Pdf.png" />
+                                        </Grid>
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn>
+                        <DataGridTemplateColumn MinWidth="60" MaxWidth="60">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button ToolTip="Detalles" Style="{StaticResource btn-success}"
                                             Click="Show_PEC_6_60Details_Click">
-                                        <StackPanel>
+                                        <Grid Height="22" Width="22">
                                             <Image Source="../../../Resources/Images/Detalles.png" Height="20" />
-                                        </StackPanel>
+                                        </Grid>
                                     </Button>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
