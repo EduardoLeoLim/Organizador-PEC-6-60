@@ -11,6 +11,33 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence
 {
     public class SqliteEntidadFederativaRepository : EntidadFederativaRepository
     {
+        private static SqliteEntidadFederativaRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteEntidadFederativaRepository()
+        {
+        }
+
+        public static SqliteEntidadFederativaRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteEntidadFederativaRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public IEnumerable<Domain.EntidadFederativa.Model.EntidadFederativa> SearchAll()
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())

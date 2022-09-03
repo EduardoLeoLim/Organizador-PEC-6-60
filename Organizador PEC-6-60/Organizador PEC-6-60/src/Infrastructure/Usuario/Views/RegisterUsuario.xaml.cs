@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
         public RegisterUsuario()
         {
             InitializeComponent();
-            _createUsuario = new CreateUsuario(new SqliteUsuarioRepository());
+            _createUsuario = new CreateUsuario(SqliteUsuarioRepository.Instance);
         }
 
         private void RegisterUsuario_Click(object sender, RoutedEventArgs e)

@@ -13,7 +13,7 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
         public ManageEntidadesFederativas()
         {
             InitializeComponent();
-            _manager = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
+            _manager = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
             LoadTable();
         }
 

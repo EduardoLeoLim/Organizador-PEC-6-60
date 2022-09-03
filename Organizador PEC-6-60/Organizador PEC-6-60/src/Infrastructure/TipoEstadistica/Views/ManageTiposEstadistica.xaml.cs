@@ -15,7 +15,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         public ManageTiposEstadistica()
         {
             InitializeComponent();
-            _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
+            _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
             LoadTable();
         }
 
@@ -28,7 +28,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
         {
             FormTipoEstadistica form = new FormTipoEstadistica(
                 _managerTipoEstadistica,
-                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository())
+                new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance)
             );
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
@@ -40,7 +40,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Views
             TipoEstadisticaResponse record = (TipoEstadisticaResponse)((Button)e.Source).DataContext;
             FormTipoEstadistica form = new FormTipoEstadistica(
                 _managerTipoEstadistica,
-                new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository()),
+                new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance),
                 record.Id
             );
             form.Owner = Window.GetWindow(this);

@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
         public ManageInstrumentos()
         {
             InitializeComponent();
-            _managerTiposInstrumentos = new ManageTiposInstrumento(new SqliteTipoInstrumentoRepository());
+            _managerTiposInstrumentos = new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance);
             LoadTable();
         }
 

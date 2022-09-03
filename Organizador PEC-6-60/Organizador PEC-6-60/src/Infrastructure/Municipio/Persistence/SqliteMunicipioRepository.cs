@@ -11,6 +11,33 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Persistence
 {
     public class SqliteMunicipioRepository : MunicipioRepository
     {
+        private static SqliteMunicipioRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteMunicipioRepository()
+        {
+        }
+
+        public static SqliteMunicipioRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteMunicipioRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public IEnumerable<Domain.Municipio.Model.Municipio> SearchAll(int idEntidadFederativa)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())

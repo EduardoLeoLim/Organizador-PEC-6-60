@@ -29,10 +29,10 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public SaveInstrumento()
         {
             InitializeComponent();
-            _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
-            _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
+            _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
+            _managerEntidadFederativa = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
             _managerMunicipio =
-                new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
+                new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
             LoadForm();
         }
 
@@ -97,7 +97,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                     pdfViewer.LoadedDocument.Save(memoryStream);
                     byte[] byteArrayInstrumento = memoryStream.ToArray();
 
-                    new CreateInstrumento(new SqliteInstrumentoRepository())
+                    new CreateInstrumento(SqliteInstrumentoRepository.Instance)
                         .CreateNewInstrumento(
                             idTipoEstadistica,
                             idTipoInstrumento,

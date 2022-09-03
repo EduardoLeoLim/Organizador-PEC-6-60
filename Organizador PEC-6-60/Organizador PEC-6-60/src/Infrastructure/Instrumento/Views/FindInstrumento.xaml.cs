@@ -24,7 +24,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
     public partial class FindInstrumento : Page
     {
-        //private readonly ManageInstrumento _managerInstrumento;
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
         private readonly ManageEntidadFederativa _managerEntidadFederativa;
         private readonly ManageMunicipio _managerMunicipio;
@@ -32,10 +31,10 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         public FindInstrumento()
         {
             InitializeComponent();
-            _managerTipoEstadistica = new ManageTipoEstadistica(new SqliteTipoEstadisticaRepository());
-            _managerEntidadFederativa = new ManageEntidadFederativa(new SqliteEntidadFederativaRepository());
+            _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
+            _managerEntidadFederativa = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
             _managerMunicipio =
-                new ManageMunicipio(new SqliteMunicipioRepository(), new SqliteEntidadFederativaRepository());
+                new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
 
             LoadForm();
         }
@@ -83,11 +82,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         private void Find_PEC_6_60_Click(object sender, RoutedEventArgs e)
         {
             var finder = new SearchInstrumentoByCriteria(
-                new SqliteInstrumentoRepository(),
-                new SqliteMunicipioRepository(),
-                new SqliteEntidadFederativaRepository(),
-                new SqliteTipoEstadisticaRepository(),
-                new SqliteTipoInstrumentoRepository()
+                SqliteInstrumentoRepository.Instance,
+                SqliteMunicipioRepository.Instance,
+                SqliteEntidadFederativaRepository.Instance,
+                SqliteTipoEstadisticaRepository.Instance,
+                SqliteTipoInstrumentoRepository.Instance
             );
 
             if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse)
@@ -147,7 +146,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             bool isChecked = ((CheckBox)sender).IsChecked.Value;
             if (isChecked)
             {
-                new InstrumentoSavedInSireso(new SqliteInstrumentoRepository()).SavedInSIRESO(instrumento.Id);
+                new InstrumentoSavedInSireso(SqliteInstrumentoRepository.Instance).SavedInSIRESO(instrumento.Id);
             }
             else
             {
@@ -160,7 +159,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 );
 
                 if (resultado == MessageBoxResult.Yes)
-                    new InstrumentoSavedInSireso(new SqliteInstrumentoRepository()).UnsavedInSIRESO(instrumento.Id);
+                    new InstrumentoSavedInSireso(SqliteInstrumentoRepository.Instance).UnsavedInSIRESO(instrumento.Id);
                 else
                     ((CheckBox)e.Source).IsChecked = true;
             }
@@ -170,11 +169,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         {
             int idInstrumento = ((InstrumentoData)((Button)sender).DataContext).Id;
             var instrumento = new SearchInstrumentoById(
-                new SqliteInstrumentoRepository(),
-                new SqliteMunicipioRepository(),
-                new SqliteEntidadFederativaRepository(),
-                new SqliteTipoEstadisticaRepository(),
-                new SqliteTipoInstrumentoRepository()
+                SqliteInstrumentoRepository.Instance,
+                SqliteMunicipioRepository.Instance,
+                SqliteEntidadFederativaRepository.Instance,
+                SqliteTipoEstadisticaRepository.Instance,
+                SqliteTipoInstrumentoRepository.Instance
             ).SearchInstrumento(idInstrumento);
             ctrlPEC_6_60Details.LoadDetails(instrumento);
         }

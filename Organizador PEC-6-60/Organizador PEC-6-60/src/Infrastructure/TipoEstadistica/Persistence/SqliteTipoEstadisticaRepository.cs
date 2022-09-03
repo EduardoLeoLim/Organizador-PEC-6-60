@@ -12,6 +12,33 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
 {
     public class SqliteTipoEstadisticaRepository : TipoEstadisticaRepository
     {
+        private static SqliteTipoEstadisticaRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteTipoEstadisticaRepository()
+        {
+        }
+
+        public static SqliteTipoEstadisticaRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteTipoEstadisticaRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public IEnumerable<Domain.TipoEstadistica.Model.TipoEstadistica> SearchAll()
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())

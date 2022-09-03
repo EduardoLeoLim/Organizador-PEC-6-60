@@ -14,7 +14,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
         public Login()
         {
             InitializeComponent();
-            _logInUsuario = new LogInUsuario(new SqliteUsuarioRepository());
+            _logInUsuario = new LogInUsuario(SqliteUsuarioRepository.Instance);
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)

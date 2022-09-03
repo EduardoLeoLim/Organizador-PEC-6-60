@@ -12,6 +12,33 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence
 {
     public class SqliteInstrumentoRepository : InstrumentoRepository
     {
+        private static SqliteInstrumentoRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteInstrumentoRepository()
+        {
+        }
+
+        public static SqliteInstrumentoRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteInstrumentoRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public IEnumerable<Domain.Instrumento.Model.Instrumento> SearchByCriteria(Dictionary<string, object> dictionary)
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())

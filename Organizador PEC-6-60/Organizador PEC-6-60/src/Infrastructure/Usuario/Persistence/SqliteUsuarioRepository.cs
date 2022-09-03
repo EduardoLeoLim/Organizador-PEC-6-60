@@ -10,6 +10,33 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
 {
     public class SqliteUsuarioRepository : UsuarioRepository
     {
+        private static SqliteUsuarioRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteUsuarioRepository()
+        {
+        }
+
+        public static SqliteUsuarioRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteUsuarioRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public Domain.Usuario.Model.Usuario FindById(int id)
         {
             throw new NotImplementedException();
@@ -30,7 +57,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
                 };
                 dynamic result = connection.QuerySingle(quuery, parameters);
                 connection.Close();
-                
+
                 Domain.Usuario.Model.Usuario usuario = new Domain.Usuario.Model.Usuario(
                     new UsuarioUsername((string)result.username),
                     new UsuarioPassword((string)result.password),
@@ -38,7 +65,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
                     new UsuarioApellidos((string)result.apellidos),
                     (int)result.id
                 );
-                
+
                 return usuario;
             }
         }

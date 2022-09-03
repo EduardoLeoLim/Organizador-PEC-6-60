@@ -11,6 +11,33 @@ namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
 {
     public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
     {
+        private static SqliteTipoInstrumentoRepository _instance;
+
+        private static readonly object _lock = new object();
+
+        private SqliteTipoInstrumentoRepository()
+        {
+        }
+
+        public static SqliteTipoInstrumentoRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new SqliteTipoInstrumentoRepository();
+                        }
+                    }
+                }
+
+                return _instance;
+            }
+        }
+
         public IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> SearchAll()
         {
             using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
