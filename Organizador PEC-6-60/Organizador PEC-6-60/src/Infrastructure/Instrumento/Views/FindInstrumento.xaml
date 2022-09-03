@@ -131,7 +131,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button ToolTip="Copiar instrumento al portapapeles."
-                                            Style="{StaticResource btn-danger}">
+                                            Style="{StaticResource btn-danger}" Click="CopyPDF_Click">
                                         <Grid Height="22" Width="22">
                                             <Image Source="../../../Resources/Images/Pdf.png" />
                                         </Grid>

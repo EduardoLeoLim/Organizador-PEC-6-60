@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa;
 using Organizador_PEC_6_60.Application.Instrumento;
+using Organizador_PEC_6_60.Application.Instrumento.Export;
 using Organizador_PEC_6_60.Application.Instrumento.Search;
 using Organizador_PEC_6_60.Application.Instrumento.Update;
 using Organizador_PEC_6_60.Application.Municipio;
@@ -222,6 +224,32 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             cbxSireso.Items.Add("SI");
             cbxSireso.Items.Add("NO");
             cbxSireso.SelectedIndex = 0;
+        }
+
+        private void CopyPDF_Click(object sender, RoutedEventArgs e)
+        {
+            var instrumento = (InstrumentoData)((Button)sender).DataContext;
+            bool wasExported =
+                new ExportInstrumento(new PdfInstrumentoExporter()).Export(instrumento, Path.GetTempPath());
+
+            if (wasExported)
+            {
+                MessageBox.Show(
+                    "Ruta del archivo copiada al portapapeles",
+                    "Instrumento copiado",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Asterisk
+                );
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Error al exportar el instrumento, intentalo de nuevo.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
     }
 }
