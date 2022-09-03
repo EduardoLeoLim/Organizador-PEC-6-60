@@ -11,10 +11,10 @@
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.123" />
-        <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.43" />
-        <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.43" />
-        <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.2.0.43" />
-        <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.43" />
+        <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.46" />
+        <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.2.0.46" />
+        <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.2.0.46" />
+        <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.46" />
         <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
     </ItemGroup>
 
