@@ -5,34 +5,33 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Domain.Municipio.Exceptions;
+using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 
 namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 {
     public partial class FormMunicipio : Window
     {
         private readonly ManageMunicipio _managerMunicipios;
-        private readonly ManageEntidadFederativa _managerEntidadesFederativas;
         private bool isNewRecord;
         private MunicipioResponse _municipio;
 
-        public FormMunicipio(ManageMunicipio managetMunicipios, ManageEntidadFederativa managerEntidadesFederativas)
+        public FormMunicipio(ManageMunicipio managetMunicipios)
         {
             InitializeComponent();
             _managerMunicipios = managetMunicipios;
-            _managerEntidadesFederativas = managerEntidadesFederativas;
             isNewRecord = true;
-            var entidades = managerEntidadesFederativas.SearchAllEntidadesFederativas().EntidadesFederativas;
-            cbxEntidadFederativa.ItemsSource = entidades;
+            SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
+                new SearchAllEntidadesFederativas(
+                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+                );
+            var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
+            cbxEntidadFederativa.ItemsSource = entidadesFederativas;
         }
 
-        public FormMunicipio(
-            ManageMunicipio managetMunicipios,
-            ManageEntidadFederativa managerEntidadesFederativas,
-            int idMunicipio
-        ) : this(managetMunicipios, managerEntidadesFederativas)
+        public FormMunicipio(ManageMunicipio managetMunicipios, int idMunicipio) : this(managetMunicipios)
         {
             isNewRecord = false;
             LoadForm(idMunicipio);
@@ -53,15 +52,15 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
                 if (IsValidFormData())
                 {
-                    EntidadFederativaResponse entidadFederativaSeleccionada =
-                        (EntidadFederativaResponse)cbxEntidadFederativa.SelectionBoxItem;
+                    DataEntidadFederativa dataEntidadFederativaSeleccionada =
+                        (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
 
                     if (isNewRecord)
                     {
                         _managerMunicipios.RegisterMunicipio(
                             int.Parse(txtClave.Text),
                             txtNombre.Text,
-                            entidadFederativaSeleccionada
+                            dataEntidadFederativaSeleccionada
                         );
 
                         MessageBox.Show(
@@ -78,7 +77,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
                             _municipio.Id,
                             int.Parse(txtClave.Text),
                             txtNombre.Text,
-                            entidadFederativaSeleccionada
+                            dataEntidadFederativaSeleccionada
                         );
 
                         MessageBox.Show(
@@ -150,9 +149,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
                 _municipio = _managerMunicipios.SearchMunicipioById(idMunicipio);
                 txtClave.Text = _municipio.Clave.ToString();
                 txtNombre.Text = _municipio.Nombre;
-                var entidades = cbxEntidadFederativa.ItemsSource.Cast<EntidadFederativaResponse>();
+                var entidades = cbxEntidadFederativa.ItemsSource.Cast<DataEntidadFederativa>();
                 int indexEntidadFederativa =
-                    entidades.ToList().FindIndex(item => item.Id == _municipio.EntidadFederativa.Id);
+                    entidades.ToList().FindIndex(item => item.Id == _municipio.DataEntidadFederativa.Id);
 
                 cbxEntidadFederativa.SelectedIndex = indexEntidadFederativa;
             }

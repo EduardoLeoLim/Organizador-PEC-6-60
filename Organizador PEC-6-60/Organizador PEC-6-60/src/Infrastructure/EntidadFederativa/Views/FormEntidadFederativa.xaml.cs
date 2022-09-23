@@ -4,25 +4,26 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Create;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Update;
 using Organizador_PEC_6_60.Domain.EntidadFederativa.Exceptions;
+using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 
 namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
 {
     public partial class FormEntidadFederativa : Window
     {
-        private readonly ManageEntidadFederativa _manager;
         private bool isNewRecord;
-        private EntidadFederativaResponse _entidadFederativa;
+        private DataEntidadFederativa _dataEntidadFederativa;
 
-        public FormEntidadFederativa(ManageEntidadFederativa manager)
+        public FormEntidadFederativa()
         {
             InitializeComponent();
-            _manager = manager;
             isNewRecord = true;
         }
 
-        public FormEntidadFederativa(ManageEntidadFederativa manager, int idEntidadFederativa) : this(manager)
+        public FormEntidadFederativa(int idEntidadFederativa) : this()
         {
             isNewRecord = false;
             LoadForm(idEntidadFederativa);
@@ -40,10 +41,11 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
                 {
                     if (isNewRecord)
                     {
-                        _manager.RegisterEntidadFederativa(
-                            int.Parse(txtClave.Text),
-                            txtNombre.Text
-                        );
+                        RegisterEntidadFederativa creator =
+                            new RegisterEntidadFederativa(
+                                new EntidadFederativaCreator(SqliteEntidadFederativaRepository.Instance)
+                            );
+                        creator.Register(int.Parse(txtClave.Text), txtNombre.Text);
 
                         MessageBox.Show(
                             "Entidad Federativa registrada.",
@@ -55,8 +57,12 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
                     }
                     else
                     {
-                        _manager.UpdateEntidadFederativa(
-                            _entidadFederativa.Id,
+                        UpdateEntidadFederativa entidadFederativaUpdater =
+                            new UpdateEntidadFederativa(
+                                new EntidadFederativaUpdater(SqliteEntidadFederativaRepository.Instance)
+                            );
+                        entidadFederativaUpdater.Update(
+                            _dataEntidadFederativa.Id,
                             int.Parse(txtClave.Text),
                             txtNombre.Text
                         );
@@ -132,9 +138,13 @@ namespace Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Views
         {
             try
             {
-                _entidadFederativa = _manager.SearchEntidadFederativaById(idEntidadFederativa);
-                txtClave.Text = _entidadFederativa.Clave.ToString();
-                txtNombre.Text = _entidadFederativa.Nombre;
+                SearchEntidadFederativaById entidadFederativaByIdSearcher =
+                    new SearchEntidadFederativaById(
+                        new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+                    );
+                _dataEntidadFederativa = entidadFederativaByIdSearcher.SearchById(idEntidadFederativa);
+                txtClave.Text = _dataEntidadFederativa.Clave.ToString();
+                txtNombre.Text = _dataEntidadFederativa.Nombre;
             }
             catch (DbException ex)
             {

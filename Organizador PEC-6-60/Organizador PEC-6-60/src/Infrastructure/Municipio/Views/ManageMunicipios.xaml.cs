@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
-using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
@@ -11,14 +11,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
     public partial class ManageMunicipios : Page
     {
         private readonly ManageMunicipio _managerMunicipios;
-        private readonly ManageEntidadFederativa _managerEntidadesFederativas;
 
         public ManageMunicipios()
         {
             InitializeComponent();
             _managerMunicipios =
                 new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
-            _managerEntidadesFederativas = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
         }
 
         private void LoadWindow(object sender, RoutedEventArgs e)
@@ -30,16 +28,16 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         {
             if (cbxEntidadFederativa.SelectedIndex >= 0)
             {
-                EntidadFederativaResponse entidadFederativaSelecionada =
-                    (EntidadFederativaResponse)cbxEntidadFederativa.SelectionBoxItem;
-                var municipios = _managerMunicipios.SearchAllMunicipios(entidadFederativaSelecionada.Id).Municipios;
+                DataEntidadFederativa dataEntidadFederativaSelecionada =
+                    (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
+                var municipios = _managerMunicipios.SearchAllMunicipios(dataEntidadFederativaSelecionada.Id).Municipios;
                 tblMunicipios.ItemsSource = municipios;
             }
         }
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            FormMunicipio form = new FormMunicipio(_managerMunicipios, _managerEntidadesFederativas);
+            FormMunicipio form = new FormMunicipio(_managerMunicipios);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -48,7 +46,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
             MunicipioResponse record = (MunicipioResponse)((Button)e.Source).DataContext;
-            FormMunicipio form = new FormMunicipio(_managerMunicipios, _managerEntidadesFederativas, record.Id);
+            FormMunicipio form = new FormMunicipio(_managerMunicipios, record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -91,8 +89,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
         private void LoadPage()
         {
-            var entidades = _managerEntidadesFederativas.SearchAllEntidadesFederativas().EntidadesFederativas;
-            cbxEntidadFederativa.ItemsSource = entidades;
+            SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
+                new SearchAllEntidadesFederativas(
+                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+                );
+            var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
+            cbxEntidadFederativa.ItemsSource = entidadesFederativas;
             tblMunicipios.ItemsSource = null;
         }
     }

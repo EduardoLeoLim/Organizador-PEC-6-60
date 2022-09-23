@@ -90,7 +90,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento.Search
                 {
                     var municipio = _municipioByIdSearcher.SearchMunicipioById(instrumento.IdMunicipio);
                     var entidadFederativa =
-                        _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
+                        _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
                     var tipoEstadistica =
                         _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(instrumento.IdTipoEstadistica);
                     var tipoInstrumento =

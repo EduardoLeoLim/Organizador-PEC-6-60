@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Organizador_PEC_6_60.Application.EntidadFederativa;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Instrumento;
 using Organizador_PEC_6_60.Application.Instrumento.Export;
 using Organizador_PEC_6_60.Application.Instrumento.Search;
@@ -25,14 +25,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
     public partial class FindInstrumento : Page
     {
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
-        private readonly ManageEntidadFederativa _managerEntidadFederativa;
         private readonly ManageMunicipio _managerMunicipio;
 
         public FindInstrumento()
         {
             InitializeComponent();
             _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
-            _managerEntidadFederativa = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
             _managerMunicipio =
                 new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
 
@@ -62,9 +60,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         {
             cbxMunicipio.Items.Clear();
             cbxMunicipio.Items.Add("TODOS");
-            if (cbxEntidadFederativa.SelectedItem is EntidadFederativaResponse)
+            if (cbxEntidadFederativa.SelectedItem is DataEntidadFederativa)
             {
-                var entidadFederativa = (EntidadFederativaResponse)cbxEntidadFederativa.SelectedItem;
+                var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
                 var municipios = _managerMunicipio.SearchAllMunicipios(entidadFederativa.Id).Municipios;
                 foreach (var municipio in municipios)
                     cbxMunicipio.Items.Add(municipio);
@@ -113,9 +111,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 finder = finder.MesEstadistico(idMesEstadistico);
             }
 
-            if (cbxEntidadFederativa.SelectedItem is EntidadFederativaResponse)
+            if (cbxEntidadFederativa.SelectedItem is DataEntidadFederativa)
             {
-                int idEntidadFederativa = ((EntidadFederativaResponse)cbxEntidadFederativa.SelectedItem).Id;
+                int idEntidadFederativa = ((DataEntidadFederativa)cbxEntidadFederativa.SelectedItem).Id;
                 finder = finder.EntidadFederativa(idEntidadFederativa);
             }
 
@@ -168,10 +166,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         private void Show_PEC_6_60Details_Click(object sender, RoutedEventArgs e)
         {
             int idInstrumento = ((InstrumentoData)((Button)sender).DataContext).Id;
+            EntidadFederativaByIdSearcherService entidadFederativaByIdSearcher =
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance);
+
             var instrumento = new SearchInstrumentoById(
                 SqliteInstrumentoRepository.Instance,
                 SqliteMunicipioRepository.Instance,
-                SqliteEntidadFederativaRepository.Instance,
+                entidadFederativaByIdSearcher,
                 SqliteTipoEstadisticaRepository.Instance,
                 SqliteTipoInstrumentoRepository.Instance
             ).SearchInstrumento(idInstrumento);
@@ -205,7 +206,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 cbxMesEstadistico.Items.Add(month);
             cbxMesEstadistico.SelectedIndex = 0;
 
-            var entidadesFederativas = _managerEntidadFederativa.SearchAllEntidadesFederativas().EntidadesFederativas;
+            SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
+                new SearchAllEntidadesFederativas(
+                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+                );
+            var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
             cbxEntidadFederativa.Items.Clear();
             cbxEntidadFederativa.Items.Add("TODOS");
             foreach (var entidadFederativa in entidadesFederativas)

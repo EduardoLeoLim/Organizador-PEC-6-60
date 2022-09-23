@@ -4,7 +4,7 @@ using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 
 namespace Organizador_PEC_6_60.Application.EntidadFederativa.Update
 {
-    public class EntidadFederativaUpdater
+    public class EntidadFederativaUpdater : EntidadFederativaUpdaterService
     {
         private readonly EntidadFederativaRepository _repository;
 

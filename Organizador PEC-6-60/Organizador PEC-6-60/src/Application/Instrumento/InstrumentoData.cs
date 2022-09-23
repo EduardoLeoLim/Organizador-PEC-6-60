@@ -1,4 +1,4 @@
-﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
+﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
@@ -17,11 +17,11 @@ namespace Organizador_PEC_6_60.Application.Instrumento
         public byte[] Archivo { get; }
         public TipoInstrumentoResponse TipoInstrumento { get; }
         public TipoEstadisticaResponse TipoEstadistica { get; }
-        public EntidadFederativaResponse EntidadFederativa { get; }
+        public DataEntidadFederativa DataEntidadFederativa { get; }
         public MunicipioResponse Municipio { get; }
 
         public string Nombre =>
-            $"{TipoEstadistica.Clave:000}{EntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
+            $"{TipoEstadistica.Clave:000}{DataEntidadFederativa.Clave:00}{AñoEstadistico.Substring(2, 2)}_{Municipio.Clave:000}-{Consecutivo:0000}_{MesEstadistico.Id:00}";
 
         public InstrumentoData(
             int id,
@@ -33,7 +33,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
             int consecutivo,
             byte[] archivo, TipoInstrumentoResponse tipoInstrumento,
             TipoEstadisticaResponse tipoEstadistica,
-            EntidadFederativaResponse entidadFederativa,
+            DataEntidadFederativa dataEntidadFederativa,
             MunicipioResponse municipio
         )
         {
@@ -47,7 +47,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
             Archivo = archivo;
             TipoInstrumento = tipoInstrumento;
             TipoEstadistica = tipoEstadistica;
-            EntidadFederativa = entidadFederativa;
+            DataEntidadFederativa = dataEntidadFederativa;
             Municipio = municipio;
         }
 
@@ -70,7 +70,7 @@ namespace Organizador_PEC_6_60.Application.Instrumento
                 instrumento.Archivo,
                 TipoInstrumentoResponse.FromAggregate(tipoInstrumento),
                 TipoEstadisticaResponse.FromAggregate(tipoEstadistica),
-                EntidadFederativaResponse.FromAggregate(entidadFederativa),
+                DataEntidadFederativa.FromAggregate(entidadFederativa),
                 MunicipioResponse.FromAggregate(municipio, entidadFederativa)
             );
         }

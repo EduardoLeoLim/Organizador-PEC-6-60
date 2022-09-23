@@ -1,4 +1,4 @@
-﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
+﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 
 namespace Organizador_PEC_6_60.Application.Municipio
 {
@@ -7,19 +7,19 @@ namespace Organizador_PEC_6_60.Application.Municipio
         public int Id { get; }
         public int Clave { get; }
         public string Nombre { get; }
-        public EntidadFederativaResponse EntidadFederativa { get; }
+        public DataEntidadFederativa DataEntidadFederativa { get; }
 
         public MunicipioResponse(
             int id,
             int clave,
             string nombre,
-            EntidadFederativaResponse entidadFederativa
+            DataEntidadFederativa dataEntidadFederativa
         )
         {
             Id = id;
             Clave = clave;
             Nombre = nombre;
-            EntidadFederativa = entidadFederativa;
+            DataEntidadFederativa = dataEntidadFederativa;
         }
 
         public static MunicipioResponse FromAggregate(
@@ -27,14 +27,14 @@ namespace Organizador_PEC_6_60.Application.Municipio
             Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa
         )
         {
-            EntidadFederativaResponse entidadFederativaResponse =
-                EntidadFederativaResponse.FromAggregate(entidadFederativa);
+            DataEntidadFederativa dataEntidadFederativa =
+                DataEntidadFederativa.FromAggregate(entidadFederativa);
 
             return new MunicipioResponse(
                 municipio.Id,
                 municipio.Clave.Value,
                 municipio.Nombre.Value,
-                entidadFederativaResponse
+                dataEntidadFederativa
             );
         }
 

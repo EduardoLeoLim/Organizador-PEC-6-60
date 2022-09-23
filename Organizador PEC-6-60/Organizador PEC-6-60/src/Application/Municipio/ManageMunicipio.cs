@@ -1,5 +1,4 @@
-﻿using Organizador_PEC_6_60.Application.EntidadFederativa;
-using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio.Create;
 using Organizador_PEC_6_60.Application.Municipio.Delete;
 using Organizador_PEC_6_60.Application.Municipio.Search;
@@ -37,7 +36,7 @@ namespace Organizador_PEC_6_60.Application.Municipio
         {
             return new MunicipiosResponse(
                 _allSearcher.SearchAllMunicipios(idEntidadFederativa),
-                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(idEntidadFederativa)
+                _byIdEntidadFederativaSearcer.SearchById(idEntidadFederativa)
             );
         }
 
@@ -45,31 +44,31 @@ namespace Organizador_PEC_6_60.Application.Municipio
         {
             var municipio = _byIdSearcher.SearchMunicipioById(id);
             var entidadFederativa =
-                _byIdEntidadFederativaSearcer.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
+                _byIdEntidadFederativaSearcer.SearchById(municipio.IdEntidadFederativa);
 
             return MunicipioResponse.FromAggregate(municipio, entidadFederativa);
         }
 
-        public void RegisterMunicipio(int clave, string nombre, EntidadFederativaResponse entidadFederativaResponse)
+        public void RegisterMunicipio(int clave, string nombre, DataEntidadFederativa dataEntidadFederativa)
         {
             Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
                 new Domain.EntidadFederativa.Model.EntidadFederativa(
-                    new EntidadFederativaClave(entidadFederativaResponse.Clave),
-                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre),
-                    entidadFederativaResponse.Id
+                    new EntidadFederativaClave(dataEntidadFederativa.Clave),
+                    new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
+                    dataEntidadFederativa.Id
                 );
 
             _creator.Create(new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
         }
 
         public void UpdateMunicipio(int id, int clave, string nombre,
-            EntidadFederativaResponse entidadFederativaResponse)
+            DataEntidadFederativa dataEntidadFederativa)
         {
             Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa =
                 new Organizador_PEC_6_60.Domain.EntidadFederativa.Model.EntidadFederativa(
-                    new EntidadFederativaClave(entidadFederativaResponse.Clave),
-                    new EntidadFederativaNombre(entidadFederativaResponse.Nombre),
-                    entidadFederativaResponse.Id
+                    new EntidadFederativaClave(dataEntidadFederativa.Clave),
+                    new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
+                    dataEntidadFederativa.Id
                 );
 
             _updater.Update(id, new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);

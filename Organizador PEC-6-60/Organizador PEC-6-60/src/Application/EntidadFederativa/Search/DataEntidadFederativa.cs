@@ -1,22 +1,22 @@
-﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa
+﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Search
 {
-    public class EntidadFederativaResponse
+    public class DataEntidadFederativa
     {
         public int Id { get; }
         public int Clave { get; }
         public string Nombre { get; }
 
-        private EntidadFederativaResponse(int id, int clave, string nombre)
+        private DataEntidadFederativa(int id, int clave, string nombre)
         {
             Id = id;
             Clave = clave;
             Nombre = nombre;
         }
 
-        public static EntidadFederativaResponse FromAggregate(
+        public static DataEntidadFederativa FromAggregate(
             Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa)
         {
-            return new EntidadFederativaResponse(entidadFederativa.Id, entidadFederativa.Clave.Value,
+            return new DataEntidadFederativa(entidadFederativa.Id, entidadFederativa.Clave.Value,
                 entidadFederativa.Nombre.Value);
         }
 

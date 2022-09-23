@@ -6,8 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Organizador_PEC_6_60.Application.EntidadFederativa;
-using Organizador_PEC_6_60.Application.Instrumento;
+using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Instrumento.Create;
 using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
@@ -16,21 +15,18 @@ using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Instrumento.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 using Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence;
-using Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
 
 namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
 {
     public partial class SaveInstrumento : Page
     {
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
-        private readonly ManageEntidadFederativa _managerEntidadFederativa;
         private readonly ManageMunicipio _managerMunicipio;
 
         public SaveInstrumento()
         {
             InitializeComponent();
             _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
-            _managerEntidadFederativa = new ManageEntidadFederativa(SqliteEntidadFederativaRepository.Instance);
             _managerMunicipio =
                 new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
             LoadForm();
@@ -54,7 +50,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
         {
             if (cbxEntidadFederativa.SelectedIndex >= 0)
             {
-                var entidadFederativa = (EntidadFederativaResponse)cbxEntidadFederativa.SelectedItem;
+                var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
                 cbxMunicipio.ItemsSource = _managerMunicipio.SearchAllMunicipios(entidadFederativa.Id).Municipios;
             }
         }
@@ -155,8 +151,12 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 };
             });
             cbxMesEstadistico.SelectedIndex = -1;
-            cbxEntidadFederativa.ItemsSource =
-                _managerEntidadFederativa.SearchAllEntidadesFederativas().EntidadesFederativas;
+
+            SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
+                new SearchAllEntidadesFederativas(
+                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+                );
+            cbxEntidadFederativa.ItemsSource = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
             cbxMunicipio.ItemsSource = null;
             txtConsecutivo.Text = "";
             lblFilePath.Text = "";

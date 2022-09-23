@@ -4,7 +4,7 @@ using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 
 namespace Organizador_PEC_6_60.Application.EntidadFederativa.Create
 {
-    public class EntidadFederativaCreator
+    public class EntidadFederativaCreator : EntidadFederativaCreatorService
     {
         private readonly EntidadFederativaRepository _repository;
 
