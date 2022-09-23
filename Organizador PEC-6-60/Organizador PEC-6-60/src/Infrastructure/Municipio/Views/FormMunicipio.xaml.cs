@@ -7,21 +7,23 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.Municipio.Create;
+using Organizador_PEC_6_60.Application.Municipio.Search;
+using Organizador_PEC_6_60.Application.Municipio.Update;
 using Organizador_PEC_6_60.Domain.Municipio.Exceptions;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
+using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 
 namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 {
     public partial class FormMunicipio : Window
     {
-        private readonly ManageMunicipio _managerMunicipios;
         private bool isNewRecord;
-        private MunicipioResponse _municipio;
+        private DataMunicipio _municipio;
 
-        public FormMunicipio(ManageMunicipio managetMunicipios)
+        public FormMunicipio()
         {
             InitializeComponent();
-            _managerMunicipios = managetMunicipios;
             isNewRecord = true;
             SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
                 new SearchAllEntidadesFederativas(
@@ -31,7 +33,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
             cbxEntidadFederativa.ItemsSource = entidadesFederativas;
         }
 
-        public FormMunicipio(ManageMunicipio managetMunicipios, int idMunicipio) : this(managetMunicipios)
+        public FormMunicipio(int idMunicipio) : this()
         {
             isNewRecord = false;
             LoadForm(idMunicipio);
@@ -57,7 +59,10 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
                     if (isNewRecord)
                     {
-                        _managerMunicipios.RegisterMunicipio(
+                        RegisterMunicipio municipioCreator =
+                            new RegisterMunicipio(new MunicipioCreator(SqliteMunicipioRepository.Instance));
+
+                        municipioCreator.Register(
                             int.Parse(txtClave.Text),
                             txtNombre.Text,
                             dataEntidadFederativaSeleccionada
@@ -73,7 +78,10 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
                     }
                     else
                     {
-                        _managerMunicipios.UpdateMunicipio(
+                        UpdateMunicipio municipioUpdater =
+                            new UpdateMunicipio(new MunicipioUpdater(SqliteMunicipioRepository.Instance));
+
+                        municipioUpdater.Update(
                             _municipio.Id,
                             int.Parse(txtClave.Text),
                             txtNombre.Text,
@@ -146,7 +154,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         {
             try
             {
-                _municipio = _managerMunicipios.SearchMunicipioById(idMunicipio);
+                SearchMunicipioById municipioByIdSearcher = new SearchMunicipioById(
+                    new MunicipioByIdSearcher(SqliteMunicipioRepository.Instance),
+                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+                );
+                _municipio = municipioByIdSearcher.SearchById(idMunicipio);
                 txtClave.Text = _municipio.Clave.ToString();
                 txtNombre.Text = _municipio.Nombre;
                 var entidades = cbxEntidadFederativa.ItemsSource.Cast<DataEntidadFederativa>();

@@ -2,7 +2,7 @@
 
 namespace Organizador_PEC_6_60.Application.Municipio.Search
 {
-    public class MunicipioByIdSearcher
+    public class MunicipioByIdSearcher : MunicipioByIdSearcherService
     {
         private readonly MunicipioRepository _repository;
 
@@ -11,9 +11,9 @@ namespace Organizador_PEC_6_60.Application.Municipio.Search
             _repository = repository;
         }
 
-        public Domain.Municipio.Model.Municipio SearchMunicipioById(int id)
+        public Domain.Municipio.Model.Municipio SearchMunicipioById(int idMunicipio)
         {
-            return _repository.SearchById(id);
+            return _repository.SearchById(idMunicipio);
         }
     }
 }

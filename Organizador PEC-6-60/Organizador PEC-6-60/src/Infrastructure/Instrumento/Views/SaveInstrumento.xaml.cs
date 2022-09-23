@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Instrumento.Create;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.Municipio.Search;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
@@ -21,14 +22,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
     public partial class SaveInstrumento : Page
     {
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
-        private readonly ManageMunicipio _managerMunicipio;
 
         public SaveInstrumento()
         {
             InitializeComponent();
             _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
-            _managerMunicipio =
-                new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
             LoadForm();
         }
 
@@ -51,7 +49,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             if (cbxEntidadFederativa.SelectedIndex >= 0)
             {
                 var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
-                cbxMunicipio.ItemsSource = _managerMunicipio.SearchAllMunicipios(entidadFederativa.Id).Municipios;
+                SearchMunicipiosByEntidadFederativa municipiosByEntidadFederativaSearcher =
+                    new SearchMunicipiosByEntidadFederativa(
+                        new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                        new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+                    );
+                cbxMunicipio.ItemsSource = municipiosByEntidadFederativaSearcher
+                    .SearchByEntidadFederativa(entidadFederativa.Id).Municipios;
             }
         }
 
@@ -84,7 +88,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 {
                     int idTipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem).Id;
                     int idTipoInstrumento = ((TipoInstrumentoResponse)cbxInstrumento.SelectedItem).Id;
-                    int idMunicipio = ((MunicipioResponse)cbxMunicipio.SelectedItem).Id;
+                    int idMunicipio = ((DataMunicipio)cbxMunicipio.SelectedItem).Id;
                     string añoEstadistico = cbxAñoEstadistico.SelectedValue.ToString();
                     int mesEstadistico = (int)((dynamic)cbxMesEstadistico.SelectedItem).Id;
                     int consecutivo = int.Parse(txtConsecutivo.Text);

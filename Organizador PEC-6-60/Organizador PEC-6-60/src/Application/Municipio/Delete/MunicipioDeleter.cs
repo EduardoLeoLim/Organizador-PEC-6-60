@@ -2,7 +2,7 @@
 
 namespace Organizador_PEC_6_60.Application.Municipio.Delete
 {
-    public class MunicipioDeleter
+    public class MunicipioDeleter : MunicipioDeleterService
     {
         private readonly MunicipioRepository _repository;
 
@@ -11,9 +11,9 @@ namespace Organizador_PEC_6_60.Application.Municipio.Delete
             _repository = repository;
         }
 
-        public void Delete(int id)
+        public void Delete(int idMunicipio)
         {
-            _repository.Delete(id);
+            _repository.Delete(idMunicipio);
         }
     }
 }

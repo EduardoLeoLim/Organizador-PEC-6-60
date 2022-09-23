@@ -4,7 +4,7 @@ using Organizador_PEC_6_60.Domain.Municipio.ValueObjects;
 
 namespace Organizador_PEC_6_60.Application.Municipio.Update
 {
-    public class MunicipioUpdater
+    public class MunicipioUpdater : MunicipioUpdaterService
     {
         private readonly MunicipioRepository _repository;
 

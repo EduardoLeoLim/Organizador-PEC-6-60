@@ -11,7 +11,7 @@ using Organizador_PEC_6_60.Application.Instrumento;
 using Organizador_PEC_6_60.Application.Instrumento.Export;
 using Organizador_PEC_6_60.Application.Instrumento.Search;
 using Organizador_PEC_6_60.Application.Instrumento.Update;
-using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.Municipio.Search;
 using Organizador_PEC_6_60.Application.TipoEstadistica;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
@@ -25,14 +25,11 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
     public partial class FindInstrumento : Page
     {
         private readonly ManageTipoEstadistica _managerTipoEstadistica;
-        private readonly ManageMunicipio _managerMunicipio;
 
         public FindInstrumento()
         {
             InitializeComponent();
             _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
-            _managerMunicipio =
-                new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
 
             LoadForm();
         }
@@ -63,7 +60,13 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             if (cbxEntidadFederativa.SelectedItem is DataEntidadFederativa)
             {
                 var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
-                var municipios = _managerMunicipio.SearchAllMunicipios(entidadFederativa.Id).Municipios;
+                SearchMunicipiosByEntidadFederativa municipiosByEntidadFederativaSearcher =
+                    new SearchMunicipiosByEntidadFederativa(
+                        new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                        new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+                    );
+                var municipios = municipiosByEntidadFederativaSearcher
+                    .SearchByEntidadFederativa(entidadFederativa.Id).Municipios;
                 foreach (var municipio in municipios)
                     cbxMunicipio.Items.Add(municipio);
             }
@@ -117,9 +120,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 finder = finder.EntidadFederativa(idEntidadFederativa);
             }
 
-            if (cbxMunicipio.SelectedItem is MunicipioResponse)
+            if (cbxMunicipio.SelectedItem is DataMunicipio)
             {
-                int idMunicipio = ((MunicipioResponse)cbxMunicipio.SelectedItem).Id;
+                int idMunicipio = ((DataMunicipio)cbxMunicipio.SelectedItem).Id;
                 finder = finder.Municipio(idMunicipio);
             }
 

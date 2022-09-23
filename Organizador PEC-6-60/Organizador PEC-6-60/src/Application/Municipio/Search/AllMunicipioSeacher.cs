@@ -3,7 +3,7 @@ using Organizador_PEC_6_60.Domain.Municipio.Repository;
 
 namespace Organizador_PEC_6_60.Application.Municipio.Search
 {
-    public class AllMunicipioSeacher
+    public class AllMunicipioSeacher : AllMunicipioSeacherService
     {
         private readonly MunicipioRepository _repository;
 
@@ -12,7 +12,7 @@ namespace Organizador_PEC_6_60.Application.Municipio.Search
             _repository = repository;
         }
 
-        public IEnumerable<Domain.Municipio.Model.Municipio> SearchAllMunicipios(int idEntidadFederativa)
+        public IEnumerable<Domain.Municipio.Model.Municipio> SearchAll(int idEntidadFederativa)
         {
             return _repository.SearchAll(idEntidadFederativa);
         }

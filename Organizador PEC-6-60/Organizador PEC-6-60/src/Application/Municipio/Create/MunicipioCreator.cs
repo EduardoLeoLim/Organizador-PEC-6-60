@@ -4,7 +4,7 @@ using Organizador_PEC_6_60.Domain.Municipio.ValueObjects;
 
 namespace Organizador_PEC_6_60.Application.Municipio.Create
 {
-    public class MunicipioCreator
+    public class MunicipioCreator : MunicipioCreatorService
     {
         private readonly MunicipioRepository _repository;
 

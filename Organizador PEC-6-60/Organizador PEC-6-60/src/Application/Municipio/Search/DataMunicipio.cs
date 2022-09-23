@@ -1,15 +1,15 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 
-namespace Organizador_PEC_6_60.Application.Municipio
+namespace Organizador_PEC_6_60.Application.Municipio.Search
 {
-    public class MunicipioResponse
+    public class DataMunicipio
     {
         public int Id { get; }
         public int Clave { get; }
         public string Nombre { get; }
         public DataEntidadFederativa DataEntidadFederativa { get; }
 
-        public MunicipioResponse(
+        public DataMunicipio(
             int id,
             int clave,
             string nombre,
@@ -22,7 +22,7 @@ namespace Organizador_PEC_6_60.Application.Municipio
             DataEntidadFederativa = dataEntidadFederativa;
         }
 
-        public static MunicipioResponse FromAggregate(
+        public static DataMunicipio FromAggregate(
             Domain.Municipio.Model.Municipio municipio,
             Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa
         )
@@ -30,7 +30,7 @@ namespace Organizador_PEC_6_60.Application.Municipio
             DataEntidadFederativa dataEntidadFederativa =
                 DataEntidadFederativa.FromAggregate(entidadFederativa);
 
-            return new MunicipioResponse(
+            return new DataMunicipio(
                 municipio.Id,
                 municipio.Clave.Value,
                 municipio.Nombre.Value,

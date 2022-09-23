@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 using Organizador_PEC_6_60.Application.Municipio;
+using Organizador_PEC_6_60.Application.Municipio.Delete;
+using Organizador_PEC_6_60.Application.Municipio.Search;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 
@@ -10,13 +12,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 {
     public partial class ManageMunicipios : Page
     {
-        private readonly ManageMunicipio _managerMunicipios;
-
         public ManageMunicipios()
         {
             InitializeComponent();
-            _managerMunicipios =
-                new ManageMunicipio(SqliteMunicipioRepository.Instance, SqliteEntidadFederativaRepository.Instance);
         }
 
         private void LoadWindow(object sender, RoutedEventArgs e)
@@ -28,16 +26,21 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
         {
             if (cbxEntidadFederativa.SelectedIndex >= 0)
             {
-                DataEntidadFederativa dataEntidadFederativaSelecionada =
+                DataEntidadFederativa entidadFederativaSelecionada =
                     (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
-                var municipios = _managerMunicipios.SearchAllMunicipios(dataEntidadFederativaSelecionada.Id).Municipios;
+                SearchMunicipiosByEntidadFederativa municipiosByEntidadFederativaSearcher =
+                    new SearchMunicipiosByEntidadFederativa(
+                        new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                        new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+                    );
+                var municipios = municipiosByEntidadFederativaSearcher.SearchByEntidadFederativa(entidadFederativaSelecionada.Id).Municipios;
                 tblMunicipios.ItemsSource = municipios;
             }
         }
 
         private void NewRecord_Click(object sender, RoutedEventArgs e)
         {
-            FormMunicipio form = new FormMunicipio(_managerMunicipios);
+            FormMunicipio form = new FormMunicipio();
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -45,8 +48,8 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
         private void EditRecord_Click(object sender, RoutedEventArgs e)
         {
-            MunicipioResponse record = (MunicipioResponse)((Button)e.Source).DataContext;
-            FormMunicipio form = new FormMunicipio(_managerMunicipios, record.Id);
+            DataMunicipio record = (DataMunicipio)((Button)e.Source).DataContext;
+            FormMunicipio form = new FormMunicipio(record.Id);
             form.Owner = Window.GetWindow(this);
             form.ShowDialog();
             LoadPage();
@@ -54,7 +57,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
 
         private void DeleteRecord_Click(object sender, RoutedEventArgs e)
         {
-            MunicipioResponse record = (MunicipioResponse)((Button)e.Source).DataContext;
+            DataMunicipio record = (DataMunicipio)((Button)e.Source).DataContext;
             string message = "¿Quiere eliminar el registro?";
             message += $"\nClave: {record.Clave}";
             message += $"\nNombre: {record.Nombre}";
@@ -71,7 +74,9 @@ namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
             {
                 try
                 {
-                    _managerMunicipios.DeleteMunicipio(record.Id);
+                    DeleteMunicipio municipioDeleter =
+                        new DeleteMunicipio(new MunicipioDeleter(SqliteMunicipioRepository.Instance));
+                    municipioDeleter.Delete(record.Id);
                 }
                 catch (DbException ex)
                 {
