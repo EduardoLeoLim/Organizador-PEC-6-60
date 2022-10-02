@@ -34,11 +34,6 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
             LoadForm();
         }
 
-        private void LoadForm(object sender, RoutedEventArgs e)
-        {
-            LoadForm();
-        }
-
         private void LoadComboBoxInstrumento(object sender, SelectionChangedEventArgs e)
         {
             cbxTipoInstrumento.Items.Clear();
@@ -139,6 +134,7 @@ namespace Organizador_PEC_6_60.Infrastructure.Instrumento.Views
                 finder.GuardadoSIRESO(false);
 
             tblInstrumentos.ItemsSource = finder.SearchInstrumentos().Instrumentos;
+            LoadForm();
         }
 
         private void UpdateStatusSIRESO_isChecked(object sender, RoutedEventArgs e)
