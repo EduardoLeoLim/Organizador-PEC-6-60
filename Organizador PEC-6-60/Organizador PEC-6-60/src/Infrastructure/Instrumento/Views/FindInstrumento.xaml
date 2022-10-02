@@ -133,7 +133,7 @@
                                     <Button ToolTip="Copiar instrumento al portapapeles."
                                             Style="{StaticResource btn-danger}" Click="CopyPDF_Click">
                                         <Grid Height="22" Width="22">
-                                            <Image Source="src/Infrastructure/Share/Images/Pdf.png" />
+                                            <Image Source="/src/Infrastructure/Share/Images/Pdf.png" />
                                         </Grid>
                                     </Button>
                                 </DataTemplate>
@@ -146,7 +146,7 @@
                                     <Button ToolTip="Detalles" Style="{StaticResource btn-success}"
                                             Click="Show_PEC_6_60Details_Click">
                                         <Grid Height="22" Width="22">
-                                            <Image Source="src/Infrastructure/Share/Images/Detalles.png" Height="20" />
+                                            <Image Source="/src/Infrastructure/Share/Images/Detalles.png" Height="20" />
                                         </Grid>
                                     </Button>
                                 </DataTemplate>
