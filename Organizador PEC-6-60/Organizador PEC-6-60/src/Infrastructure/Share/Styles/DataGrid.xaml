@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Organizador PEC-6-60;component/src/Resources/Styles/BaseStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/BaseStyle.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     <!--table 源码行数:183-266 2057-2269-->
     <!--DataGrid-->

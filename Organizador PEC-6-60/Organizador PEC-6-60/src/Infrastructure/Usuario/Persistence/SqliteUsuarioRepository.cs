@@ -4,7 +4,7 @@ using System.Data.SQLite;
 using Dapper;
 using Organizador_PEC_6_60.Domain.Usuario.Repository;
 using Organizador_PEC_6_60.Domain.Usuario.ValueObjects;
-using Organizador_PEC_6_60.Resources.Database;
+using Organizador_PEC_6_60.Infrastructure.Share.Connections;
 
 namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
 {

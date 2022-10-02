@@ -4,7 +4,7 @@
       此文件可能会导致错误。
 -->
 <sampleDataSource:SampleDataSource
-	xmlns:sampleDataSource="clr-namespace:Organizador_PEC_6_60.Resources.SampleData.SampleDataSource">
+	xmlns:sampleDataSource="clr-namespace:Organizador_PEC_6_60.Infrastructure.Share.SampleData.SampleDataSource">
 	<sampleDataSource:SampleDataSource.Collection>
 		<sampleDataSource:Item Property1="Aliquam nam" Property2="Cras maecenas aliquam" Property3="62"/>
 		<sampleDataSource:Item Property1="Aenean class maecenas integer" Property2="Class integer" Property3="64"/>

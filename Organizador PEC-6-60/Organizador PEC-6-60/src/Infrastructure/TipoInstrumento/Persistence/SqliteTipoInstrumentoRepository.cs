@@ -5,7 +5,7 @@ using System.Linq;
 using Dapper;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
-using Organizador_PEC_6_60.Resources.Database;
+using Organizador_PEC_6_60.Infrastructure.Share.Connections;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
 {

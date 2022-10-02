@@ -5,7 +5,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Organizador_PEC_6_60.Resources.SampleData.SampleDataSource
+namespace Organizador_PEC_6_60.Infrastructure.Share.SampleData.SampleDataSource
 {
 	// 若要在生产应用程序中显著减小示例数据涉及面，则可以设置
 // DISABLE_SAMPLE_DATA 条件编译常量并在运行时禁用示例数据。

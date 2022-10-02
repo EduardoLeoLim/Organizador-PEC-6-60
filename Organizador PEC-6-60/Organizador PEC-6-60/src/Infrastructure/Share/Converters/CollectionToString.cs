@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Data;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
 
-namespace Organizador_PEC_6_60.Resources.Converters
+namespace Organizador_PEC_6_60.Infrastructure.Share.Converters
 {
     public class CollectionToString : IValueConverter
     {

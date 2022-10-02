@@ -24,18 +24,18 @@
 
     <ItemGroup>
         <Resource Include="Icon.ico" />
-        <Resource Include="src\Resources\Images\Buscar.png" />
-        <Resource Include="src\Resources\Images\Catalogo.png" />
-        <Resource Include="src\Resources\Images\Guardar.png" />
-        <Resource Include="src\Resources\Images\Imagen.png" />
-        <Resource Include="src\Resources\Images\Login.png" />
-        <Resource Include="src\Resources\Images\Menu.png" />
-        <Resource Include="src\Resources\Images\Pdf.png" />
-        <Resource Include="src\Resources\Images\Salir.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Buscar.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Catalogo.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Detalles.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Guardar.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Imagen.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Login.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Menu.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Pdf.png" />
         <None Remove="src\Resources\Images\Portapapeles.png" />
-        <Resource Include="src\Resources\Images\Portapapeles.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Portapapeles.png" />
+        <Resource Include="src\Infrastructure\Share\Images\Salir.png" />
         <None Remove="src\Resources\Images\Detalles.png" />
-        <Resource Include="src\Resources\Images\Detalles.png" />
     </ItemGroup>
 
     <ItemGroup>

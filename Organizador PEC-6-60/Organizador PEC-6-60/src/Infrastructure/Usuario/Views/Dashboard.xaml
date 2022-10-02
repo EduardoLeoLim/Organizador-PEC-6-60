@@ -14,7 +14,7 @@
             
             <Button x:Name="btnDashboard" Content="Dashboard" Click="Dashboard_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Menu.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Menu.png" />
                 </Button.Background>
             </Button>
             
@@ -22,13 +22,13 @@
             
             <Button x:Name="btnSavePEC_6_60" Content="Guardar PEC-6-60" Click="SavePEC_6_60_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Guardar.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Guardar.png" />
                 </Button.Background>
             </Button>
             
             <Button x:Name="btnFindPEC_6_60" Content="Consultar PEC-6-60" Click="FindPEC_6_60_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Buscar.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Buscar.png" />
                 </Button.Background>
             </Button>
             
@@ -36,25 +36,25 @@
             
             <Button x:Name="btnManageTiposEstadistica" Content="Tipos de Estadística" Click="ManageTiposEstadistica_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Catalogo.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Catalogo.png" />
                 </Button.Background>
             </Button>
             
             <Button x:Name="btnManageInstrumentos" Content="Instrumentos" Click="ManageInstrumentos_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Catalogo.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Catalogo.png" />
                 </Button.Background>
             </Button>
             
             <Button Content="Entidades Federativas" Click="ManageEntidadesFederativas_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Catalogo.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Catalogo.png" />
                 </Button.Background>
             </Button>
             
             <Button x:Name="btnManageMunicipios" Content="Municipios" Click="ManageMunicipios_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Catalogo.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Catalogo.png" />
                 </Button.Background>
             </Button>
             
@@ -62,19 +62,19 @@
             
             <Button Content="Convertir Imagen a PDF">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Pdf.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Pdf.png" />
                 </Button.Background>
             </Button>
             
             <Button Content="Convertir PDF a Imagen">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Imagen.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Imagen.png" />
                 </Button.Background>
             </Button>
             
             <Button Content="Unir archivos PDF">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Pdf.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Pdf.png" />
                 </Button.Background>
             </Button>
             
@@ -82,7 +82,7 @@
             
             <Button x:Name="btnLogOut" Content="Cerrar sesión" Click="LogOut_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="/Organizador PEC-6-60;component/src/Resources/Images/Salir.png" />
+                    <ImageBrush ImageSource="/src/Infrastructure/Share/Images/Salir.png" />
                 </Button.Background>
             </Button>
             

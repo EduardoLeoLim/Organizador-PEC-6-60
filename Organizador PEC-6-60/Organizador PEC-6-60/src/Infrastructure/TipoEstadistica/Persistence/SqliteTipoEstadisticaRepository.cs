@@ -6,7 +6,7 @@ using Dapper;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.Repository;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.ValueObjects;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
-using Organizador_PEC_6_60.Resources.Database;
+using Organizador_PEC_6_60.Infrastructure.Share.Connections;
 
 namespace Organizador_PEC_6_60.Infrastructure.TipoEstadistica.Persistence
 {

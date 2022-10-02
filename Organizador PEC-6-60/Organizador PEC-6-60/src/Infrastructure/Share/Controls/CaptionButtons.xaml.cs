@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Organizador_PEC_6_60.Resources.Controls
+namespace Organizador_PEC_6_60.Infrastructure.Share.Controls
 {
     /// <summary>
     /// Lógica de interacción para CaptionButtons.xaml

@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Data.SQLite;
 
-namespace Organizador_PEC_6_60.Resources.Database
+namespace Organizador_PEC_6_60.Infrastructure.Share.Connections
 {
     public class DbConnection
     {
