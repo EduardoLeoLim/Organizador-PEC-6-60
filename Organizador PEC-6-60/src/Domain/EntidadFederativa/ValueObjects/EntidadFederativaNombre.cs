@@ -1,12 +1,11 @@
-﻿namespace Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects
-{
-    public class EntidadFederativaNombre
-    {
-        public string Value { get; }
+﻿namespace Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 
-        public EntidadFederativaNombre(string nombre)
-        {
-            Value = nombre;
-        }
+public class EntidadFederativaNombre
+{
+    public EntidadFederativaNombre(string nombre)
+    {
+        Value = nombre;
     }
+
+    public string Value { get; }
 }

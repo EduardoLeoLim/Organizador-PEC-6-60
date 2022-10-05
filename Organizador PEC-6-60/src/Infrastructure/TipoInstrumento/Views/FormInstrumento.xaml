@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views"
         mc:Ignorable="d"
         Title="TipoInstrumento"
         Style="{DynamicResource WindowBaseStyle}"
@@ -25,8 +24,10 @@
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft"
                     Grid.ColumnSpan="2" Margin="20,10,20,20">
-            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource btn-danger}" Margin="0,0,10,0" Click="Cancel_Click" />
-            <Button x:Name="btnSave" Content="Guardar" Style="{StaticResource btn-success}" Margin="10,0,0,0" Click="Save_Click" />
+            <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource btn-danger}" Margin="0,0,10,0"
+                    Click="Cancel_Click" />
+            <Button x:Name="btnSave" Content="Guardar" Style="{StaticResource btn-success}" Margin="10,0,0,0"
+                    Click="Save_Click" />
         </StackPanel>
 
     </Grid>

@@ -1,12 +1,11 @@
-﻿namespace Organizador_PEC_6_60.Domain.TipoEstadistica.ValueObjects
-{
-    public class TipoEstadisticaClave
-    {
-        public int Value { get; }
+﻿namespace Organizador_PEC_6_60.Domain.TipoEstadistica.ValueObjects;
 
-        public TipoEstadisticaClave(int clave)
-        {
-            Value = clave;
-        }
+public class TipoEstadisticaClave
+{
+    public TipoEstadisticaClave(int clave)
+    {
+        Value = clave;
     }
+
+    public int Value { get; }
 }

@@ -1,46 +1,45 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 
-namespace Organizador_PEC_6_60.Application.Municipio.Search
+namespace Organizador_PEC_6_60.Application.Municipio.Search;
+
+public class DataMunicipio
 {
-    public class DataMunicipio
+    public DataMunicipio(
+        int id,
+        int clave,
+        string nombre,
+        DataEntidadFederativa dataEntidadFederativa
+    )
     {
-        public int Id { get; }
-        public int Clave { get; }
-        public string Nombre { get; }
-        public DataEntidadFederativa DataEntidadFederativa { get; }
+        Id = id;
+        Clave = clave;
+        Nombre = nombre;
+        DataEntidadFederativa = dataEntidadFederativa;
+    }
 
-        public DataMunicipio(
-            int id,
-            int clave,
-            string nombre,
-            DataEntidadFederativa dataEntidadFederativa
-        )
-        {
-            Id = id;
-            Clave = clave;
-            Nombre = nombre;
-            DataEntidadFederativa = dataEntidadFederativa;
-        }
+    public int Id { get; }
+    public int Clave { get; }
+    public string Nombre { get; }
+    public DataEntidadFederativa DataEntidadFederativa { get; }
 
-        public static DataMunicipio FromAggregate(
-            Domain.Municipio.Model.Municipio municipio,
-            Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa
-        )
-        {
-            DataEntidadFederativa dataEntidadFederativa =
-                DataEntidadFederativa.FromAggregate(entidadFederativa);
+    public static DataMunicipio FromAggregate(
+        Domain.Municipio.Model.Municipio municipio,
+        Domain.EntidadFederativa.Model.EntidadFederativa entidadFederativa
+    )
+    {
+        var dataEntidadFederativa =
+            DataEntidadFederativa.FromAggregate(entidadFederativa);
 
-            return new DataMunicipio(
-                municipio.Id,
-                municipio.Clave.Value,
-                municipio.Nombre.Value,
-                dataEntidadFederativa
-            );
-        }
+        return new DataMunicipio(
+            municipio.Id,
+            municipio.Clave.Value,
+            municipio.Nombre.Value,
+            dataEntidadFederativa
+        );
+    }
 
-        public override string ToString()
-        {
-            return $"{Clave:000} - {Nombre}";
-        }
+    public override string ToString()
+    {
+        return $"{Clave:000} - {Nombre}";
     }
 }

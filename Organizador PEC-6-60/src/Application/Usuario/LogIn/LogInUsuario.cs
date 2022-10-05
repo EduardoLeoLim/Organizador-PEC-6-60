@@ -4,7 +4,7 @@ namespace Organizador_PEC_6_60.Application.Usuario.LogIn;
 
 public class LogInUsuario
 {
-    private UsuarioLogger _logger;
+    private readonly UsuarioLogger _logger;
 
     public LogInUsuario(UsuarioRepository repository)
     {

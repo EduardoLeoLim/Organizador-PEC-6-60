@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Colors.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Fonts.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Sizes.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/src/Infrastructure/Share/Styles/Sizes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!--基样式-->
     <Style x:Key="BaseStyle" BasedOn="{x:Null}" TargetType="{x:Type Control}">
-        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"></Setter>
-        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"></Setter>
-        <Setter Property="Foreground" Value="{DynamicResource DefaultForeground}"></Setter>
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultForeground}" />
     </Style>
 </ResourceDictionary>

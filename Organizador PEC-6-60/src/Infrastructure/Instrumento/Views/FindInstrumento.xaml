@@ -11,7 +11,7 @@
         <DockPanel LastChildFill="True" Margin="10">
             <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
                 <Label Content="Consultar PEC-6-60" Style="{StaticResource h2}" Margin="30,10" />
-                <Label Content="Filtros de búsqueda" Style="{StaticResource h4}" Margin="30,0"></Label>
+                <Label Content="Filtros de búsqueda" Style="{StaticResource h4}" Margin="30,0" />
                 <WrapPanel Orientation="Horizontal" Margin="40,10">
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <Label Content="Tipo Estadística:" FontSize="16" VerticalAlignment="Center" />

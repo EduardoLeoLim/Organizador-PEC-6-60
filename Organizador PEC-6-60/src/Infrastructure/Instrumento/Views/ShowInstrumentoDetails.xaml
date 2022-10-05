@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:syncfusion="clr-namespace:Syncfusion.Windows.PdfViewer;assembly=Syncfusion.PdfViewer.WPF"
-             xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.Instrumento.Views"
              mc:Ignorable="d" Background="#7FFFFFFF"
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
@@ -71,8 +70,9 @@
                                 <Button x:Name="btnEdit" Content="Editar" FontSize="16"
                                         Style="{StaticResource btn-primary}" HorizontalAlignment="Right" />
                             </StackPanel>
-                            <Label Content="Archivo PDF" Style="{StaticResource h4}"/>
-                            <Button x:Name="btnCopy" Content="Portapapeles" FontSize="16" HorizontalAlignment="Left" Style="{StaticResource btn-success}" Click="CopyPDF_Click"/>
+                            <Label Content="Archivo PDF" Style="{StaticResource h4}" />
+                            <Button x:Name="btnCopy" Content="Portapapeles" FontSize="16" HorizontalAlignment="Left"
+                                    Style="{StaticResource btn-success}" Click="CopyPDF_Click" />
                         </StackPanel>
                     </Border>
                     <Border BorderBrush="#CED4DA" BorderThickness="1" Margin="20" d:DesignHeight="400">

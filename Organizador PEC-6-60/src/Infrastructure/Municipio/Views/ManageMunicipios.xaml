@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.Municipio.Views"
       mc:Ignorable="d">
     <DockPanel LastChildFill="true" Margin="10" Loaded="LoadWindow">
 
@@ -24,7 +23,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
-                            <TextBlock.Text>    
+                            <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} - {1}">
                                     <Binding Path="Clave" />
                                     <Binding Path="Nombre" />

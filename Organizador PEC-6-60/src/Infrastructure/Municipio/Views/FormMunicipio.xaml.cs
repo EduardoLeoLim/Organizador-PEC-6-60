@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
-using Organizador_PEC_6_60.Application.Municipio;
 using Organizador_PEC_6_60.Application.Municipio.Create;
 using Organizador_PEC_6_60.Application.Municipio.Search;
 using Organizador_PEC_6_60.Application.Municipio.Update;
@@ -14,206 +13,205 @@ using Organizador_PEC_6_60.Domain.Municipio.Exceptions;
 using Organizador_PEC_6_60.Infrastructure.EntidadFederativa.Persistence;
 using Organizador_PEC_6_60.Infrastructure.Municipio.Persistence;
 
-namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views
+namespace Organizador_PEC_6_60.Infrastructure.Municipio.Views;
+
+public partial class FormMunicipio : Window
 {
-    public partial class FormMunicipio : Window
+    private DataMunicipio _municipio;
+    private readonly bool _isNewRecord;
+
+    public FormMunicipio()
     {
-        private bool isNewRecord;
-        private DataMunicipio _municipio;
+        InitializeComponent();
+        _isNewRecord = true;
+        var allEntidadesFederativasSearcher =
+            new SearchAllEntidadesFederativas(
+                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
+        var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
+        cbxEntidadFederativa.ItemsSource = entidadesFederativas;
+    }
 
-        public FormMunicipio()
-        {
-            InitializeComponent();
-            isNewRecord = true;
-            SearchAllEntidadesFederativas allEntidadesFederativasSearcher =
-                new SearchAllEntidadesFederativas(
-                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
-            var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
-            cbxEntidadFederativa.ItemsSource = entidadesFederativas;
-        }
+    public FormMunicipio(int idMunicipio) : this()
+    {
+        _isNewRecord = false;
+        LoadForm(idMunicipio);
+    }
 
-        public FormMunicipio(int idMunicipio) : this()
-        {
-            isNewRecord = false;
-            LoadForm(idMunicipio);
-        }
+    private void Cancel_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+    private void Save_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            Close();
-        }
+            cbxEntidadFederativa.IsEnabled = false;
+            txtClave.IsEnabled = false;
+            txtNombre.IsEnabled = false;
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            if (IsValidFormData())
             {
-                cbxEntidadFederativa.IsEnabled = false;
-                txtClave.IsEnabled = false;
-                txtNombre.IsEnabled = false;
+                var dataEntidadFederativaSeleccionada =
+                    (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
 
-                if (IsValidFormData())
+                if (_isNewRecord)
                 {
-                    DataEntidadFederativa dataEntidadFederativaSeleccionada =
-                        (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
+                    var municipioCreator =
+                        new RegisterMunicipio(new MunicipioCreator(SqliteMunicipioRepository.Instance));
 
-                    if (isNewRecord)
-                    {
-                        RegisterMunicipio municipioCreator =
-                            new RegisterMunicipio(new MunicipioCreator(SqliteMunicipioRepository.Instance));
+                    municipioCreator.Register(
+                        int.Parse(txtClave.Text),
+                        txtNombre.Text,
+                        dataEntidadFederativaSeleccionada
+                    );
 
-                        municipioCreator.Register(
-                            int.Parse(txtClave.Text),
-                            txtNombre.Text,
-                            dataEntidadFederativaSeleccionada
-                        );
+                    MessageBox.Show(
+                        "Municipio registrado.",
+                        "Exito",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    Close();
+                }
+                else
+                {
+                    var municipioUpdater =
+                        new UpdateMunicipio(new MunicipioUpdater(SqliteMunicipioRepository.Instance));
 
-                        MessageBox.Show(
-                            "Municipio registrado.",
-                            "Exito",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );
-                        Close();
-                    }
-                    else
-                    {
-                        UpdateMunicipio municipioUpdater =
-                            new UpdateMunicipio(new MunicipioUpdater(SqliteMunicipioRepository.Instance));
+                    municipioUpdater.Update(
+                        _municipio.Id,
+                        int.Parse(txtClave.Text),
+                        txtNombre.Text,
+                        dataEntidadFederativaSeleccionada
+                    );
 
-                        municipioUpdater.Update(
-                            _municipio.Id,
-                            int.Parse(txtClave.Text),
-                            txtNombre.Text,
-                            dataEntidadFederativaSeleccionada
-                        );
+                    MessageBox.Show(
+                        "Municipio actualizado.",
+                        "Exito",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
 
-                        MessageBox.Show(
-                            "Municipio actualizado.",
-                            "Exito",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );
-
-                        Close();
-                    }
+                    Close();
                 }
             }
-            catch (InvalidClaveMunicipio ex)
-            {
-                txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(
-                    ex.Message,
-                    "Error Clave",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            catch (InvalidNombreMunicipio ex)
-            {
-                txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(
-                    ex.Message,
-                    "Error Nombre",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-            catch (DbException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error base de datos",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            finally
-            {
-                cbxEntidadFederativa.IsEnabled = true;
-                txtClave.IsEnabled = true;
-                txtNombre.IsEnabled = true;
-            }
         }
-
-        private void ValidateClaveFormat(object sender, TextCompositionEventArgs e)
+        catch (InvalidClaveMunicipio ex)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            MessageBox.Show(
+                ex.Message,
+                "Error Clave",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
-
-        private void LoadForm(int idMunicipio)
+        catch (InvalidNombreMunicipio ex)
         {
-            try
-            {
-                SearchMunicipioById municipioByIdSearcher = new SearchMunicipioById(
-                    new MunicipioByIdSearcher(SqliteMunicipioRepository.Instance),
-                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
-                _municipio = municipioByIdSearcher.SearchById(idMunicipio);
-                txtClave.Text = _municipio.Clave.ToString();
-                txtNombre.Text = _municipio.Nombre;
-                var entidades = cbxEntidadFederativa.ItemsSource.Cast<DataEntidadFederativa>();
-                int indexEntidadFederativa =
-                    entidades.ToList().FindIndex(item => item.Id == _municipio.DataEntidadFederativa.Id);
-
-                cbxEntidadFederativa.SelectedIndex = indexEntidadFederativa;
-            }
-            catch (DbException ex)
-            {
-                btnSave.IsEnabled = false;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            MessageBox.Show(
+                ex.Message,
+                "Error Nombre",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
-
-        private bool IsValidFormData()
+        catch (InvalidOperationException ex)
         {
-            txtClave.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
-            txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
-            cbxEntidadFederativa.Style = System.Windows.Application.Current.TryFindResource(typeof(ComboBox)) as Style;
-
-            if (IsThereEmptyFields())
-            {
-                MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-                return false;
-            }
-
-            return true;
+            MessageBox.Show(
+                ex.Message,
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
         }
-
-        private bool IsThereEmptyFields()
+        catch (DbException ex)
         {
-            bool isThere = false;
-
-            if (txtClave.Text.Length == 0)
-            {
-                txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            if (txtNombre.Text.Length == 0)
-            {
-                txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            if (cbxEntidadFederativa.SelectedIndex < 0)
-            {
-                cbxEntidadFederativa.Style =
-                    System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
-                isThere = true;
-            }
-
-            return isThere;
+            MessageBox.Show(
+                ex.Message,
+                "Error base de datos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
+        finally
+        {
+            cbxEntidadFederativa.IsEnabled = true;
+            txtClave.IsEnabled = true;
+            txtNombre.IsEnabled = true;
+        }
+    }
+
+    private void ValidateClaveFormat(object sender, TextCompositionEventArgs e)
+    {
+        var regex = new Regex("[^0-9]+");
+        e.Handled = regex.IsMatch(e.Text);
+    }
+
+    private void LoadForm(int idMunicipio)
+    {
+        try
+        {
+            var municipioByIdSearcher = new SearchMunicipioById(
+                new MunicipioByIdSearcher(SqliteMunicipioRepository.Instance),
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
+            _municipio = municipioByIdSearcher.SearchById(idMunicipio);
+            txtClave.Text = _municipio.Clave.ToString();
+            txtNombre.Text = _municipio.Nombre;
+            var entidades = cbxEntidadFederativa.ItemsSource.Cast<DataEntidadFederativa>();
+            var indexEntidadFederativa =
+                entidades.ToList().FindIndex(item => item.Id == _municipio.DataEntidadFederativa.Id);
+
+            cbxEntidadFederativa.SelectedIndex = indexEntidadFederativa;
+        }
+        catch (DbException ex)
+        {
+            btnSave.IsEnabled = false;
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private bool IsValidFormData()
+    {
+        txtClave.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+        txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+        cbxEntidadFederativa.Style = System.Windows.Application.Current.TryFindResource(typeof(ComboBox)) as Style;
+
+        if (IsThereEmptyFields())
+        {
+            MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool IsThereEmptyFields()
+    {
+        var isThere = false;
+
+        if (txtClave.Text.Length == 0)
+        {
+            txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            isThere = true;
+        }
+
+        if (txtNombre.Text.Length == 0)
+        {
+            txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            isThere = true;
+        }
+
+        if (cbxEntidadFederativa.SelectedIndex < 0)
+        {
+            cbxEntidadFederativa.Style =
+                System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
+            isThere = true;
+        }
+
+        return isThere;
     }
 }

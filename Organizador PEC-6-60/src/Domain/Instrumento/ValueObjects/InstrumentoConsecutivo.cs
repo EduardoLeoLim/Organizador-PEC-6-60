@@ -1,12 +1,11 @@
-﻿namespace Organizador_PEC_6_60.Domain.Instrumento.ValueObjects
-{
-    public class InstrumentoConsecutivo
-    {
-        public int Value { get; }
+﻿namespace Organizador_PEC_6_60.Domain.Instrumento.ValueObjects;
 
-        public InstrumentoConsecutivo(int consecutivo)
-        {
-            Value = consecutivo;
-        }
+public class InstrumentoConsecutivo
+{
+    public InstrumentoConsecutivo(int consecutivo)
+    {
+        Value = consecutivo;
     }
+
+    public int Value { get; }
 }

@@ -1,24 +1,23 @@
-﻿namespace Organizador_PEC_6_60.Application.TipoInstrumento
+﻿namespace Organizador_PEC_6_60.Application.TipoInstrumento;
+
+public class TipoInstrumentoResponse
 {
-    public class TipoInstrumentoResponse
+    public TipoInstrumentoResponse(int id, string nombre)
     {
-        public int Id { get; }
-        public string Nombre { get; }
+        Id = id;
+        Nombre = nombre;
+    }
 
-        public TipoInstrumentoResponse(int id, string nombre)
-        {
-            Id = id;
-            Nombre = nombre;
-        }
+    public int Id { get; }
+    public string Nombre { get; }
 
-        public static TipoInstrumentoResponse FromAggregate(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
-        {
-            return new TipoInstrumentoResponse(tipoInstrumento.Id, tipoInstrumento.Nombre.Value);
-        }
+    public static TipoInstrumentoResponse FromAggregate(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
+    {
+        return new TipoInstrumentoResponse(tipoInstrumento.Id, tipoInstrumento.Nombre.Value);
+    }
 
-        public override string ToString()
-        {
-            return Nombre;
-        }
+    public override string ToString()
+    {
+        return Nombre;
     }
 }

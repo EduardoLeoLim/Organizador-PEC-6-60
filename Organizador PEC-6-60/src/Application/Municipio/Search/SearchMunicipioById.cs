@@ -1,25 +1,24 @@
 ﻿using Organizador_PEC_6_60.Application.EntidadFederativa.Search;
 
-namespace Organizador_PEC_6_60.Application.Municipio.Search
+namespace Organizador_PEC_6_60.Application.Municipio.Search;
+
+public class SearchMunicipioById
 {
-    public class SearchMunicipioById
+    private readonly EntidadFederativaByIdSearcherService _entidadFederativaByIdSearcher;
+    private readonly MunicipioByIdSearcherService _municipioByIdSearcher;
+
+    public SearchMunicipioById(MunicipioByIdSearcherService municipioByIdSearcher,
+        EntidadFederativaByIdSearcher entidadFederativaByIdSearcher)
     {
-        private readonly MunicipioByIdSearcherService _municipioByIdSearcher;
-        private readonly EntidadFederativaByIdSearcherService _entidadFederativaByIdSearcher;
+        _municipioByIdSearcher = municipioByIdSearcher;
+        _entidadFederativaByIdSearcher = entidadFederativaByIdSearcher;
+    }
 
-        public SearchMunicipioById(MunicipioByIdSearcherService municipioByIdSearcher,
-            EntidadFederativaByIdSearcher entidadFederativaByIdSearcher)
-        {
-            _municipioByIdSearcher = municipioByIdSearcher;
-            _entidadFederativaByIdSearcher = entidadFederativaByIdSearcher;
-        }
+    public DataMunicipio SearchById(int idMunicipio)
+    {
+        var municipio = _municipioByIdSearcher.SearchMunicipioById(idMunicipio);
+        var entidadFederativa = _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
 
-        public DataMunicipio SearchById(int idMunicipio)
-        {
-            var municipio = _municipioByIdSearcher.SearchMunicipioById(idMunicipio);
-            var entidadFederativa = _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
-
-            return DataMunicipio.FromAggregate(municipio, entidadFederativa);
-        }
+        return DataMunicipio.FromAggregate(municipio, entidadFederativa);
     }
 }

@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:syncfusion="clr-namespace:Syncfusion.Windows.PdfViewer;assembly=Syncfusion.PdfViewer.WPF"
-      xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.Instrumento.Views"
       mc:Ignorable="d"
       Background="White">
     <DockPanel LastChildFill="True" Margin="10">
@@ -80,7 +79,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Label Grid.Row="0" Content="Archivo abierto:" Style="{StaticResource h5}" Margin="10,0,0,0"
+                <Label Content="Archivo abierto:" Style="{StaticResource h5}" Margin="10,0,0,0"
                        VerticalAlignment="Center" />
                 <TextBlock x:Name="lblFilePath" Margin="10,0,0,0" TextTrimming="CharacterEllipsis"
                            VerticalAlignment="center" />

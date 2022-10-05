@@ -1,17 +1,16 @@
-﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Delete
+﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Delete;
+
+public class DeleteEntidadFederativa
 {
-    public class DeleteEntidadFederativa
+    private readonly EntidadFederativaDeleterService _deleter;
+
+    public DeleteEntidadFederativa(EntidadFederativaDeleterService deleter)
     {
-        private readonly EntidadFederativaDeleterService _deleter;
+        _deleter = deleter;
+    }
 
-        public DeleteEntidadFederativa(EntidadFederativaDeleterService deleter)
-        {
-            _deleter = deleter;
-        }
-
-        public void Delete(int idEntidadFederativa)
-        {
-            _deleter.Delete(idEntidadFederativa);
-        }
+    public void Delete(int idEntidadFederativa)
+    {
+        _deleter.Delete(idEntidadFederativa);
     }
 }

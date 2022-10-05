@@ -1,34 +1,33 @@
 ﻿using Organizador_PEC_6_60.Domain.Instrumento.Repository;
 
-namespace Organizador_PEC_6_60.Application.Instrumento.Update
+namespace Organizador_PEC_6_60.Application.Instrumento.Update;
+
+public class InstrumentoSavedInSireso
 {
-    public class InstrumentoSavedInSireso
+    private readonly InstrumentoRepository _repository;
+
+    public InstrumentoSavedInSireso(InstrumentoRepository repository)
     {
-        private readonly InstrumentoRepository _repository;
+        _repository = repository;
+    }
 
-        public InstrumentoSavedInSireso(InstrumentoRepository repository)
+    public void SavedInSIRESO(int id)
+    {
+        var pec660 = _repository.SearchById(id);
+        if (!pec660.EstaGuardado)
         {
-            _repository = repository;
+            pec660.MarcarGuardado();
+            _repository.Update(pec660);
         }
+    }
 
-        public void SavedInSIRESO(int id)
+    public void UnsavedInSIRESO(int id)
+    {
+        var pec660 = _repository.SearchById(id);
+        if (pec660.EstaGuardado)
         {
-            Domain.Instrumento.Model.Instrumento pec660 = _repository.SearchById(id);
-            if (!pec660.EstaGuardado)
-            {
-                pec660.MarcarGuardado();
-                _repository.Update(pec660);
-            }
-        }
-
-        public void UnsavedInSIRESO(int id)
-        {
-            Domain.Instrumento.Model.Instrumento pec660 = _repository.SearchById(id);
-            if (pec660.EstaGuardado)
-            {
-                pec660.MarcarNoGuardado();
-                _repository.Update(pec660);
-            }
+            pec660.MarcarNoGuardado();
+            _repository.Update(pec660);
         }
     }
 }

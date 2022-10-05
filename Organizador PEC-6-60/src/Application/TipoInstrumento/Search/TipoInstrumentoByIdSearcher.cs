@@ -1,19 +1,18 @@
 ﻿using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 
-namespace Organizador_PEC_6_60.Application.TipoInstrumento.Search
+namespace Organizador_PEC_6_60.Application.TipoInstrumento.Search;
+
+public class TipoInstrumentoByIdSearcher
 {
-    public class TipoInstrumentoByIdSearcher
+    private readonly TipoInstrumentoRepository _repository;
+
+    public TipoInstrumentoByIdSearcher(TipoInstrumentoRepository repository)
     {
-        private readonly TipoInstrumentoRepository _repository;
+        _repository = repository;
+    }
 
-        public TipoInstrumentoByIdSearcher(TipoInstrumentoRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public Domain.TipoInstrumento.Model.TipoInstrumento SearchTipoInstrumentoById(int id)
-        {
-            return _repository.SearchById(id);
-        }
+    public Domain.TipoInstrumento.Model.TipoInstrumento SearchTipoInstrumentoById(int id)
+    {
+        return _repository.SearchById(id);
     }
 }

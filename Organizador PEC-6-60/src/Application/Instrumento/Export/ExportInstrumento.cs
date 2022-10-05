@@ -14,10 +14,10 @@ public class ExportInstrumento
 
     public bool Export(InstrumentoData instrumento, string dirPath)
     {
-        FileAttributes fileAttributes = File.GetAttributes(dirPath);
+        var fileAttributes = File.GetAttributes(dirPath);
         if (fileAttributes.HasFlag(FileAttributes.Directory))
         {
-            string path = _exporter.Export(instrumento, dirPath);
+            var path = _exporter.Export(instrumento, dirPath);
             Clipboard.SetText(path);
             return true;
         }

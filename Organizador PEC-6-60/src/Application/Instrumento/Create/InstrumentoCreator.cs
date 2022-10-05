@@ -2,78 +2,77 @@
 using Organizador_PEC_6_60.Domain.Instrumento.Repository;
 using Organizador_PEC_6_60.Domain.Instrumento.ValueObjects;
 
-namespace Organizador_PEC_6_60.Application.Instrumento.Create
+namespace Organizador_PEC_6_60.Application.Instrumento.Create;
+
+public class InstrumentoCreator
 {
-    public class InstrumentoCreator
+    private readonly InstrumentoRepository _repository;
+
+    public InstrumentoCreator(InstrumentoRepository repository)
     {
-        private readonly InstrumentoRepository _repository;
+        _repository = repository;
+    }
 
-        public InstrumentoCreator(InstrumentoRepository repository)
+    public void Create(
+        InstrumentoAñoEstadistico añoEstadistico,
+        InstrumentoMesEstadistico mesEstadistico,
+        InstrumentoConsecutivo consecutivo,
+        byte[] dataArchivo,
+        int idInstrumento,
+        int idTipoEstadistica,
+        int idMunicipio
+    )
+    {
+        if (!IsValid(añoEstadistico))
+            throw new InvalidAñoEstadisticoInareumento();
+        if (!IsValid(mesEstadistico))
+            throw new InvalidMesEstadisticoInstrumento();
+        if (!IsValid(consecutivo))
+            throw new InvalidConsecutivoInstrumento();
+
+        Domain.Instrumento.Model.Instrumento pec660 = new(
+            añoEstadistico,
+            mesEstadistico,
+            consecutivo,
+            dataArchivo,
+            idInstrumento,
+            idTipoEstadistica,
+            idMunicipio);
+
+        _repository.Insert(pec660);
+    }
+
+    private bool IsValid(object obj)
+    {
+        if (obj is InstrumentoAñoEstadistico)
         {
-            _repository = repository;
+            var year = ((InstrumentoAñoEstadistico)obj).Value;
+            if (string.IsNullOrEmpty(year))
+                return false;
+            if (year.Trim().Length == 0)
+                return false;
+
+            return true;
         }
 
-        public void Create(
-            InstrumentoAñoEstadistico añoEstadistico,
-            InstrumentoMesEstadistico mesEstadistico,
-            InstrumentoConsecutivo consecutivo,
-            byte[] dataArchivo,
-            int idInstrumento,
-            int idTipoEstadistica,
-            int idMunicipio
-        )
+        if (obj is InstrumentoMesEstadistico)
         {
-            if (!IsValid(añoEstadistico))
-                throw new InvalidAñoEstadisticoInareumento();
-            if (!IsValid(mesEstadistico))
-                throw new InvalidMesEstadisticoInstrumento();
-            if (!IsValid(consecutivo))
-                throw new InvalidConsecutivoInstrumento();
+            var indexMonth = ((InstrumentoMesEstadistico)obj).Value;
+            if (!(indexMonth >= 1 && indexMonth <= 12))
+                return false;
 
-            Domain.Instrumento.Model.Instrumento pec660 = new(
-                añoEstadistico,
-                mesEstadistico,
-                consecutivo,
-                dataArchivo,
-                idInstrumento,
-                idTipoEstadistica,
-                idMunicipio);
-
-            _repository.Insert(pec660);
+            return true;
         }
 
-        private bool IsValid(object obj)
+        if (obj is InstrumentoConsecutivo)
         {
-            if (obj is InstrumentoAñoEstadistico)
-            {
-                string year = ((InstrumentoAñoEstadistico)obj).Value;
-                if (string.IsNullOrEmpty(year))
-                    return false;
-                if (year.Trim().Length == 0)
-                    return false;
+            var consecutivo = ((InstrumentoConsecutivo)obj).Value;
+            if (!(consecutivo > 0))
+                return false;
 
-                return true;
-            }
-
-            if (obj is InstrumentoMesEstadistico)
-            {
-                int indexMonth = ((InstrumentoMesEstadistico)obj).Value;
-                if (!(indexMonth >= 1 && indexMonth <= 12))
-                    return false;
-
-                return true;
-            }
-
-            if (obj is InstrumentoConsecutivo)
-            {
-                int consecutivo = ((InstrumentoConsecutivo)obj).Value;
-                if (!(consecutivo > 0))
-                    return false;
-
-                return true;
-            }
-
-            return false;
+            return true;
         }
+
+        return false;
     }
 }

@@ -6,99 +6,93 @@ using Organizador_PEC_6_60.Domain.Usuario.Repository;
 using Organizador_PEC_6_60.Domain.Usuario.ValueObjects;
 using Organizador_PEC_6_60.Infrastructure.Share.Connections;
 
-namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence
+namespace Organizador_PEC_6_60.Infrastructure.Usuario.Persistence;
+
+public class SqliteUsuarioRepository : UsuarioRepository
 {
-    public class SqliteUsuarioRepository : UsuarioRepository
+    private static SqliteUsuarioRepository _instance;
+
+    private static readonly object _lock = new();
+
+    private SqliteUsuarioRepository()
     {
-        private static SqliteUsuarioRepository _instance;
+    }
 
-        private static readonly object _lock = new object();
-
-        private SqliteUsuarioRepository()
+    public static SqliteUsuarioRepository Instance
+    {
+        get
         {
-        }
-
-        public static SqliteUsuarioRepository Instance
-        {
-            get
-            {
-                if (_instance == null)
+            if (_instance == null)
+                lock (_lock)
                 {
-                    lock (_lock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new SqliteUsuarioRepository();
-                        }
-                    }
+                    if (_instance == null) _instance = new SqliteUsuarioRepository();
                 }
 
-                return _instance;
-            }
+            return _instance;
         }
+    }
 
-        public Domain.Usuario.Model.Usuario FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
+    public Domain.Usuario.Model.Usuario FindById(int id)
+    {
+        throw new NotImplementedException();
+    }
 
-        public Domain.Usuario.Model.Usuario LogIn(string username, string password)
+    public Domain.Usuario.Model.Usuario LogIn(string username, string password)
+    {
+        using (IDbConnection connection = DbConnection.GetSQLiteConnection())
         {
-            using (IDbConnection connection = DbConnection.GetSQLiteConnection())
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var quuery = "SELECT * FROM usuario WHERE username = @Username AND password = @Password;";
+            var parameters = new
             {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
+                Username = username,
+                Password = password
+            };
+            var result = connection.QuerySingle(quuery, parameters);
+            connection.Close();
 
-                string quuery = "SELECT * FROM usuario WHERE username = @Username AND password = @Password;";
-                var parameters = new
-                {
-                    Username = username,
-                    Password = password
-                };
-                dynamic result = connection.QuerySingle(quuery, parameters);
-                connection.Close();
+            var usuario = new Domain.Usuario.Model.Usuario(
+                new UsuarioUsername((string)result.username),
+                new UsuarioPassword((string)result.password),
+                new UsuarioNombre((string)result.nombre),
+                new UsuarioApellidos((string)result.apellidos),
+                (int)result.id
+            );
 
-                Domain.Usuario.Model.Usuario usuario = new Domain.Usuario.Model.Usuario(
-                    new UsuarioUsername((string)result.username),
-                    new UsuarioPassword((string)result.password),
-                    new UsuarioNombre((string)result.nombre),
-                    new UsuarioApellidos((string)result.apellidos),
-                    (int)result.id
-                );
-
-                return usuario;
-            }
+            return usuario;
         }
+    }
 
-        public void Insert(Domain.Usuario.Model.Usuario newUsuario)
+    public void Insert(Domain.Usuario.Model.Usuario newUsuario)
+    {
+        using (IDbConnection connection = DbConnection.GetSQLiteConnection())
         {
-            using (IDbConnection connection = DbConnection.GetSQLiteConnection())
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var query = "INSERT INTO usuario (username, password, nombre, apellidos) " +
+                        "VALUES (@Username, @Password, @Nombre, @Apellidos);";
+            var parameters = new
             {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
-
-                string query = "INSERT INTO usuario (username, password, nombre, apellidos) " +
-                               "VALUES (@Username, @Password, @Nombre, @Apellidos);";
-                var parameters = new
-                {
-                    Username = newUsuario.Username.Value,
-                    Password = newUsuario.Password.Value,
-                    Nombre = newUsuario.Nombre.Value,
-                    Apellidos = newUsuario.Apellidos.Value
-                };
-                connection.Execute(query, parameters);
-                connection.Close();
-            }
+                Username = newUsuario.Username.Value,
+                Password = newUsuario.Password.Value,
+                Nombre = newUsuario.Nombre.Value,
+                Apellidos = newUsuario.Apellidos.Value
+            };
+            connection.Execute(query, parameters);
+            connection.Close();
         }
+    }
 
-        public void Update(Domain.Usuario.Model.Usuario usuario)
-        {
-            throw new System.NotImplementedException();
-        }
+    public void Update(Domain.Usuario.Model.Usuario usuario)
+    {
+        throw new NotImplementedException();
+    }
 
-        public void Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+    public void Delete(int id)
+    {
+        throw new NotImplementedException();
     }
 }

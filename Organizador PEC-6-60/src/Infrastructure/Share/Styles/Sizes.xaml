@@ -13,17 +13,17 @@
     <Thickness x:Key="SmallControlPadding">10,5</Thickness>
     <Thickness x:Key="ExtraSmallControlPadding">5,1</Thickness>
     <Thickness x:Key="CodePadding">4,2</Thickness>
-    
+
     <!--面板-->
     <!--内边距-->
     <Thickness x:Key="PanelTitlePadding">15,10</Thickness>
     <Thickness x:Key="PanelBodyPadding">15</Thickness>
     <Thickness x:Key="PanelFooterPadding">15,10</Thickness>
-    
+
     <!--标题-->
     <!--外边距-->
     <Thickness x:Key="HMargin">0,20,0,10</Thickness>
-    
+
     <!--副标题-->
     <!--外边距-->
     <Thickness x:Key="SmallMargin">0,10</Thickness>

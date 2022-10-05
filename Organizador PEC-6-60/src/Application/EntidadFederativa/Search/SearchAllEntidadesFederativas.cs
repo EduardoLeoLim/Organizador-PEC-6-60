@@ -1,17 +1,16 @@
-﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Search
+﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+
+public class SearchAllEntidadesFederativas
 {
-    public class SearchAllEntidadesFederativas
+    private readonly EntidadFederativaAllSearcherService _searcher;
+
+    public SearchAllEntidadesFederativas(EntidadFederativaAllSearcherService searcher)
     {
-        private readonly EntidadFederativaAllSearcherService _searcher;
+        _searcher = searcher;
+    }
 
-        public SearchAllEntidadesFederativas(EntidadFederativaAllSearcherService searcher)
-        {
-            _searcher = searcher;
-        }
-
-        public DataEntidadesFederativas SearchAll()
-        {
-            return new DataEntidadesFederativas(_searcher.SearchAll());
-        }
+    public DataEntidadesFederativas SearchAll()
+    {
+        return new DataEntidadesFederativas(_searcher.SearchAll());
     }
 }

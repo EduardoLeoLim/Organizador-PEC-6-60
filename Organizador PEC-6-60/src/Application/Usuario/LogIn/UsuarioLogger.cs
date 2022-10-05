@@ -13,7 +13,7 @@ public class UsuarioLogger
 
     public UsuarioConnected LogInUsuario(string username, string password)
     {
-        Domain.Usuario.Model.Usuario usuario = _repository.LogIn(username, password);
+        var usuario = _repository.LogIn(username, password);
 
         return new UsuarioConnected(
             usuario.Id,

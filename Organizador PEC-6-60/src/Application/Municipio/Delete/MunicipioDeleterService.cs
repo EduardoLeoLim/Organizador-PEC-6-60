@@ -1,7 +1,6 @@
-﻿namespace Organizador_PEC_6_60.Application.Municipio.Delete
+﻿namespace Organizador_PEC_6_60.Application.Municipio.Delete;
+
+public interface MunicipioDeleterService
 {
-    public interface MunicipioDeleterService
-    {
-        public void Delete(int idMunicipio);
-    }
+    public void Delete(int idMunicipio);
 }

@@ -1,17 +1,16 @@
-﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Search
+﻿namespace Organizador_PEC_6_60.Application.EntidadFederativa.Search;
+
+public class SearchEntidadFederativaById
 {
-    public class SearchEntidadFederativaById
+    private readonly EntidadFederativaByIdSearcherService _byIdSearcher;
+
+    public SearchEntidadFederativaById(EntidadFederativaByIdSearcherService byIdSearcher)
     {
-        private readonly EntidadFederativaByIdSearcherService _byIdSearcher;
+        _byIdSearcher = byIdSearcher;
+    }
 
-        public SearchEntidadFederativaById(EntidadFederativaByIdSearcherService byIdSearcher)
-        {
-            _byIdSearcher = byIdSearcher;
-        }
-
-        public DataEntidadFederativa SearchById(int idEntidadFederativa)
-        {
-            return DataEntidadFederativa.FromAggregate(_byIdSearcher.SearchById(idEntidadFederativa));
-        }
+    public DataEntidadFederativa SearchById(int idEntidadFederativa)
+    {
+        return DataEntidadFederativa.FromAggregate(_byIdSearcher.SearchById(idEntidadFederativa));
     }
 }

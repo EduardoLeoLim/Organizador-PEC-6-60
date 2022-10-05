@@ -1,7 +1,6 @@
-﻿namespace Organizador_PEC_6_60.Application.Municipio.Search
+﻿namespace Organizador_PEC_6_60.Application.Municipio.Search;
+
+public interface MunicipioByIdSearcherService
 {
-    public interface MunicipioByIdSearcherService
-    {
-        public Domain.Municipio.Model.Municipio SearchMunicipioById(int idMunicipio);
-    }
+    public Domain.Municipio.Model.Municipio SearchMunicipioById(int idMunicipio);
 }

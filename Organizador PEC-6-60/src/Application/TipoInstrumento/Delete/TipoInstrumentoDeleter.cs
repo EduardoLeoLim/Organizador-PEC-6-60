@@ -1,19 +1,18 @@
 ﻿using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 
-namespace Organizador_PEC_6_60.Application.TipoInstrumento.Delete
+namespace Organizador_PEC_6_60.Application.TipoInstrumento.Delete;
+
+public class TipoInstrumentoDeleter
 {
-    public class TipoInstrumentoDeleter
+    private readonly TipoInstrumentoRepository _repository;
+
+    public TipoInstrumentoDeleter(TipoInstrumentoRepository repository)
     {
-        private readonly TipoInstrumentoRepository _repository;
+        _repository = repository;
+    }
 
-        public TipoInstrumentoDeleter(TipoInstrumentoRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public void Delete(int id)
-        {
-            _repository.Delete(id);
-        }
+    public void Delete(int id)
+    {
+        _repository.Delete(id);
     }
 }

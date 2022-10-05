@@ -7,173 +7,167 @@ using Organizador_PEC_6_60.Domain.TipoInstrumento.Repository;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 using Organizador_PEC_6_60.Infrastructure.Share.Connections;
 
-namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence
+namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Persistence;
+
+public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
 {
-    public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
+    private static SqliteTipoInstrumentoRepository _instance;
+
+    private static readonly object _lock = new();
+
+    private SqliteTipoInstrumentoRepository()
     {
-        private static SqliteTipoInstrumentoRepository _instance;
+    }
 
-        private static readonly object _lock = new object();
-
-        private SqliteTipoInstrumentoRepository()
+    public static SqliteTipoInstrumentoRepository Instance
+    {
+        get
         {
-        }
-
-        public static SqliteTipoInstrumentoRepository Instance
-        {
-            get
-            {
-                if (_instance == null)
+            if (_instance == null)
+                lock (_lock)
                 {
-                    lock (_lock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new SqliteTipoInstrumentoRepository();
-                        }
-                    }
+                    if (_instance == null) _instance = new SqliteTipoInstrumentoRepository();
                 }
 
-                return _instance;
-            }
+            return _instance;
         }
+    }
 
-        public IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> SearchAll()
+    public IEnumerable<Domain.TipoInstrumento.Model.TipoInstrumento> SearchAll()
+    {
+        using (var connection = DbConnection.GetSQLiteConnection())
         {
-            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
-            {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
 
-                string query = "SELECT * FROM instrumento ORDER BY nombre;";
-                var result = connection.Query(query).Select(
-                    row => new Domain.TipoInstrumento.Model.TipoInstrumento(
-                        new TipoInstrumentoNombre((string)row.nombre),
-                        (int)row.id
-                    )
+            var query = "SELECT * FROM instrumento ORDER BY nombre;";
+            var result = connection.Query(query).Select(
+                row => new Domain.TipoInstrumento.Model.TipoInstrumento(
+                    new TipoInstrumentoNombre((string)row.nombre),
+                    (int)row.id
+                )
+            );
+            connection.Close();
+
+            return result;
+        }
+    }
+
+    public Domain.TipoInstrumento.Model.TipoInstrumento SearchById(int id)
+    {
+        using (var connection = DbConnection.GetSQLiteConnection())
+        {
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var query = "SELECT * FROM instrumento WHERE id = @Id;";
+            var parameters = new { Id = id };
+
+            var result = connection.QuerySingle(query, parameters);
+            connection.Close();
+            var tipoInstrumento =
+                new Domain.TipoInstrumento.Model.TipoInstrumento(
+                    new TipoInstrumentoNombre((string)result.nombre),
+                    (int)result.id
                 );
+
+            return tipoInstrumento;
+        }
+    }
+
+    public void Insert(Domain.TipoInstrumento.Model.TipoInstrumento newTipoInstrumento)
+    {
+        using (var connection = DbConnection.GetSQLiteConnection())
+        {
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var query = "INSERT INTO instrumento (nombre) VALUES (@Nombre);";
+            var parameters = new { Nombre = newTipoInstrumento.Nombre.Value };
+
+            try
+            {
+                var affectedRows = connection.Execute(query, parameters);
+
+                if (affectedRows == 0)
+                    throw new SQLiteException();
+
+                connection.Close();
+            }
+            catch (SQLiteException ex)
+            {
+                var errorMessage = "No fue posible registrar el TipoInstrumento, Intentalo más tarde.";
+                if (ex.ErrorCode == 19)
+                    errorMessage = "Ya hay un tipoInstrumento registrado con ese nombre.";
+
                 connection.Close();
 
-                return result;
+                throw new InvalidOperationException(errorMessage);
             }
         }
+    }
 
-        public Domain.TipoInstrumento.Model.TipoInstrumento SearchById(int id)
+    public void Update(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
+    {
+        using (var connection = DbConnection.GetSQLiteConnection())
         {
-            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var query = "UPDATE instrumento SET nombre = @Nombre WHERE id = @Id;";
+            var parameters = new { Nombre = tipoInstrumento.Nombre.Value, tipoInstrumento.Id };
+
+            try
             {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
+                var affectedRows = connection.Execute(query, parameters);
 
-                string query = "SELECT * FROM instrumento WHERE id = @Id;";
-                var parameters = new { Id = id };
+                if (affectedRows == 0)
+                    throw new SQLiteException();
 
-                var result = connection.QuerySingle(query, parameters);
                 connection.Close();
-                Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento =
-                    new Domain.TipoInstrumento.Model.TipoInstrumento(
-                        new TipoInstrumentoNombre((string)result.nombre),
-                        (int)result.id
-                    );
+            }
+            catch (SQLiteException ex)
+            {
+                var errorMessage = "No fue posible actualizar el TipoInstrumento, Intentalo más tarde.";
+                if (ex.ErrorCode == 19)
+                    errorMessage = "Ya hay un tipoInstrumento registrada con ese nombre.";
 
-                return tipoInstrumento;
+                connection.Close();
+
+                throw new InvalidOperationException(errorMessage);
             }
         }
+    }
 
-        public void Insert(Domain.TipoInstrumento.Model.TipoInstrumento newTipoInstrumento)
+    public void Delete(int id)
+    {
+        using (var connection = DbConnection.GetSQLiteConnection())
         {
-            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
+            if (connection == null)
+                throw new SQLiteException("Base de datos no disponible.");
+
+            var query = "DELETE FROM instrumento WHERE id = @Id;";
+            var parameters = new { Id = id };
+
+            try
             {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
+                var affectedRows = connection.Execute(query, parameters);
 
-                string query = "INSERT INTO instrumento (nombre) VALUES (@Nombre);";
-                var parameters = new { Nombre = newTipoInstrumento.Nombre.Value };
+                if (affectedRows == 0)
+                    throw new SQLiteException();
 
-                try
-                {
-                    int affectedRows = connection.Execute(query, parameters);
-
-                    if (affectedRows == 0)
-                        throw new SQLiteException();
-
-                    connection.Close();
-                }
-                catch (SQLiteException ex)
-                {
-                    string errorMessage = "No fue posible registrar el TipoInstrumento, Intentalo más tarde.";
-                    if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un tipoInstrumento registrado con ese nombre.";
-
-                    connection.Close();
-
-                    throw new InvalidOperationException(errorMessage);
-                }
+                connection.Close();
             }
-        }
-
-        public void Update(Domain.TipoInstrumento.Model.TipoInstrumento tipoInstrumento)
-        {
-            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
+            catch (SQLiteException ex)
             {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
+                var errorMessage = "No fue posible eliminar el TipoInstrumento, Intentalo más tarde.";
+                if (ex.ErrorCode == 19)
+                    errorMessage =
+                        "No es posible eliminar el tipoInstrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
 
-                string query = "UPDATE instrumento SET nombre = @Nombre WHERE id = @Id;";
-                var parameters = new { Nombre = tipoInstrumento.Nombre.Value, Id = tipoInstrumento.Id };
+                connection.Close();
 
-                try
-                {
-                    int affectedRows = connection.Execute(query, parameters);
-
-                    if (affectedRows == 0)
-                        throw new SQLiteException();
-
-                    connection.Close();
-                }
-                catch (SQLiteException ex)
-                {
-                    string errorMessage = "No fue posible actualizar el TipoInstrumento, Intentalo más tarde.";
-                    if (ex.ErrorCode == 19)
-                        errorMessage = "Ya hay un tipoInstrumento registrada con ese nombre.";
-
-                    connection.Close();
-
-                    throw new InvalidOperationException(errorMessage);
-                }
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (SQLiteConnection connection = DbConnection.GetSQLiteConnection())
-            {
-                if (connection == null)
-                    throw new SQLiteException("Base de datos no disponible.");
-
-                string query = "DELETE FROM instrumento WHERE id = @Id;";
-                var parameters = new { Id = id };
-
-                try
-                {
-                    int affectedRows = connection.Execute(query, parameters);
-
-                    if (affectedRows == 0)
-                        throw new SQLiteException();
-
-                    connection.Close();
-                }
-                catch (SQLiteException ex)
-                {
-                    string errorMessage = "No fue posible eliminar el TipoInstrumento, Intentalo más tarde.";
-                    if (ex.ErrorCode == 19)
-                        errorMessage =
-                            "No es posible eliminar el tipoInstrumento ya que esta asociado con un tipo de estadística o formato PEC 6-60";
-
-                    connection.Close();
-
-                    throw new InvalidOperationException(errorMessage);
-                }
+                throw new InvalidOperationException(errorMessage);
             }
         }
     }

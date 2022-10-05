@@ -1,17 +1,16 @@
-﻿namespace Organizador_PEC_6_60.Application.Municipio.Delete
+﻿namespace Organizador_PEC_6_60.Application.Municipio.Delete;
+
+public class DeleteMunicipio
 {
-    public class DeleteMunicipio
+    private readonly MunicipioDeleterService _deleter;
+
+    public DeleteMunicipio(MunicipioDeleterService deleter)
     {
-        private readonly MunicipioDeleterService _deleter;
+        _deleter = deleter;
+    }
 
-        public DeleteMunicipio(MunicipioDeleterService deleter)
-        {
-            _deleter = deleter;
-        }
-
-        public void Delete(int idMunicipio)
-        {
-            _deleter.Delete(idMunicipio);
-        }
+    public void Delete(int idMunicipio)
+    {
+        _deleter.Delete(idMunicipio);
     }
 }

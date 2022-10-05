@@ -1,12 +1,11 @@
-﻿namespace Organizador_PEC_6_60.Domain.Instrumento.ValueObjects
-{
-    public class InstrumentoMesEstadistico
-    {
-        public int Value { get; }
+﻿namespace Organizador_PEC_6_60.Domain.Instrumento.ValueObjects;
 
-        public InstrumentoMesEstadistico(int mesEstadistico)
-        {
-            Value = mesEstadistico;
-        }
+public class InstrumentoMesEstadistico
+{
+    public InstrumentoMesEstadistico(int mesEstadistico)
+    {
+        Value = mesEstadistico;
     }
+
+    public int Value { get; }
 }

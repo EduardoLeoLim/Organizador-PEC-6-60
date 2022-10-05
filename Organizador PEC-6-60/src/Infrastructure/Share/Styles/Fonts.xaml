@@ -9,7 +9,7 @@
     <System:Double x:Key="DefaultFontSize">14</System:Double>
     <System:Double x:Key="CodeFontSize">13</System:Double>
     <System:Double x:Key="SmallFontSize">12</System:Double>
-    
+
     <!--标题-->
     <!--字号-->
     <System:Double x:Key="H1FontSize">36</System:Double>
@@ -20,7 +20,7 @@
     <System:Double x:Key="H6FontSize">12</System:Double>
     <!--加粗-->
     <FontWeight x:Key="HFontWeight">Bold</FontWeight>
-    
+
     <!--副标题-->
     <!--字号-->
     <System:Double x:Key="H1SmallFontSize">24</System:Double>

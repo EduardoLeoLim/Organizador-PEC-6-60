@@ -3,14 +3,11 @@
                     xmlns:controls="clr-namespace:Organizador_PEC_6_60.Infrastructure.Share.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary
-            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Colors.xaml">
-        </ResourceDictionary>
+            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Colors.xaml" />
         <ResourceDictionary
-            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Fonts.xaml">
-        </ResourceDictionary>
+            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Fonts.xaml" />
         <ResourceDictionary
-            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Sizes.xaml">
-        </ResourceDictionary>
+            Source="pack://application:,,,/src/Infrastructure/Share/Styles/Sizes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!--body 源码行数:13-15 902-908-->
     <!--窗体样式-->
@@ -22,10 +19,10 @@
             </Setter.Value>
         </Setter>
 
-        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"></Setter>
-        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"></Setter>
-        <Setter Property="Foreground" Value="{DynamicResource DefaultForeground}"></Setter>
-        <Setter Property="Background" Value="{DynamicResource DefaultBackground}"></Setter>
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultForeground}" />
+        <Setter Property="Background" Value="{DynamicResource DefaultBackground}" />
 
         <Style.Triggers>
             <Trigger Property="ResizeMode" Value="CanResize">

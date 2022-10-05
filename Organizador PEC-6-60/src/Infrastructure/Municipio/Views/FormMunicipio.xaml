@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Organizador_PEC_6_60.Infrastructure.Municipio.Views"
         mc:Ignorable="d"
         Style="{DynamicResource WindowBaseStyle}"
         Title="Municipio" WindowStartupLocation="CenterOwner" ResizeMode="CanMinimize"
@@ -25,7 +24,7 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
-                        <TextBlock.Text>    
+                        <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} - {1}">
                                 <Binding Path="Clave" />
                                 <Binding Path="Nombre" />
@@ -36,8 +35,9 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-            <Label Content="Clave:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="15,0,10,0" />
-        <TextBox x:Name="txtClave" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="15,0" PreviewTextInput="ValidateClaveFormat"/>
+        <Label Content="Clave:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="15,0,10,0" />
+        <TextBox x:Name="txtClave" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="15,0"
+                 PreviewTextInput="ValidateClaveFormat" />
 
         <Label Content="Nombre:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="15,0,10,0" />
         <TextBox x:Name="txtNombre" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="15,0" />

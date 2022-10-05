@@ -9,71 +9,70 @@ using Organizador_PEC_6_60.Domain.TipoEstadistica.Repository;
 using Organizador_PEC_6_60.Domain.TipoEstadistica.ValueObjects;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.ValueObjects;
 
-namespace Organizador_PEC_6_60.Application.TipoEstadistica
+namespace Organizador_PEC_6_60.Application.TipoEstadistica;
+
+public class ManageTipoEstadistica
 {
-    public class ManageTipoEstadistica
+    private readonly AllTipoEstadisticaSearcher _allSearcher;
+    private readonly TipoEstadisticaByIdSearcher _byIdSearcher;
+    private readonly TipoEstadisticaCreator _creator;
+    private readonly TipoEstadisticaDeleter _deleter;
+    private readonly TipoEstadisticaUpdater _updater;
+
+    public ManageTipoEstadistica(TipoEstadisticaRepository repository)
     {
-        private AllTipoEstadisticaSearcher _allSearcher;
-        private TipoEstadisticaByIdSearcher _byIdSearcher;
-        private TipoEstadisticaCreator _creator;
-        private TipoEstadisticaUpdater _updater;
-        private TipoEstadisticaDeleter _deleter;
+        _allSearcher = new AllTipoEstadisticaSearcher(repository);
+        _byIdSearcher = new TipoEstadisticaByIdSearcher(repository);
+        _creator = new TipoEstadisticaCreator(repository);
+        _updater = new TipoEstadisticaUpdater(repository);
+        _deleter = new TipoEstadisticaDeleter(repository);
+    }
 
-        public ManageTipoEstadistica(TipoEstadisticaRepository repository)
-        {
-            _allSearcher = new AllTipoEstadisticaSearcher(repository);
-            _byIdSearcher = new TipoEstadisticaByIdSearcher(repository);
-            _creator = new TipoEstadisticaCreator(repository);
-            _updater = new TipoEstadisticaUpdater(repository);
-            _deleter = new TipoEstadisticaDeleter(repository);
-        }
+    public TiposEstadisticaResponse SearchAllTiposEstadisitca()
+    {
+        return new TiposEstadisticaResponse(_allSearcher.SearchAllTiposEstadistica());
+    }
 
-        public TiposEstadisticaResponse SearchAllTiposEstadisitca()
-        {
-            return new TiposEstadisticaResponse(_allSearcher.SearchAllTiposEstadistica());
-        }
+    public TipoEstadisticaResponse SearchTipoEstadisticaById(int id)
+    {
+        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
+    }
 
-        public TipoEstadisticaResponse SearchTipoEstadisticaById(int id)
-        {
-            return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
-        }
+    public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
+    {
+        var listInstrumentos =
+            instrumentos.Select(
+                item =>
+                    new Domain.TipoInstrumento.Model.TipoInstrumento(
+                        new TipoInstrumentoNombre(item.Nombre),
+                        item.Id
+                    )
+            ).ToList();
 
-        public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
-        {
-            List<Domain.TipoInstrumento.Model.TipoInstrumento> listInstrumentos =
-                instrumentos.Select(
-                    item =>
-                        new Domain.TipoInstrumento.Model.TipoInstrumento(
-                            new TipoInstrumentoNombre(item.Nombre),
-                            item.Id
-                        )
-                ).ToList();
+        _creator.Create(new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
+    }
 
-            _creator.Create(new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
-        }
+    public void UpdateTipoEstadistica(
+        int id,
+        int clave,
+        string nombre,
+        List<TipoInstrumentoResponse> instrumentos
+    )
+    {
+        var listInstrumentos =
+            instrumentos.Select(
+                item =>
+                    new Domain.TipoInstrumento.Model.TipoInstrumento(
+                        new TipoInstrumentoNombre(item.Nombre),
+                        item.Id
+                    )
+            ).ToList();
 
-        public void UpdateTipoEstadistica(
-            int id,
-            int clave,
-            string nombre,
-            List<TipoInstrumentoResponse> instrumentos
-        )
-        {
-            List<Domain.TipoInstrumento.Model.TipoInstrumento> listInstrumentos =
-                instrumentos.Select(
-                    item =>
-                        new Domain.TipoInstrumento.Model.TipoInstrumento(
-                            new TipoInstrumentoNombre(item.Nombre),
-                            item.Id
-                        )
-                ).ToList();
+        _updater.Update(id, new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
+    }
 
-            _updater.Update(id, new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
-        }
-
-        public void DeleteTipoEstadisitca(int id)
-        {
-            _deleter.Delete(id);
-        }
+    public void DeleteTipoEstadisitca(int id)
+    {
+        _deleter.Delete(id);
     }
 }

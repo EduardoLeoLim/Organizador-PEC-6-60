@@ -1,19 +1,18 @@
 ﻿using Organizador_PEC_6_60.Domain.TipoEstadistica.Repository;
 
-namespace Organizador_PEC_6_60.Application.TipoEstadistica.Search
+namespace Organizador_PEC_6_60.Application.TipoEstadistica.Search;
+
+public class TipoEstadisticaByIdSearcher
 {
-    public class TipoEstadisticaByIdSearcher
+    private readonly TipoEstadisticaRepository _repository;
+
+    public TipoEstadisticaByIdSearcher(TipoEstadisticaRepository repository)
     {
-        private readonly TipoEstadisticaRepository _repository;
+        _repository = repository;
+    }
 
-        public TipoEstadisticaByIdSearcher(TipoEstadisticaRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public Domain.TipoEstadistica.Model.TipoEstadistica SearchTipoEstadisticaById(int id)
-        {
-            return _repository.SearchById(id);
-        }
+    public Domain.TipoEstadistica.Model.TipoEstadistica SearchTipoEstadisticaById(int id)
+    {
+        return _repository.SearchById(id);
     }
 }

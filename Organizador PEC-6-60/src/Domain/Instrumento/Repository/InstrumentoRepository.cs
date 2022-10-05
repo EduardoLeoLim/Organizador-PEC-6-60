@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Organizador_PEC_6_60.Domain.Instrumento.Repository
+namespace Organizador_PEC_6_60.Domain.Instrumento.Repository;
+
+public interface InstrumentoRepository
 {
-    public interface InstrumentoRepository
-    {
-        IEnumerable<Domain.Instrumento.Model.Instrumento> SearchByCriteria(Dictionary<string, object> dictionary);
-        Domain.Instrumento.Model.Instrumento SearchById(int id);
-        void Insert(Domain.Instrumento.Model.Instrumento newPec660);
-        void Update(Domain.Instrumento.Model.Instrumento pec660);
-        void Delete(int id);
-    }
+    IEnumerable<Model.Instrumento> SearchByCriteria(Dictionary<string, object> dictionary);
+    Model.Instrumento SearchById(int id);
+    void Insert(Model.Instrumento newPec660);
+    void Update(Model.Instrumento pec660);
+    void Delete(int id);
 }

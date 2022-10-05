@@ -1,95 +1,93 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Organizador_PEC_6_60.Application.Usuario;
 using Organizador_PEC_6_60.Application.Usuario.LogIn;
 using Organizador_PEC_6_60.Infrastructure.Usuario.Persistence;
 
-namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views
+namespace Organizador_PEC_6_60.Infrastructure.Usuario.Views;
+
+public partial class Login : Window
 {
-    public partial class Login : Window
+    private readonly LogInUsuario _logInUsuario;
+
+    public Login()
     {
-        private readonly LogInUsuario _logInUsuario;
+        InitializeComponent();
+        _logInUsuario = new LogInUsuario(SqliteUsuarioRepository.Instance);
+    }
 
-        public Login()
+    private void LogIn_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            InitializeComponent();
-            _logInUsuario = new LogInUsuario(SqliteUsuarioRepository.Instance);
-        }
+            txtUsername.IsEnabled = false;
+            txtPassword.IsEnabled = false;
+            btnLogIn.IsEnabled = false;
+            btnSignIn.IsEnabled = false;
 
-        private void LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            if (IsValidDataForm())
             {
-                txtUsername.IsEnabled = false;
-                txtPassword.IsEnabled = false;
-                btnLogIn.IsEnabled = false;
-                btnSignIn.IsEnabled = false;
-
-                if (IsValidDataForm())
-                {
-                    UsuarioConnected usuarioLogged = _logInUsuario.LogIn(txtUsername.Text, txtPassword.Password);
-                    new Dashboard(usuarioLogged).Show();
-                    Close();
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                MessageBox.Show("Credenciales inválidas", "Error inicio sesión", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-            finally
-            {
-                txtUsername.IsEnabled = true;
-                txtPassword.IsEnabled = true;
-                btnLogIn.IsEnabled = true;
-                btnSignIn.IsEnabled = true;
+                var usuarioLogged = _logInUsuario.LogIn(txtUsername.Text, txtPassword.Password);
+                new Dashboard(usuarioLogged).Show();
+                Close();
             }
         }
-
-        private void SingIn_Click(object sender, RoutedEventArgs e)
+        catch (InvalidOperationException)
         {
-            new RegisterUsuario().Show();
-            Close();
+            MessageBox.Show("Credenciales inválidas", "Error inicio sesión", MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        finally
+        {
+            txtUsername.IsEnabled = true;
+            txtPassword.IsEnabled = true;
+            btnLogIn.IsEnabled = true;
+            btnSignIn.IsEnabled = true;
+        }
+    }
+
+    private void SingIn_Click(object sender, RoutedEventArgs e)
+    {
+        new RegisterUsuario().Show();
+        Close();
+    }
+
+    private bool IsValidDataForm()
+    {
+        txtUsername.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+        txtPassword.Style = System.Windows.Application.Current.TryFindResource(typeof(PasswordBox)) as Style;
+
+        if (IsThereEmptyFields())
+        {
+            MessageBox.Show(
+                "Hay campos vacios en el formulario",
+                "Campos vacios",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning
+            );
+
+            return false;
         }
 
-        private bool IsValidDataForm()
+        return true;
+    }
+
+    private bool IsThereEmptyFields()
+    {
+        var isThere = false;
+
+        if (txtUsername.Text.Length == 0)
         {
-            txtUsername.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
-            txtPassword.Style = System.Windows.Application.Current.TryFindResource(typeof(PasswordBox)) as Style;
-
-            if (IsThereEmptyFields())
-            {
-                MessageBox.Show(
-                    "Hay campos vacios en el formulario",
-                    "Campos vacios",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
-                );
-
-                return false;
-            }
-
-            return true;
+            txtUsername.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            isThere = true;
         }
 
-        private bool IsThereEmptyFields()
+        if (txtPassword.Password.Length == 0)
         {
-            bool isThere = false;
-
-            if (txtUsername.Text.Length == 0)
-            {
-                txtUsername.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            if (txtPassword.Password.Length == 0)
-            {
-                txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            return isThere;
+            txtPassword.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            isThere = true;
         }
+
+        return isThere;
     }
 }

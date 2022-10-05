@@ -2,53 +2,52 @@
 using Organizador_PEC_6_60.Domain.EntidadFederativa.Repository;
 using Organizador_PEC_6_60.Domain.EntidadFederativa.ValueObjects;
 
-namespace Organizador_PEC_6_60.Application.EntidadFederativa.Create
+namespace Organizador_PEC_6_60.Application.EntidadFederativa.Create;
+
+public class EntidadFederativaCreator : EntidadFederativaCreatorService
 {
-    public class EntidadFederativaCreator : EntidadFederativaCreatorService
+    private readonly EntidadFederativaRepository _repository;
+
+    public EntidadFederativaCreator(EntidadFederativaRepository repository)
     {
-        private readonly EntidadFederativaRepository _repository;
+        _repository = repository;
+    }
 
-        public EntidadFederativaCreator(EntidadFederativaRepository repository)
+    public void Create(EntidadFederativaClave clave, EntidadFederativaNombre nombre)
+    {
+        if (!IsValid(clave))
+            throw new InvalidClaveEntidadFederativa();
+        if (!IsValid(nombre))
+            throw new InvalidNombreEntidadFederativa();
+
+        _repository.Insert(new Domain.EntidadFederativa.Model.EntidadFederativa(clave, nombre));
+    }
+
+    private bool IsValid(object obj)
+    {
+        if (obj is EntidadFederativaClave)
         {
-            _repository = repository;
+            var clave = ((EntidadFederativaClave)obj).Value;
+            if (clave <= 0)
+                return false;
+            //Add more validations here
+
+            return true;
         }
 
-        public void Create(EntidadFederativaClave clave, EntidadFederativaNombre nombre)
+        if (obj is EntidadFederativaNombre)
         {
-            if (!IsValid(clave))
-                throw new InvalidClaveEntidadFederativa();
-            if (!IsValid(nombre))
-                throw new InvalidNombreEntidadFederativa();
+            var nombre = ((EntidadFederativaNombre)obj).Value;
 
-            _repository.Insert(new Domain.EntidadFederativa.Model.EntidadFederativa(clave, nombre));
+            if (string.IsNullOrEmpty(nombre))
+                return false;
+            if (nombre.Trim().Length == 0)
+                return false;
+            //Add more validations here
+
+            return true;
         }
 
-        private bool IsValid(object obj)
-        {
-            if (obj is EntidadFederativaClave)
-            {
-                int clave = ((EntidadFederativaClave)obj).Value;
-                if (clave <= 0)
-                    return false;
-                //Add more validations here
-
-                return true;
-            }
-
-            if (obj is EntidadFederativaNombre)
-            {
-                string nombre = ((EntidadFederativaNombre)obj).Value;
-
-                if (string.IsNullOrEmpty(nombre))
-                    return false;
-                if (nombre.Trim().Length == 0)
-                    return false;
-                //Add more validations here
-
-                return true;
-            }
-
-            return false;
-        }
+        return false;
     }
 }

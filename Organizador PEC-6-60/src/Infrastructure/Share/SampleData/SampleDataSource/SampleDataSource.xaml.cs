@@ -3,123 +3,100 @@
 //      此文件可能会导致错误。
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace Organizador_PEC_6_60.Infrastructure.Share.SampleData.SampleDataSource
-{
-	// 若要在生产应用程序中显著减小示例数据涉及面，则可以设置
+namespace Organizador_PEC_6_60.Infrastructure.Share.SampleData.SampleDataSource;
+// 若要在生产应用程序中显著减小示例数据涉及面，则可以设置
 // DISABLE_SAMPLE_DATA 条件编译常量并在运行时禁用示例数据。
 #if DISABLE_SAMPLE_DATA
 	internal class SampleDataSource { }
 #else
 
-	public class SampleDataSource : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
+public class SampleDataSource : INotifyPropertyChanged
+{
+    public SampleDataSource()
+    {
+        try
+        {
+            var resourceUri = new Uri("/BootstrapWpfStyle;component/SampleData/SampleDataSource/SampleDataSource.xaml",
+                UriKind.RelativeOrAbsolute);
+            System.Windows.Application.LoadComponent(this, resourceUri);
+        }
+        catch
+        {
+        }
+    }
 
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			if (this.PropertyChanged != null)
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
+    public ItemCollection Collection { get; } = new();
 
-		public SampleDataSource()
-		{
-			try
-			{
-				Uri resourceUri = new Uri("/BootstrapWpfStyle;component/SampleData/SampleDataSource/SampleDataSource.xaml", UriKind.RelativeOrAbsolute);
-				System.Windows.Application.LoadComponent(this, resourceUri);
-			}
-			catch
-			{
-			}
-		}
+    public event PropertyChangedEventHandler PropertyChanged;
 
-		private ItemCollection _Collection = new ItemCollection();
-
-		public ItemCollection Collection
-		{
-			get
-			{
-				return this._Collection;
-			}
-		}
-	}
-
-	public class Item : INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void OnPropertyChanged(string propertyName)
-		{
-			if (this.PropertyChanged != null)
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-
-		private string _Property1 = string.Empty;
-
-		public string Property1
-		{
-			get
-			{
-				return this._Property1;
-			}
-
-			set
-			{
-				if (this._Property1 != value)
-				{
-					this._Property1 = value;
-					this.OnPropertyChanged("Property1");
-				}
-			}
-		}
-
-		private string _Property2 = string.Empty;
-
-		public string Property2
-		{
-			get
-			{
-				return this._Property2;
-			}
-
-			set
-			{
-				if (this._Property2 != value)
-				{
-					this._Property2 = value;
-					this.OnPropertyChanged("Property2");
-				}
-			}
-		}
-
-		private double _Property3 = 0;
-
-		public double Property3
-		{
-			get
-			{
-				return this._Property3;
-			}
-
-			set
-			{
-				if (this._Property3 != value)
-				{
-					this._Property3 = value;
-					this.OnPropertyChanged("Property3");
-				}
-			}
-		}
-	}
-
-	public class ItemCollection : System.Collections.ObjectModel.ObservableCollection<Item>
-	{ 
-	}
-#endif
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
+
+public class Item : INotifyPropertyChanged
+{
+    private string _Property1 = string.Empty;
+
+    private string _Property2 = string.Empty;
+
+    private double _Property3;
+
+    public string Property1
+    {
+        get => _Property1;
+
+        set
+        {
+            if (_Property1 != value)
+            {
+                _Property1 = value;
+                OnPropertyChanged("Property1");
+            }
+        }
+    }
+
+    public string Property2
+    {
+        get => _Property2;
+
+        set
+        {
+            if (_Property2 != value)
+            {
+                _Property2 = value;
+                OnPropertyChanged("Property2");
+            }
+        }
+    }
+
+    public double Property3
+    {
+        get => _Property3;
+
+        set
+        {
+            if (_Property3 != value)
+            {
+                _Property3 = value;
+                OnPropertyChanged("Property3");
+            }
+        }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+public class ItemCollection : ObservableCollection<Item>
+{
+}
+#endif

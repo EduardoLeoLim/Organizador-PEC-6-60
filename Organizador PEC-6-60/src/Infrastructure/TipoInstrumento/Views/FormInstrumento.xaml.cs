@@ -5,152 +5,151 @@ using System.Windows.Controls;
 using Organizador_PEC_6_60.Application.TipoInstrumento;
 using Organizador_PEC_6_60.Domain.TipoInstrumento.Exceptions;
 
-namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views
+namespace Organizador_PEC_6_60.Infrastructure.TipoInstrumento.Views;
+
+public partial class FormInstrumento : Window
 {
-    public partial class FormInstrumento : Window
+    private readonly ManageTiposInstrumento _managerTiposInstrumentos;
+    private TipoInstrumentoResponse _instrumento;
+    private readonly bool _isNewRecord;
+
+    public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos)
     {
-        private readonly ManageTiposInstrumento _managerTiposInstrumentos;
-        private bool isNewRecord;
-        private TipoInstrumentoResponse _instrumento;
+        InitializeComponent();
+        _managerTiposInstrumentos = managerTiposInstrumentos;
+        _isNewRecord = true;
+    }
 
-        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos)
-        {
-            InitializeComponent();
-            _managerTiposInstrumentos = managerTiposInstrumentos;
-            isNewRecord = true;
-        }
+    public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(
+        managerTiposInstrumentos)
+    {
+        _isNewRecord = false;
+        LoadForm(idInstrumento);
+    }
 
-        public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(
-            managerTiposInstrumentos)
+    private void Save_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            isNewRecord = false;
-            LoadForm(idInstrumento);
-        }
+            txtNombre.IsEnabled = false;
+            btnSave.IsEnabled = false;
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            if (IsValidFormData())
             {
-                txtNombre.IsEnabled = false;
-                btnSave.IsEnabled = false;
-
-                if (IsValidFormData())
+                if (_isNewRecord)
                 {
-                    if (isNewRecord)
-                    {
-                        _managerTiposInstrumentos.RegisterInstrumento(txtNombre.Text);
+                    _managerTiposInstrumentos.RegisterInstrumento(txtNombre.Text);
 
-                        MessageBox.Show(
-                            "TipoInstrumento registrado.",
-                            "Exito",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );
-                        Close();
-                    }
-                    else
-                    {
-                        _managerTiposInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
+                    MessageBox.Show(
+                        "TipoInstrumento registrado.",
+                        "Exito",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    Close();
+                }
+                else
+                {
+                    _managerTiposInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
 
-                        MessageBox.Show(
-                            "TipoInstrumento editado.",
-                            "Exito",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information
-                        );
-                        Close();
-                    }
+                    MessageBox.Show(
+                        "TipoInstrumento editado.",
+                        "Exito",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    Close();
                 }
             }
-            catch (InvalidNombreTipoInstrumento ex)
-            {
-                txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                MessageBox.Show(
-                    ex.Message,
-                    "Error Nombre",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            catch (DbException ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error base de datos",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-            finally
-            {
-                txtNombre.IsEnabled = true;
-                btnSave.IsEnabled = true;
-            }
         }
-
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        catch (InvalidNombreTipoInstrumento ex)
         {
-            Close();
+            txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            MessageBox.Show(
+                ex.Message,
+                "Error Nombre",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
-
-        private void LoadForm(int idInstrumento)
+        catch (InvalidOperationException ex)
         {
-            try
-            {
-                _instrumento = _managerTiposInstrumentos.SearchInstrumentoById(idInstrumento);
-                txtNombre.Text = _instrumento.Nombre;
-            }
-            catch (DbException ex)
-            {
-                btnSave.IsEnabled = false;
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
+            MessageBox.Show(
+                ex.Message,
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
-
-        private bool IsValidFormData()
+        catch (DbException ex)
         {
-            txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
-
-            if (IsThereEmptyFields())
-            {
-                MessageBox.Show(
-                    "Hay campos vacios en el formulario",
-                    "Campos vacios",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning
-                );
-
-                return false;
-            }
-
-            return true;
+            MessageBox.Show(
+                ex.Message,
+                "Error base de datos",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
         }
-
-        private bool IsThereEmptyFields()
+        finally
         {
-            bool isThere = false;
-
-            if (txtNombre.Text.Length == 0)
-            {
-                txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-                isThere = true;
-            }
-
-            return isThere;
+            txtNombre.IsEnabled = true;
+            btnSave.IsEnabled = true;
         }
+    }
+
+    private void Cancel_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    private void LoadForm(int idInstrumento)
+    {
+        try
+        {
+            _instrumento = _managerTiposInstrumentos.SearchInstrumentoById(idInstrumento);
+            txtNombre.Text = _instrumento.Nombre;
+        }
+        catch (DbException ex)
+        {
+            btnSave.IsEnabled = false;
+            MessageBox.Show(
+                ex.Message,
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error
+            );
+        }
+    }
+
+    private bool IsValidFormData()
+    {
+        txtNombre.Style = System.Windows.Application.Current.TryFindResource(typeof(TextBox)) as Style;
+
+        if (IsThereEmptyFields())
+        {
+            MessageBox.Show(
+                "Hay campos vacios en el formulario",
+                "Campos vacios",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning
+            );
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool IsThereEmptyFields()
+    {
+        var isThere = false;
+
+        if (txtNombre.Text.Length == 0)
+        {
+            txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
+            isThere = true;
+        }
+
+        return isThere;
     }
 }
