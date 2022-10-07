@@ -59,12 +59,8 @@ public partial class Login : Window
 
         if (IsThereEmptyFields())
         {
-            MessageBox.Show(
-                "Hay campos vacios en el formulario",
-                "Campos vacios",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning
-            );
+            MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
 
             return false;
         }

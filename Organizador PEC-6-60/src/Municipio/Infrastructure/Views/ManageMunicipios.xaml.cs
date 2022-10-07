@@ -80,12 +80,7 @@ public partial class ManageMunicipios : Page
             }
             catch (DbException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error base de datos",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             LoadPage();

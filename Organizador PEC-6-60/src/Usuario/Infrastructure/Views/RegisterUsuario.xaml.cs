@@ -31,12 +31,8 @@ public partial class RegisterUsuario : Window
                     txtApellidos.Text
                 );
 
-                MessageBox.Show(
-                    $"Usuario: {txtUsername.Text}\nContraseña: {txtPassword.Password}",
-                    "Usuario registrado",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                MessageBox.Show($"Usuario: {txtUsername.Text}\nContraseña: {txtPassword.Password}",
+                    "Usuario registrado", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 new Login().Show();
                 Close();
@@ -44,48 +40,23 @@ public partial class RegisterUsuario : Window
         }
         catch (InvalidUsername ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidPassword ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error Contraseña",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Contraseña", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidNombre ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidApellidos ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error Apellidos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Apellidos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.ToString(),
-                "Error de base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.ToString(), "Error de base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -105,12 +76,8 @@ public partial class RegisterUsuario : Window
 
         if (IsThereEmptyFields())
         {
-            MessageBox.Show(
-                "Hay campos vacos en el formulario",
-                "Campos vacios",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning
-            );
+            MessageBox.Show("Hay campos vacos en el formulario", "Campos vacios", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
 
             return false;
         }

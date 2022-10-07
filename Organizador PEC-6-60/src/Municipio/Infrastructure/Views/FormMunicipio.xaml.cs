@@ -67,12 +67,8 @@ public partial class FormMunicipio : Window
                         dataEntidadFederativaSeleccionada
                     );
 
-                    MessageBox.Show(
-                        "Municipio registrado.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Municipio registrado.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     Close();
                 }
                 else
@@ -87,12 +83,8 @@ public partial class FormMunicipio : Window
                         dataEntidadFederativaSeleccionada
                     );
 
-                    MessageBox.Show(
-                        "Municipio actualizado.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Municipio actualizado.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
 
                     Close();
                 }
@@ -101,39 +93,20 @@ public partial class FormMunicipio : Window
         catch (InvalidClaveMunicipio ex)
         {
             txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Clave",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Clave", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidNombreMunicipio ex)
         {
             txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidOperationException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {

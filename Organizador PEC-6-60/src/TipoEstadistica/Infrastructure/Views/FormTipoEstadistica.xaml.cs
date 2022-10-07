@@ -59,29 +59,17 @@ public partial class FormTipoEstadistica : Window
                         GetSelectedInstrumentos()
                     );
 
-                    MessageBox.Show(
-                        "Tipo de estadística registrada.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Tipo de estadística registrada.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     Close();
                 }
                 else
                 {
-                    _managerTipoEstadistica.UpdateTipoEstadistica(
-                        _tipoEstadistica.Id,
-                        int.Parse(txtClave.Text),
-                        txtNombre.Text,
-                        GetSelectedInstrumentos()
-                    );
+                    _managerTipoEstadistica.UpdateTipoEstadistica(_tipoEstadistica.Id, int.Parse(txtClave.Text),
+                        txtNombre.Text, GetSelectedInstrumentos());
 
-                    MessageBox.Show(
-                        "Tipo de estadística editada.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Tipo de estadística editada.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     Close();
                 }
             }
@@ -89,49 +77,24 @@ public partial class FormTipoEstadistica : Window
         catch (InvalidClaveTipoEstadistica ex)
         {
             txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidNombreTipoEstadistica ex)
         {
             txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidInstrumentosTipoEstadistica ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error Instrumentos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Instrumentos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidOperationException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {

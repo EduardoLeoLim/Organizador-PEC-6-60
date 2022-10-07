@@ -46,13 +46,8 @@ public partial class ManageInstrumentos : Page
         var message = "¿Quiere eliminar el registro?";
         message += $"\nNombre: {record.Nombre}";
 
-        var result = MessageBox.Show(
-            message,
-            "Eliminar",
-            MessageBoxButton.YesNo,
-            MessageBoxImage.Question,
-            MessageBoxResult.No
-        );
+        var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,
+            MessageBoxResult.No);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -62,21 +57,11 @@ public partial class ManageInstrumentos : Page
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (DbException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error base de datos",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             LoadTable();
@@ -92,12 +77,7 @@ public partial class ManageInstrumentos : Page
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             tblInstrumentos.Items.Clear();
         }
     }

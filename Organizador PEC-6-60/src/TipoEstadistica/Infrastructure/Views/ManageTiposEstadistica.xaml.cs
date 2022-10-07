@@ -71,12 +71,7 @@ public partial class ManageTiposEstadistica : Page
             }
             catch (DbException ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error base de datos",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             LoadTable();
@@ -92,12 +87,7 @@ public partial class ManageTiposEstadistica : Page
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
 
             tblTiposEstadistica.Items.Clear();
         }
