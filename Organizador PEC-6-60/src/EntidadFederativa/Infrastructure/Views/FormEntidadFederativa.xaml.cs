@@ -47,12 +47,8 @@ public partial class FormEntidadFederativa : Window
                         );
                     creator.Register(int.Parse(txtClave.Text), txtNombre.Text);
 
-                    MessageBox.Show(
-                        "Entidad Federativa registrada.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     Close();
                 }
                 else
@@ -67,12 +63,8 @@ public partial class FormEntidadFederativa : Window
                         txtNombre.Text
                     );
 
-                    MessageBox.Show(
-                        "Entidad Federativa editada.",
-                        "Exito",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information
-                    );
+                    MessageBox.Show("Entidad Federativa editada.", "Exito", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     Close();
                 }
             }
@@ -80,40 +72,20 @@ public partial class FormEntidadFederativa : Window
         catch (InvalidClaveEntidadFederativa ex)
         {
             txtClave.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Clave",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Clave", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidNombreEntidadFederativa ex)
         {
             txtNombre.Style = System.Windows.Application.Current.FindResource("has-error") as Style;
-            MessageBox.Show(
-                ex.Message,
-                "Error Nombre",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error Nombre", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidOperationException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (DbException ex)
         {
-            MessageBox.Show(
-                ex.Message,
-                "Error base de datos",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -160,12 +132,8 @@ public partial class FormEntidadFederativa : Window
 
         if (IsThereEmptyFields())
         {
-            MessageBox.Show(
-                "Hay campos vacios en el formulario",
-                "Campos vacios",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning
-            );
+            MessageBox.Show("Hay campos vacios en el formulario", "Campos vacios", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             return false;
         }
 
