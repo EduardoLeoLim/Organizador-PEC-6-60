@@ -1,0 +1,45 @@
+﻿<Page x:Class="Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Views.ManageInstrumentos"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d">
+    <DockPanel LastChildFill="True" Margin="10" Loaded="LoadWindow">
+        <StackPanel DockPanel.Dock="Top">
+            <Label Content="Instrumentos" Style="{StaticResource h2}" Margin="30,10,30,0" />
+        </StackPanel>
+
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Button x:Name="btnNewRecord" Content="Nuevo" FontSize="16" Grid.Row="0"
+                    Style="{StaticResource btn-success}" HorizontalAlignment="Right"
+                    VerticalAlignment="Center" Click="NewRecord_Click" />
+            <DataGrid x:Name="tblInstrumentos" Grid.Row="1" ColumnWidth="*" AutoGenerateColumns="False" FontSize="16"
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                      CanUserResizeRows="False" CanUserResizeColumns="True" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" MinWidth="50" />
+                    <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Editar" Style="{StaticResource btn-success}" Click="EditRecord_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn MinWidth="100" MaxWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Eliminar" Style="{StaticResource btn-danger}"
+                                        Click="DeleteRecord_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Page>

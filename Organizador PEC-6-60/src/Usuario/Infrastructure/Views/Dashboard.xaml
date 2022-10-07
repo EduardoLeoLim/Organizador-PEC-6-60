@@ -1,0 +1,93 @@
+﻿<Window x:Class="Organizador_PEC_6_60.Usuario.Infrastructure.Views.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Style="{DynamicResource WindowBaseStyle}"
+        WindowStartupLocation="CenterScreen"
+        Title="Organizador PEC-6-60"
+        Height="650" MinHeight="650" Width="1100" MinWidth="1100">
+    <DockPanel LastChildFill="True">
+        <StackPanel x:Name="menu" Orientation="Vertical" DockPanel.Dock="Left" Style="{DynamicResource DashboardMenu}">
+
+            <Button x:Name="btnDashboard" Content="Dashboard" Click="Dashboard_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Menu.png" />
+                </Button.Background>
+            </Button>
+
+            <Separator Height="20" />
+
+            <Button x:Name="btnSavePEC_6_60" Content="Guardar PEC-6-60" Click="SavePEC_6_60_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Guardar.png" />
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="btnFindPEC_6_60" Content="Consultar PEC-6-60" Click="FindPEC_6_60_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Buscar.png" />
+                </Button.Background>
+            </Button>
+
+            <Separator Height="20" />
+
+            <Button x:Name="btnManageTiposEstadistica" Content="Tipos de Estadística"
+                    Click="ManageTiposEstadistica_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Catalogo.png" />
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="btnManageInstrumentos" Content="Instrumentos" Click="ManageInstrumentos_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Catalogo.png" />
+                </Button.Background>
+            </Button>
+
+            <Button Content="Entidades Federativas" Click="ManageEntidadesFederativas_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Catalogo.png" />
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="btnManageMunicipios" Content="Municipios" Click="ManageMunicipios_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Catalogo.png" />
+                </Button.Background>
+            </Button>
+
+            <Separator Height="20" Margin="0" />
+
+            <Button Content="Convertir Imagen a PDF">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Pdf.png" />
+                </Button.Background>
+            </Button>
+
+            <Button Content="Convertir PDF a Imagen">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Imagen.png" />
+                </Button.Background>
+            </Button>
+
+            <Button Content="Unir archivos PDF">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Pdf.png" />
+                </Button.Background>
+            </Button>
+
+            <Separator Height="20" />
+
+            <Button x:Name="btnLogOut" Content="Cerrar sesión" Click="LogOut_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Salir.png" />
+                </Button.Background>
+            </Button>
+
+        </StackPanel>
+
+        <Frame x:Name="mainPanel" Background="White" NavigationUIVisibility="Hidden" />
+    </DockPanel>
+</Window>

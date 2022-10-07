@@ -1,17 +1,14 @@
 ﻿<Application x:Class="Organizador_PEC_6_60.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:sampleDataSource="clr-namespace:Organizador_PEC_6_60.Infrastructure.Share.SampleData.SampleDataSource"
+             xmlns:sampleDataSource="clr-namespace:Organizador_PEC_6_60.Share.Infrastructure.SampleData.SampleDataSource"
              Startup="App_OnStartup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
-                    Source="pack://application:,,,/src/Infrastructure/Share/Styles/Bootstrap.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/src/Infrastructure/Share/PathGeometries/Glyphicons.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/src/Infrastructure/Share/Styles/Dashboard.xaml" />
+                <ResourceDictionary Source="/src/Share/Infrastructure/Styles/Bootstrap.xaml" />
+                <ResourceDictionary Source="/src/Share/Infrastructure/PathGeometries/Glyphicons.xaml" />
+                <ResourceDictionary Source="/src/Share/Infrastructure/Styles/Dashboard.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <sampleDataSource:SampleDataSource x:Key="SampleDataSource" />
         </ResourceDictionary>

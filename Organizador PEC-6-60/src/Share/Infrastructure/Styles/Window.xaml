@@ -1,0 +1,120 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Organizador_PEC_6_60.Share.Infrastructure.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/src/Share/Infrastructure/Styles/Colors.xaml" />
+        <ResourceDictionary Source="/src/Share/Infrastructure/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="/src/Share/Infrastructure/Styles/Sizes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!--body 源码行数:13-15 902-908-->
+    <!--窗体样式-->
+    <!--Font针对TextBlock-->
+    <Style x:Key="WindowBaseStyle" TargetType="{x:Type Window}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome ResizeBorderThickness="2" CaptionHeight="30" CornerRadius="0" GlassFrameThickness="0" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultForeground}" />
+        <Setter Property="Background" Value="{DynamicResource DefaultBackground}" />
+
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResize">
+                <Setter Property="Template" Value="{DynamicResource CanResizeWindowControlTemplate}" />
+            </Trigger>
+            <Trigger Property="ResizeMode" Value="NoResize">
+                <Setter Property="Template" Value="{DynamicResource NoResizeWindowControlTemplate}" />
+            </Trigger>
+            <Trigger Property="ResizeMode" Value="CanMinimize">
+                <Setter Property="Template" Value="{DynamicResource CanMinimizeWindowControlTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="CanResizeWindowControlTemplate" TargetType="{x:Type Window}">
+        <Border Name="ContentWindow" Background="#0072D2" Padding="1,0,1,1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Captions Buttons to control the window borderless-->
+                <Grid Grid.Row="0" FlowDirection="LeftToRight">
+                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="Consolas"
+                               Foreground="White" Text="{TemplateBinding Title}" />
+                    <controls:CaptionButtons Margin="0,0,0,0" Grid.Row="0" HorizontalAlignment="Right" Type="Full"
+                                             Foreground="White" FontSize="18" MarginButton="0,0,5,0"
+                                             VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" />
+                </Grid>
+
+                <Border Grid.Row="1" Background="White">
+                    <ContentPresenter Content="{TemplateBinding Content}" />
+                </Border>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="ContentWindow" Property="Padding" Value="8" />
+                <Setter Property="WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <WindowChrome ResizeBorderThickness="0" CaptionHeight="40" CornerRadius="0"
+                                      GlassFrameThickness="0" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="NoResizeWindowControlTemplate" TargetType="{x:Type Window}">
+        <Border Background="#0072D2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Captions Buttons to control the window borderless-->
+                <Grid Grid.Row="0" FlowDirection="LeftToRight">
+                    <TextBlock Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="Consolas"
+                               Foreground="White" Text="{TemplateBinding Title}" />
+                    <controls:CaptionButtons Margin="0,0,0,0" Grid.Row="0" HorizontalAlignment="Right" Type="Close"
+                                             Foreground="White" FontSize="18" MarginButton="0,0,5,0"
+                                             VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" />
+                </Grid>
+
+                <Border Grid.Row="1" Margin="1" Background="White">
+                    <ContentPresenter Content="{TemplateBinding Content}" />
+                </Border>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="CanMinimizeWindowControlTemplate" TargetType="{x:Type Window}">
+        <Border Background="#0072D2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Captions Buttons to control the window borderless-->
+                <Grid Grid.Row="0" FlowDirection="LeftToRight">
+                    <TextBlock Margin="10,5,0,0" VerticalAlignment="Center" FontSize="20" FontFamily="Consolas"
+                               Foreground="White" Text="{TemplateBinding Title}" />
+                    <controls:CaptionButtons Margin="0,0,0,0" Grid.Row="0" HorizontalAlignment="Right"
+                                             Type="ReduceClose"
+                                             Foreground="White" FontSize="18" MarginButton="0,0,5,0"
+                                             VerticalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" />
+                </Grid>
+
+                <Border Grid.Row="1" Margin="1" Background="White">
+                    <ContentPresenter Content="{TemplateBinding Content}" />
+                </Border>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>
