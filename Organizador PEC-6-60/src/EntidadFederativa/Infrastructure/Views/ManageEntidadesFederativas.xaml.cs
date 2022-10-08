@@ -47,23 +47,23 @@ public partial class ManageEntidadesFederativas : Page
         var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,
             MessageBoxResult.No);
 
-        if (result == MessageBoxResult.Yes)
+        if (result != MessageBoxResult.Yes)
+            return;
+
+        try
         {
-            try
-            {
-                var entidadFederativaDeleter = new DeleteEntidadFederativa(
-                    new EntidadFederativaDeleter(SqliteEntidadFederativaRepository.Instance)
-                );
+            var entidadFederativaDeleter = new DeleteEntidadFederativa(
+                new EntidadFederativaDeleter(SqliteEntidadFederativaRepository.Instance)
+            );
 
-                entidadFederativaDeleter.Delete(record.Id);
-            }
-            catch (DbException ex)
-            {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            LoadTable();
+            entidadFederativaDeleter.Delete(record.Id);
         }
+        catch (DbException ex)
+        {
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        LoadTable();
     }
 
     private void LoadTable()
