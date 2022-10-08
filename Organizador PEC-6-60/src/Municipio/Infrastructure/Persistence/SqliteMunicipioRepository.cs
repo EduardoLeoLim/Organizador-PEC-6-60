@@ -25,8 +25,10 @@ public class SqliteMunicipioRepository : MunicipioRepository
         {
             if (_instance == null)
                 lock (_lock)
+                {
                     if (_instance == null)
                         _instance = new SqliteMunicipioRepository();
+                }
 
             return _instance;
         }

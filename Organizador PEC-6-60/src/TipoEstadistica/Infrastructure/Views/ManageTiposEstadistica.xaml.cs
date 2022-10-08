@@ -55,7 +55,8 @@ public partial class ManageTiposEstadistica : Page
         message += $"\nClave: {record.Clave}";
         message += $"\nNombre: {record.Nombre}";
 
-        var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,MessageBoxResult.No);
+        var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,
+            MessageBoxResult.No);
 
         if (result == MessageBoxResult.Yes)
         {

@@ -25,8 +25,10 @@ public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
         {
             if (_instance == null)
                 lock (_lock)
+                {
                     if (_instance == null)
                         _instance = new SqliteTipoInstrumentoRepository();
+                }
 
             return _instance;
         }

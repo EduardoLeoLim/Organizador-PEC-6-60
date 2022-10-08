@@ -25,8 +25,10 @@ public class SqliteEntidadFederativaRepository : EntidadFederativaRepository
         {
             if (_instance == null)
                 lock (_lock)
+                {
                     if (_instance == null)
                         _instance = new SqliteEntidadFederativaRepository();
+                }
 
             return _instance;
         }

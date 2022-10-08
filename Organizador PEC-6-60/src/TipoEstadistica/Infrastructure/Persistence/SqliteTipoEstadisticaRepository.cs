@@ -26,8 +26,10 @@ public class SqliteTipoEstadisticaRepository : TipoEstadisticaRepository
         {
             if (_instance == null)
                 lock (_lock)
+                {
                     if (_instance == null)
                         _instance = new SqliteTipoEstadisticaRepository();
+                }
 
             return _instance;
         }
