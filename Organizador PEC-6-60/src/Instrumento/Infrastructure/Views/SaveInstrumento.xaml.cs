@@ -107,12 +107,7 @@ public partial class SaveInstrumento : Page
                         byteArrayInstrumento
                     );
 
-                MessageBox.Show(
-                    "PEC-6-60 registrado",
-                    "Exito",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                MessageBox.Show("PEC-6-60 registrado", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 txtLastSave.Text = pdfViewer.DocumentInfo.FilePath + pdfViewer.DocumentInfo.FileName;
                 LoadForm();

@@ -42,19 +42,11 @@ public partial class ShowInstrumentoDetails : UserControl
             new ExportInstrumento(new PdfInstrumentoExporter()).Export(_instrumento, Path.GetTempPath());
 
         if (wasExported)
-            MessageBox.Show(
-                "Ruta del archivo copiada al portapapeles",
-                "Instrumento copiado",
-                MessageBoxButton.OK,
-                MessageBoxImage.Asterisk
-            );
+            MessageBox.Show("Ruta del archivo copiada al portapapeles", "Instrumento copiado", MessageBoxButton.OK,
+                MessageBoxImage.Asterisk);
         else
-            MessageBox.Show(
-                "Error al exportar el instrumento, intentalo de nuevo.",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show("Error al exportar el instrumento, intentalo de nuevo.", "Error", MessageBoxButton.OK,
+                MessageBoxImage.Error);
     }
 
     public void LoadDetails(InstrumentoData pec660)

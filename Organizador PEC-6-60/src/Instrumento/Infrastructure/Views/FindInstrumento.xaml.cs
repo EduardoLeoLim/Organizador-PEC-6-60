@@ -143,13 +143,9 @@ public partial class FindInstrumento : Page
         }
         else
         {
-            var resultado = MessageBox.Show(
-                Window.GetWindow(this),
-                $"¿Deseas marcar el instrumento {instrumento.Nombre} como no guardado en SIRESO?",
-                "Confirmación",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question
-            );
+            var resultado = MessageBox.Show(Window.GetWindow(this),
+                $"¿Deseas marcar el instrumento {instrumento.Nombre} como no guardado en SIRESO?", "Confirmación",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (resultado == MessageBoxResult.Yes)
                 new InstrumentoSavedInSireso(SqliteInstrumentoRepository.Instance).UnsavedInSIRESO(instrumento.Id);
@@ -232,18 +228,10 @@ public partial class FindInstrumento : Page
             new ExportInstrumento(new PdfInstrumentoExporter()).Export(instrumento, Path.GetTempPath());
 
         if (wasExported)
-            MessageBox.Show(
-                "Ruta del archivo copiada al portapapeles",
-                "Instrumento copiado",
-                MessageBoxButton.OK,
-                MessageBoxImage.Asterisk
-            );
+            MessageBox.Show("Ruta del archivo copiada al portapapeles", "Instrumento copiado", MessageBoxButton.OK,
+                MessageBoxImage.Asterisk);
         else
-            MessageBox.Show(
-                "Error al exportar el instrumento, intentalo de nuevo.",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            MessageBox.Show("Error al exportar el instrumento, intentalo de nuevo.", "Error", MessageBoxButton.OK,
+                MessageBoxImage.Error);
     }
 }
