@@ -40,14 +40,9 @@ public class ManageTipoEstadistica
 
     public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
     {
-        var listInstrumentos =
-            instrumentos.Select(
-                item =>
-                    new TipoInstrumento.Domain.Model.TipoInstrumento(
-                        new TipoInstrumentoNombre(item.Nombre),
-                        item.Id
-                    )
-            ).ToList();
+        var listInstrumentos = instrumentos.Select(item =>
+            new TipoInstrumento.Domain.Model.TipoInstrumento(new TipoInstrumentoNombre(item.Nombre), item.Id)
+        ).ToList();
 
         _creator.Create(new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);
     }
@@ -60,12 +55,8 @@ public class ManageTipoEstadistica
     )
     {
         var listInstrumentos =
-            instrumentos.Select(
-                item =>
-                    new TipoInstrumento.Domain.Model.TipoInstrumento(
-                        new TipoInstrumentoNombre(item.Nombre),
-                        item.Id
-                    )
+            instrumentos.Select(item =>
+                new TipoInstrumento.Domain.Model.TipoInstrumento(new TipoInstrumentoNombre(item.Nombre), item.Id)
             ).ToList();
 
         _updater.Update(id, new TipoEstadisticaClave(clave), new TipoEstadisticaNombre(nombre), listInstrumentos);

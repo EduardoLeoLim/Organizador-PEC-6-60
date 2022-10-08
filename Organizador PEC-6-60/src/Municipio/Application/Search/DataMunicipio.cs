@@ -27,8 +27,7 @@ public class DataMunicipio
         EntidadFederativa.Domain.Model.EntidadFederativa entidadFederativa
     )
     {
-        var dataEntidadFederativa =
-            DataEntidadFederativa.FromAggregate(entidadFederativa);
+        var dataEntidadFederativa = DataEntidadFederativa.FromAggregate(entidadFederativa);
 
         return new DataMunicipio(
             municipio.Id,

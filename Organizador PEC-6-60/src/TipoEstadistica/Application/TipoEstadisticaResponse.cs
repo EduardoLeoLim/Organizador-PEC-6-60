@@ -24,8 +24,7 @@ public class TipoEstadisticaResponse
     public string Nombre { get; }
     public IEnumerable<TipoInstrumentoResponse> Instrumentos { get; }
 
-    public static TipoEstadisticaResponse FromAggregate(
-        Domain.Model.TipoEstadistica tipoEstadistica)
+    public static TipoEstadisticaResponse FromAggregate(Domain.Model.TipoEstadistica tipoEstadistica)
     {
         return new TipoEstadisticaResponse(
             tipoEstadistica.Id,

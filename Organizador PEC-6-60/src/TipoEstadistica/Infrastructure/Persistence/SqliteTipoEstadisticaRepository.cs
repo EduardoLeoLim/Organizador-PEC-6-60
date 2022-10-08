@@ -26,9 +26,8 @@ public class SqliteTipoEstadisticaRepository : TipoEstadisticaRepository
         {
             if (_instance == null)
                 lock (_lock)
-                {
-                    if (_instance == null) _instance = new SqliteTipoEstadisticaRepository();
-                }
+                    if (_instance == null)
+                        _instance = new SqliteTipoEstadisticaRepository();
 
             return _instance;
         }
@@ -61,13 +60,12 @@ public class SqliteTipoEstadisticaRepository : TipoEstadisticaRepository
                         (int)row.id)
                     ).ToList();
 
-                var tipoEstadistica =
-                    new Domain.Model.TipoEstadistica(
-                        new TipoEstadisticaClave((int)item.folio),
-                        new TipoEstadisticaNombre((string)item.nombre),
-                        listInstrumentos,
-                        (int)item.id
-                    );
+                var tipoEstadistica = new Domain.Model.TipoEstadistica(
+                    new TipoEstadisticaClave((int)item.folio),
+                    new TipoEstadisticaNombre((string)item.nombre),
+                    listInstrumentos,
+                    (int)item.id
+                );
 
                 collection.Add(tipoEstadistica);
             }
@@ -104,13 +102,12 @@ public class SqliteTipoEstadisticaRepository : TipoEstadisticaRepository
                 ).ToList();
             connection.Close();
 
-            var tipoEstadistica =
-                new Domain.Model.TipoEstadistica(
-                    new TipoEstadisticaClave((int)resultTipoEstadistica.folio),
-                    new TipoEstadisticaNombre((string)resultTipoEstadistica.nombre),
-                    instrumentos,
-                    (int)resultTipoEstadistica.id
-                );
+            var tipoEstadistica = new Domain.Model.TipoEstadistica(
+                new TipoEstadisticaClave((int)resultTipoEstadistica.folio),
+                new TipoEstadisticaNombre((string)resultTipoEstadistica.nombre),
+                instrumentos,
+                (int)resultTipoEstadistica.id
+            );
 
             return tipoEstadistica;
         }

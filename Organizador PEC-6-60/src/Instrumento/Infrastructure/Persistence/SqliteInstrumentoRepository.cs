@@ -26,9 +26,8 @@ public class SqliteInstrumentoRepository : InstrumentoRepository
         {
             if (_instance == null)
                 lock (_lock)
-                {
-                    if (_instance == null) _instance = new SqliteInstrumentoRepository();
-                }
+                    if (_instance == null)
+                        _instance = new SqliteInstrumentoRepository();
 
             return _instance;
         }
@@ -161,12 +160,12 @@ public class SqliteInstrumentoRepository : InstrumentoRepository
             if (connection == null)
                 throw new SQLiteException("Base de datos no disponible.");
 
-            var query = "UPDATE pec_6_60 " +
-                        "SET fechaModificacion = DATE('now'), añoEstadistico = @AñoEstadistico, " +
-                        "mesEstadistico = @MesEstadistico, guardado = @Guardado, consecutivo = @Consecutivo, " +
-                        "archivo = @Archivo, idInstrumento = @IdInstrumento, idTipoEstadistica = @IdTipoEstadistica, " +
-                        "idMunicipio = @IdMunicipio " +
-                        "WHERE id = @Id;";
+            var query =
+                "UPDATE pec_6_60  SET fechaModificacion = DATE('now'), añoEstadistico = @AñoEstadistico, " +
+                "mesEstadistico = @MesEstadistico, guardado = @Guardado, consecutivo = @Consecutivo, " +
+                "archivo = @Archivo, idInstrumento = @IdInstrumento, idTipoEstadistica = @IdTipoEstadistica, " +
+                "idMunicipio = @IdMunicipio " +
+                "WHERE id = @Id;";
             var parameters = new DynamicParameters();
             parameters.Add("@AñoEstadistico", pec660.AñoEstadistico.Value, DbType.String);
             parameters.Add("@MesEstadistico", pec660.MesEstadistico.Value, DbType.Int32);

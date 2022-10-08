@@ -37,7 +37,8 @@ public class InstrumentoCreator
             dataArchivo,
             idInstrumento,
             idTipoEstadistica,
-            idMunicipio);
+            idMunicipio
+        );
 
         _repository.Insert(pec660);
     }

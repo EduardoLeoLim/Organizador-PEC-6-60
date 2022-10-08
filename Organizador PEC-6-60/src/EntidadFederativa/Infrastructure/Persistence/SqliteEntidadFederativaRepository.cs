@@ -25,9 +25,8 @@ public class SqliteEntidadFederativaRepository : EntidadFederativaRepository
         {
             if (_instance == null)
                 lock (_lock)
-                {
-                    if (_instance == null) _instance = new SqliteEntidadFederativaRepository();
-                }
+                    if (_instance == null)
+                        _instance = new SqliteEntidadFederativaRepository();
 
             return _instance;
         }
@@ -66,12 +65,11 @@ public class SqliteEntidadFederativaRepository : EntidadFederativaRepository
             var result = connection.QuerySingle(query, parameters);
             connection.Close();
 
-            var entidadFederativa =
-                new Domain.Model.EntidadFederativa(
-                    new EntidadFederativaClave((int)result.folio),
-                    new EntidadFederativaNombre((string)result.nombre),
-                    (int)result.id
-                );
+            var entidadFederativa = new Domain.Model.EntidadFederativa(
+                new EntidadFederativaClave((int)result.folio),
+                new EntidadFederativaNombre((string)result.nombre),
+                (int)result.id
+            );
 
             return entidadFederativa;
         }

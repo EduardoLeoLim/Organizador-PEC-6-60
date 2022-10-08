@@ -25,9 +25,8 @@ public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
         {
             if (_instance == null)
                 lock (_lock)
-                {
-                    if (_instance == null) _instance = new SqliteTipoInstrumentoRepository();
-                }
+                    if (_instance == null)
+                        _instance = new SqliteTipoInstrumentoRepository();
 
             return _instance;
         }
@@ -65,11 +64,10 @@ public class SqliteTipoInstrumentoRepository : TipoInstrumentoRepository
 
             var result = connection.QuerySingle(query, parameters);
             connection.Close();
-            var tipoInstrumento =
-                new Domain.Model.TipoInstrumento(
-                    new TipoInstrumentoNombre((string)result.nombre),
-                    (int)result.id
-                );
+            var tipoInstrumento = new Domain.Model.TipoInstrumento(
+                new TipoInstrumentoNombre((string)result.nombre),
+                (int)result.id
+            );
 
             return tipoInstrumento;
         }

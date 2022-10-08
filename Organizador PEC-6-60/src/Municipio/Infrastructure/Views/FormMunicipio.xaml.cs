@@ -24,10 +24,9 @@ public partial class FormMunicipio : Window
     {
         InitializeComponent();
         _isNewRecord = true;
-        var allEntidadesFederativasSearcher =
-            new SearchAllEntidadesFederativas(
-                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-            );
+        var allEntidadesFederativasSearcher = new SearchAllEntidadesFederativas(
+            new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+        );
         var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
         cbxEntidadFederativa.ItemsSource = entidadesFederativas;
     }
@@ -53,13 +52,13 @@ public partial class FormMunicipio : Window
 
             if (IsValidFormData())
             {
-                var dataEntidadFederativaSeleccionada =
-                    (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
+                var dataEntidadFederativaSeleccionada = (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
 
                 if (_isNewRecord)
                 {
-                    var municipioCreator =
-                        new RegisterMunicipio(new MunicipioCreator(SqliteMunicipioRepository.Instance));
+                    var municipioCreator = new RegisterMunicipio(
+                        new MunicipioCreator(SqliteMunicipioRepository.Instance)
+                    );
 
                     municipioCreator.Register(
                         int.Parse(txtClave.Text),

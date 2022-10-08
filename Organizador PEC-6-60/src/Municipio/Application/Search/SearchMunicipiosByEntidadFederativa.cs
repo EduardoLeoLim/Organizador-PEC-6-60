@@ -7,7 +7,8 @@ public class SearchMunicipiosByEntidadFederativa
     private readonly AllMunicipioSeacherService _allMunicipioSeacher;
     private readonly EntidadFederativaByIdSearcherService _entidadFederativaByIdSearcher;
 
-    public SearchMunicipiosByEntidadFederativa(AllMunicipioSeacherService allMunicipioSeacher,
+    public SearchMunicipiosByEntidadFederativa(
+        AllMunicipioSeacherService allMunicipioSeacher,
         EntidadFederativaByIdSearcherService entidadFederativaByIdSearcher)
     {
         _allMunicipioSeacher = allMunicipioSeacher;

@@ -51,9 +51,9 @@ public partial class ManageEntidadesFederativas : Page
         {
             try
             {
-                var entidadFederativaDeleter =
-                    new DeleteEntidadFederativa(
-                        new EntidadFederativaDeleter(SqliteEntidadFederativaRepository.Instance));
+                var entidadFederativaDeleter = new DeleteEntidadFederativa(
+                    new EntidadFederativaDeleter(SqliteEntidadFederativaRepository.Instance)
+                );
 
                 entidadFederativaDeleter.Delete(record.Id);
             }
@@ -70,10 +70,9 @@ public partial class ManageEntidadesFederativas : Page
     {
         try
         {
-            var allEntidadesFederativasSearcher =
-                new SearchAllEntidadesFederativas(
-                    new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
+            var allEntidadesFederativasSearcher = new SearchAllEntidadesFederativas(
+                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
             var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
             tblEntidades.ItemsSource = entidadesFederativas;
         }

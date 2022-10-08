@@ -41,10 +41,9 @@ public partial class FormEntidadFederativa : Window
             {
                 if (_isNewRecord)
                 {
-                    var creator =
-                        new RegisterEntidadFederativa(
-                            new EntidadFederativaCreator(SqliteEntidadFederativaRepository.Instance)
-                        );
+                    var creator = new RegisterEntidadFederativa(
+                        new EntidadFederativaCreator(SqliteEntidadFederativaRepository.Instance)
+                    );
                     creator.Register(int.Parse(txtClave.Text), txtNombre.Text);
 
                     MessageBox.Show("Entidad Federativa registrada.", "Exito", MessageBoxButton.OK,
@@ -53,10 +52,9 @@ public partial class FormEntidadFederativa : Window
                 }
                 else
                 {
-                    var entidadFederativaUpdater =
-                        new UpdateEntidadFederativa(
-                            new EntidadFederativaUpdater(SqliteEntidadFederativaRepository.Instance)
-                        );
+                    var entidadFederativaUpdater = new UpdateEntidadFederativa(
+                        new EntidadFederativaUpdater(SqliteEntidadFederativaRepository.Instance)
+                    );
                     entidadFederativaUpdater.Update(
                         _dataEntidadFederativa.Id,
                         int.Parse(txtClave.Text),
@@ -110,10 +108,9 @@ public partial class FormEntidadFederativa : Window
     {
         try
         {
-            var entidadFederativaByIdSearcher =
-                new SearchEntidadFederativaById(
-                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
+            var entidadFederativaByIdSearcher = new SearchEntidadFederativaById(
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
             _dataEntidadFederativa = entidadFederativaByIdSearcher.SearchById(idEntidadFederativa);
             txtClave.Text = _dataEntidadFederativa.Clave.ToString();
             txtNombre.Text = _dataEntidadFederativa.Nombre;

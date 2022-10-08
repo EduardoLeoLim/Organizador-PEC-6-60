@@ -48,11 +48,10 @@ public partial class SaveInstrumento : Page
         if (cbxEntidadFederativa.SelectedIndex >= 0)
         {
             var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
-            var municipiosByEntidadFederativaSearcher =
-                new SearchMunicipiosByEntidadFederativa(
-                    new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
-                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
+            var municipiosByEntidadFederativaSearcher = new SearchMunicipiosByEntidadFederativa(
+                new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
             cbxMunicipio.ItemsSource = municipiosByEntidadFederativaSearcher
                 .SearchByEntidadFederativa(entidadFederativa.Id).Municipios;
         }
@@ -96,16 +95,15 @@ public partial class SaveInstrumento : Page
                 pdfViewer.LoadedDocument.Save(memoryStream);
                 var byteArrayInstrumento = memoryStream.ToArray();
 
-                new CreateInstrumento(SqliteInstrumentoRepository.Instance)
-                    .CreateNewInstrumento(
-                        idTipoEstadistica,
-                        idTipoInstrumento,
-                        idMunicipio,
-                        añoEstadistico,
-                        mesEstadistico,
-                        consecutivo,
-                        byteArrayInstrumento
-                    );
+                new CreateInstrumento(SqliteInstrumentoRepository.Instance).CreateNewInstrumento(
+                    idTipoEstadistica,
+                    idTipoInstrumento,
+                    idMunicipio,
+                    añoEstadistico,
+                    mesEstadistico,
+                    consecutivo,
+                    byteArrayInstrumento
+                );
 
                 MessageBox.Show("PEC-6-60 registrado", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -150,10 +148,9 @@ public partial class SaveInstrumento : Page
         });
         cbxMesEstadistico.SelectedIndex = -1;
 
-        var allEntidadesFederativasSearcher =
-            new SearchAllEntidadesFederativas(
-                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-            );
+        var allEntidadesFederativasSearcher = new SearchAllEntidadesFederativas(
+            new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+        );
         cbxEntidadFederativa.ItemsSource = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
         cbxMunicipio.ItemsSource = null;
         txtConsecutivo.Text = "";
@@ -195,8 +192,7 @@ public partial class SaveInstrumento : Page
 
         if (!(cbxTipoEstadistica.SelectedIndex >= 0))
         {
-            cbxTipoEstadistica.Style =
-                System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
+            cbxTipoEstadistica.Style = System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
             isThere = true;
         }
 
@@ -208,22 +204,19 @@ public partial class SaveInstrumento : Page
 
         if (!(cbxAñoEstadistico.SelectedIndex >= 0))
         {
-            cbxAñoEstadistico.Style =
-                System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
+            cbxAñoEstadistico.Style = System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
             isThere = true;
         }
 
         if (!(cbxMesEstadistico.SelectedIndex >= 0))
         {
-            cbxMesEstadistico.Style =
-                System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
+            cbxMesEstadistico.Style = System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
             isThere = true;
         }
 
         if (!(cbxEntidadFederativa.SelectedIndex >= 0))
         {
-            cbxEntidadFederativa.Style =
-                System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
+            cbxEntidadFederativa.Style = System.Windows.Application.Current.FindResource("ComboBox has-error") as Style;
             isThere = true;
         }
 

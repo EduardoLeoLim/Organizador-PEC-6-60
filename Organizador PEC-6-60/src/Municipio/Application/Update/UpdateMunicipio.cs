@@ -15,12 +15,11 @@ public class UpdateMunicipio
 
     public void Update(int id, int clave, string nombre, DataEntidadFederativa dataEntidadFederativa)
     {
-        var entidadFederativa =
-            new EntidadFederativa.Domain.Model.EntidadFederativa(
-                new EntidadFederativaClave(dataEntidadFederativa.Clave),
-                new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
-                dataEntidadFederativa.Id
-            );
+        var entidadFederativa = new EntidadFederativa.Domain.Model.EntidadFederativa(
+            new EntidadFederativaClave(dataEntidadFederativa.Clave),
+            new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
+            dataEntidadFederativa.Id
+        );
 
         _updater.Update(id, new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
     }

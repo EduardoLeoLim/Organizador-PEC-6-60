@@ -15,12 +15,11 @@ public class RegisterMunicipio
 
     public void Register(int clave, string nombre, DataEntidadFederativa dataEntidadFederativa)
     {
-        var entidadFederativa =
-            new EntidadFederativa.Domain.Model.EntidadFederativa(
-                new EntidadFederativaClave(dataEntidadFederativa.Clave),
-                new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
-                dataEntidadFederativa.Id
-            );
+        var entidadFederativa = new EntidadFederativa.Domain.Model.EntidadFederativa(
+            new EntidadFederativaClave(dataEntidadFederativa.Clave),
+            new EntidadFederativaNombre(dataEntidadFederativa.Nombre),
+            dataEntidadFederativa.Id
+        );
 
         _creator.Create(new MunicipioClave(clave), new MunicipioNombre(nombre), entidadFederativa);
     }

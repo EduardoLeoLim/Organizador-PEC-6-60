@@ -13,8 +13,7 @@ public class DataEntidadFederativa
     public int Clave { get; }
     public string Nombre { get; }
 
-    public static DataEntidadFederativa FromAggregate(
-        Domain.Model.EntidadFederativa entidadFederativa)
+    public static DataEntidadFederativa FromAggregate(Domain.Model.EntidadFederativa entidadFederativa)
     {
         return new DataEntidadFederativa(entidadFederativa.Id, entidadFederativa.Clave.Value,
             entidadFederativa.Nombre.Value);

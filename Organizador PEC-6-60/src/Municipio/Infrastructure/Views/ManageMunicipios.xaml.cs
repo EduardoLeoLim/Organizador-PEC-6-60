@@ -25,13 +25,11 @@ public partial class ManageMunicipios : Page
     {
         if (cbxEntidadFederativa.SelectedIndex >= 0)
         {
-            var entidadFederativaSelecionada =
-                (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
-            var municipiosByEntidadFederativaSearcher =
-                new SearchMunicipiosByEntidadFederativa(
-                    new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
-                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
+            var entidadFederativaSelecionada = (DataEntidadFederativa)cbxEntidadFederativa.SelectionBoxItem;
+            var municipiosByEntidadFederativaSearcher = new SearchMunicipiosByEntidadFederativa(
+                new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
             var municipios = municipiosByEntidadFederativaSearcher
                 .SearchByEntidadFederativa(entidadFederativaSelecionada.Id).Municipios;
             tblMunicipios.ItemsSource = municipios;
@@ -69,8 +67,7 @@ public partial class ManageMunicipios : Page
         {
             try
             {
-                var municipioDeleter =
-                    new DeleteMunicipio(new MunicipioDeleter(SqliteMunicipioRepository.Instance));
+                var municipioDeleter = new DeleteMunicipio(new MunicipioDeleter(SqliteMunicipioRepository.Instance));
                 municipioDeleter.Delete(record.Id);
             }
             catch (DbException ex)
@@ -84,10 +81,9 @@ public partial class ManageMunicipios : Page
 
     private void LoadPage()
     {
-        var allEntidadesFederativasSearcher =
-            new SearchAllEntidadesFederativas(
-                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-            );
+        var allEntidadesFederativasSearcher = new SearchAllEntidadesFederativas(
+            new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+        );
         var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
         cbxEntidadFederativa.ItemsSource = entidadesFederativas;
         tblMunicipios.ItemsSource = null;

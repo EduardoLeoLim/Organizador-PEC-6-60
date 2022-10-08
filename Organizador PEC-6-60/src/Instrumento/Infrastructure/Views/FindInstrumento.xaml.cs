@@ -54,11 +54,10 @@ public partial class FindInstrumento : Page
         if (cbxEntidadFederativa.SelectedItem is DataEntidadFederativa)
         {
             var entidadFederativa = (DataEntidadFederativa)cbxEntidadFederativa.SelectedItem;
-            var municipiosByEntidadFederativaSearcher =
-                new SearchMunicipiosByEntidadFederativa(
-                    new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
-                    new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
-                );
+            var municipiosByEntidadFederativaSearcher = new SearchMunicipiosByEntidadFederativa(
+                new AllMunicipioSeacher(SqliteMunicipioRepository.Instance),
+                new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance)
+            );
             var municipios = municipiosByEntidadFederativaSearcher
                 .SearchByEntidadFederativa(entidadFederativa.Id).Municipios;
             foreach (var municipio in municipios)
@@ -157,8 +156,9 @@ public partial class FindInstrumento : Page
     private void Show_PEC_6_60Details_Click(object sender, RoutedEventArgs e)
     {
         var idInstrumento = ((InstrumentoData)((Button)sender).DataContext).Id;
-        EntidadFederativaByIdSearcherService entidadFederativaByIdSearcher =
-            new EntidadFederativaByIdSearcher(SqliteEntidadFederativaRepository.Instance);
+        EntidadFederativaByIdSearcherService entidadFederativaByIdSearcher = new EntidadFederativaByIdSearcher(
+            SqliteEntidadFederativaRepository.Instance
+        );
 
         var instrumento = new SearchInstrumentoById(
             SqliteInstrumentoRepository.Instance,
@@ -197,10 +197,9 @@ public partial class FindInstrumento : Page
             cbxMesEstadistico.Items.Add(month);
         cbxMesEstadistico.SelectedIndex = 0;
 
-        var allEntidadesFederativasSearcher =
-            new SearchAllEntidadesFederativas(
-                new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
-            );
+        var allEntidadesFederativasSearcher = new SearchAllEntidadesFederativas(
+            new EntidadFederativaAllSearcher(SqliteEntidadFederativaRepository.Instance)
+        );
         var entidadesFederativas = allEntidadesFederativasSearcher.SearchAll().EntidadesFederativas;
         cbxEntidadFederativa.Items.Clear();
         cbxEntidadFederativa.Items.Add("TODOS");
@@ -224,8 +223,7 @@ public partial class FindInstrumento : Page
     private void CopyPDF_Click(object sender, RoutedEventArgs e)
     {
         var instrumento = (InstrumentoData)((Button)sender).DataContext;
-        var wasExported =
-            new ExportInstrumento(new PdfInstrumentoExporter()).Export(instrumento, Path.GetTempPath());
+        var wasExported = new ExportInstrumento(new PdfInstrumentoExporter()).Export(instrumento, Path.GetTempPath());
 
         if (wasExported)
             MessageBox.Show("Ruta del archivo copiada al portapapeles", "Instrumento copiado", MessageBoxButton.OK,
