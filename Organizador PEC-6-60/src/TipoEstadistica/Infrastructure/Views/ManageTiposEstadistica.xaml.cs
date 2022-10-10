@@ -59,22 +59,22 @@ public partial class ManageTiposEstadistica : Page
         var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,
             MessageBoxResult.No);
 
-        if (result == MessageBoxResult.Yes)
+        if (result != MessageBoxResult.Yes) 
+            return;
+        
+        try
         {
-            try
-            {
-                TipoEstadisticaDeleterService tipoEstadisticaDeleter = new TipoEstadisticaDeleter(
-                    SqliteTipoEstadisticaRepository.Instance
-                );
-                new DeleteTipoEstadistica(tipoEstadisticaDeleter).Delete(record.Id);
-            }
-            catch (DbException ex)
-            {
-                MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            LoadTable();
+            TipoEstadisticaDeleterService tipoEstadisticaDeleter = new TipoEstadisticaDeleter(
+                SqliteTipoEstadisticaRepository.Instance
+            );
+            new DeleteTipoEstadistica(tipoEstadisticaDeleter).Delete(record.Id);
         }
+        catch (DbException ex)
+        {
+            MessageBox.Show(ex.Message, "Error base de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        LoadTable();
     }
 
     private void LoadTable()
