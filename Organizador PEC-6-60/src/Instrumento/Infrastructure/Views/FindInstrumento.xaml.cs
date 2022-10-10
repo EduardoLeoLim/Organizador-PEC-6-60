@@ -16,6 +16,7 @@ using Organizador_PEC_6_60.Instrumento.Infrastructure.Persistence;
 using Organizador_PEC_6_60.Municipio.Application.Search;
 using Organizador_PEC_6_60.Municipio.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 using Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Persistence;
@@ -173,7 +174,11 @@ public partial class FindInstrumento : Page
 
     private void LoadForm()
     {
-        var tiposEstadistica = _managerTipoEstadistica.SearchAllTiposEstadisitca().TiposEstadistica;
+        AllTipoEstadisticaSearcherService allTipoEstadisticaSearcher = new AllTipoEstadisticaSearcher(
+            SqliteTipoEstadisticaRepository.Instance
+        );
+        var tiposEstadistica = new SearchAllTiposEstadistica(allTipoEstadisticaSearcher)
+            .SearchAll().TiposEstadistica;
         cbxTipoEstadistica.Items.Clear();
         cbxTipoEstadistica.Items.Add("TODOS");
         foreach (var tipoEstadistica in tiposEstadistica)

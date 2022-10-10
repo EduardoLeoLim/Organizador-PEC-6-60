@@ -13,6 +13,7 @@ using Organizador_PEC_6_60.Instrumento.Infrastructure.Persistence;
 using Organizador_PEC_6_60.Municipio.Application.Search;
 using Organizador_PEC_6_60.Municipio.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 
@@ -136,7 +137,11 @@ public partial class SaveInstrumento : Page
     {
         LoadFormStyle();
 
-        cbxTipoEstadistica.ItemsSource = _managerTipoEstadistica.SearchAllTiposEstadisitca().TiposEstadistica;
+        AllTipoEstadisticaSearcherService allTipoEstadisticaSearcher = new AllTipoEstadisticaSearcher(
+            SqliteTipoEstadisticaRepository.Instance
+        );
+        cbxTipoEstadistica.ItemsSource = new SearchAllTiposEstadistica(allTipoEstadisticaSearcher)
+            .SearchAll().TiposEstadistica;
         cbxInstrumento.ItemsSource = Enumerable.Empty<object>();
         cbxAñoEstadistico.ItemsSource = Enumerable.Range(2020, DateTime.Now.Year - 2020 + 1);
         cbxAñoEstadistico.SelectedIndex = -1;
