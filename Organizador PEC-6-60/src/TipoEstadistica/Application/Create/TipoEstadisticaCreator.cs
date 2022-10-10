@@ -5,7 +5,7 @@ using Organizador_PEC_6_60.TipoEstadistica.Domain.ValueObjects;
 
 namespace Organizador_PEC_6_60.TipoEstadistica.Application.Create;
 
-public class TipoEstadisticaCreator
+public class TipoEstadisticaCreator : TipoEstadisticaCreatorService
 {
     private readonly TipoEstadisticaRepository _repository;
 

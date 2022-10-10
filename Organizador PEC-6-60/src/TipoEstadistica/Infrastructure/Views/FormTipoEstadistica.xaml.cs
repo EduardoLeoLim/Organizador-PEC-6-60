@@ -7,7 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Create;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Exceptions;
+using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 
 namespace Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Views;
@@ -53,7 +55,10 @@ public partial class FormTipoEstadistica : Window
             {
                 if (_isNewRecord)
                 {
-                    _managerTipoEstadistica.RegisterTipoEstadistica(
+                    TipoEstadisticaCreatorService tipoEstadisticaCreator = new TipoEstadisticaCreator(
+                        SqliteTipoEstadisticaRepository.Instance
+                    );
+                    new RegisterTipoEstadistica(tipoEstadisticaCreator).Register(
                         int.Parse(txtClave.Text),
                         txtNombre.Text,
                         GetSelectedInstrumentos()
