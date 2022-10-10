@@ -25,13 +25,10 @@ namespace Organizador_PEC_6_60.Instrumento.Infrastructure.Views;
 
 public partial class FindInstrumento : Page
 {
-    private readonly ManageTipoEstadistica _managerTipoEstadistica;
-
+    
     public FindInstrumento()
     {
         InitializeComponent();
-        _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
-
         LoadForm();
     }
 

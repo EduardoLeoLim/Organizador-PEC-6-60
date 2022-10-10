@@ -19,27 +19,23 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Views;
 public partial class FormTipoEstadistica : Window
 {
     private readonly bool _isNewRecord;
-    private readonly ManageTipoEstadistica _managerTipoEstadistica;
     private readonly ManageTiposInstrumento _managerTiposInstrumento;
     private TipoEstadisticaData _tipoEstadistica;
 
     public FormTipoEstadistica(
-        ManageTipoEstadistica managerTipoEstadistica,
         ManageTiposInstrumento managerTiposInstrumento
     )
     {
         InitializeComponent();
-        _managerTipoEstadistica = managerTipoEstadistica;
         _managerTiposInstrumento = managerTiposInstrumento;
         _isNewRecord = true;
         LoadForm();
     }
 
     public FormTipoEstadistica(
-        ManageTipoEstadistica managerTipoEstadistica,
         ManageTiposInstrumento managerTiposInstrumento,
         int idTipoEstadistica
-    ) : this(managerTipoEstadistica, managerTiposInstrumento)
+    ) : this(managerTiposInstrumento)
     {
         _isNewRecord = false;
         LoadTipoEstadisitca(idTipoEstadistica);

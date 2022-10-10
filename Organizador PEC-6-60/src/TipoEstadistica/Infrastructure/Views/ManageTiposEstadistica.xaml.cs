@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
-using Organizador_PEC_6_60.TipoEstadistica.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Delete;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
@@ -12,12 +11,9 @@ namespace Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Views;
 
 public partial class ManageTiposEstadistica : Page
 {
-    private readonly ManageTipoEstadistica _managerTipoEstadistica;
-
     public ManageTiposEstadistica()
     {
         InitializeComponent();
-        _managerTipoEstadistica = new ManageTipoEstadistica(SqliteTipoEstadisticaRepository.Instance);
         LoadTable();
     }
 
@@ -29,7 +25,6 @@ public partial class ManageTiposEstadistica : Page
     private void NewRecord_Click(object sender, RoutedEventArgs e)
     {
         var form = new FormTipoEstadistica(
-            _managerTipoEstadistica,
             new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance)
         );
         form.Owner = Window.GetWindow(this);
@@ -41,7 +36,6 @@ public partial class ManageTiposEstadistica : Page
     {
         var record = (TipoEstadisticaData)((Button)e.Source).DataContext;
         var form = new FormTipoEstadistica(
-            _managerTipoEstadistica,
             new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance),
             record.Id
         );
