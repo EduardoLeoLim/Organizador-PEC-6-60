@@ -40,7 +40,7 @@ public partial class FormInstrumento : Window
                 {
                     _managerTiposInstrumentos.RegisterInstrumento(txtNombre.Text);
 
-                    MessageBox.Show("TipoInstrumento registrado.", "Exito", MessageBoxButton.OK,
+                    MessageBox.Show("Tipo de Instrumento registrado.", "Exito", MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     Close();
                 }
@@ -48,7 +48,7 @@ public partial class FormInstrumento : Window
                 {
                     _managerTiposInstrumentos.UpdateInstrumento(_instrumento.Id, txtNombre.Text);
 
-                    MessageBox.Show("TipoInstrumento editado.", "Exito", MessageBoxButton.OK,
+                    MessageBox.Show("Tipo de Instrumento editado.", "Exito", MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     Close();
                 }
