@@ -40,7 +40,7 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="btnManageInstrumentos" Content="Instrumentos" Click="ManageInstrumentos_Click">
+            <Button x:Name="btnManageInstrumentos" Content="Tipos de Instrumento" Click="ManageInstrumentos_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/src/Share/Infrastructure/Images/Catalogo.png" />
                 </Button.Background>
