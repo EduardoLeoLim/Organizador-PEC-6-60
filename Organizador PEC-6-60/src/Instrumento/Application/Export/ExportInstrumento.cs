@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using Organizador_PEC_6_60.Instrumento.Domain.Services;
 
@@ -16,13 +17,18 @@ public class ExportInstrumento
     public bool Export(InstrumentoData instrumento, string dirPath)
     {
         var fileAttributes = File.GetAttributes(dirPath);
-        if (fileAttributes.HasFlag(FileAttributes.Directory))
+        if (!fileAttributes.HasFlag(FileAttributes.Directory))
+            return false;
+
+        try
         {
             var path = _exporter.Export(instrumento, dirPath);
             Clipboard.SetText(path);
             return true;
         }
-
-        return false;
+        catch (IOException)
+        {
+            return false;
+        }
     }
 }
