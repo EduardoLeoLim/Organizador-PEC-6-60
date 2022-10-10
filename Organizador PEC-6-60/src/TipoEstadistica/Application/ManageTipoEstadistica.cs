@@ -35,7 +35,7 @@ public class ManageTipoEstadistica
 
     public TipoEstadisticaResponse SearchTipoEstadisticaById(int id)
     {
-        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
+        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchById(id));
     }
 
     public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)

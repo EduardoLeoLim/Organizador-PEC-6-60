@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Create;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Exceptions;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
@@ -146,7 +147,10 @@ public partial class FormTipoEstadistica : Window
     {
         try
         {
-            _tipoEstadistica = _managerTipoEstadistica.SearchTipoEstadisticaById(idTipoEstadisitica);
+            TipoEstadisticaByIdSearcherService byIdSearcher = new TipoEstadisticaByIdSearcher(
+                SqliteTipoEstadisticaRepository.Instance
+            );
+            _tipoEstadistica = new SearchTipoEstadisticaById(byIdSearcher).SearchById(idTipoEstadisitica);
             txtClave.Text = _tipoEstadistica.Clave.ToString();
             txtNombre.Text = _tipoEstadistica.Nombre;
 

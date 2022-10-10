@@ -2,7 +2,7 @@
 
 namespace Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 
-public class TipoEstadisticaByIdSearcher
+public class TipoEstadisticaByIdSearcher : TipoEstadisticaByIdSearcherService
 {
     private readonly TipoEstadisticaRepository _repository;
 
@@ -11,7 +11,7 @@ public class TipoEstadisticaByIdSearcher
         _repository = repository;
     }
 
-    public Domain.Model.TipoEstadistica SearchTipoEstadisticaById(int id)
+    public Domain.Model.TipoEstadistica SearchById(int id)
     {
         return _repository.SearchById(id);
     }

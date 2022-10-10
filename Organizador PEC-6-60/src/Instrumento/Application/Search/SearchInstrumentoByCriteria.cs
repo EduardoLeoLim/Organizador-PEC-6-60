@@ -92,7 +92,7 @@ public class SearchInstrumentoByCriteria
                 var entidadFederativa =
                     _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
                 var tipoEstadistica =
-                    _tipoEstadisticaByIdSearcher.SearchTipoEstadisticaById(instrumento.IdTipoEstadistica);
+                    _tipoEstadisticaByIdSearcher.SearchById(instrumento.IdTipoEstadistica);
                 var tipoInstrumento =
                     _tipoInstrumentoByIdSearcher.SearchTipoInstrumentoById(instrumento.IdInstrumento);
 
