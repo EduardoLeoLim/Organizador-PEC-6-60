@@ -13,7 +13,7 @@ public partial class Dashboard : Window
 {
     private readonly FindInstrumento _windowFindPec660;
     private readonly ManageEntidadesFederativas _windowManageEntidadFederativa;
-    private readonly ManageInstrumentos _windowManageInstrumento;
+    private readonly ManageTiposInstrumentos _windowManageInstrumento;
     private readonly ManageMunicipios _windowManageMunicipio;
     private readonly ManageTiposEstadistica _windowManageTipoEstadistica;
     private readonly SaveInstrumento _windowSavePec660;
@@ -27,7 +27,7 @@ public partial class Dashboard : Window
         _windowSavePec660 = new SaveInstrumento();
         _windowFindPec660 = new FindInstrumento();
         _windowManageTipoEstadistica = new ManageTiposEstadistica();
-        _windowManageInstrumento = new ManageInstrumentos();
+        _windowManageInstrumento = new ManageTiposInstrumentos();
         _windowManageEntidadFederativa = new ManageEntidadesFederativas();
         _windowManageMunicipio = new ManageMunicipios();
     }

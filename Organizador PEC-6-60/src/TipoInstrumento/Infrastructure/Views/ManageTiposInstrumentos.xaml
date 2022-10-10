@@ -1,4 +1,4 @@
-﻿<Page x:Class="Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Views.ManageInstrumentos"
+﻿<Page x:Class="Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Views.ManageTiposInstrumentos"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

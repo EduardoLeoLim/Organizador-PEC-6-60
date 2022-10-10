@@ -7,20 +7,20 @@ using Organizador_PEC_6_60.TipoInstrumento.Domain.Exceptions;
 
 namespace Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Views;
 
-public partial class FormInstrumento : Window
+public partial class FormTipoInstrumento : Window
 {
     private readonly bool _isNewRecord;
-    private readonly ManageTiposInstrumento _managerTiposInstrumentos;
+    private readonly Application.ManageTiposInstrumento _managerTiposInstrumentos;
     private TipoInstrumentoResponse _instrumento;
 
-    public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos)
+    public FormTipoInstrumento(Application.ManageTiposInstrumento managerTiposInstrumentos)
     {
         InitializeComponent();
         _managerTiposInstrumentos = managerTiposInstrumentos;
         _isNewRecord = true;
     }
 
-    public FormInstrumento(ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(
+    public FormTipoInstrumento(Application.ManageTiposInstrumento managerTiposInstrumentos, int idInstrumento) : this(
         managerTiposInstrumentos)
     {
         _isNewRecord = false;

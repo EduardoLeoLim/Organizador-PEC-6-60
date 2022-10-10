@@ -7,14 +7,14 @@ using Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Persistence;
 
 namespace Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Views;
 
-public partial class ManageInstrumentos : Page
+public partial class ManageTiposInstrumentos : Page
 {
     private readonly ManageTiposInstrumento _managerTiposInstrumentos;
 
-    public ManageInstrumentos()
+    public ManageTiposInstrumentos()
     {
         InitializeComponent();
-        _managerTiposInstrumentos = new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance);
+        _managerTiposInstrumentos = new Application.ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance);
         LoadTable();
     }
 
@@ -25,7 +25,7 @@ public partial class ManageInstrumentos : Page
 
     private void NewRecord_Click(object sender, RoutedEventArgs e)
     {
-        var form = new FormInstrumento(_managerTiposInstrumentos);
+        var form = new FormTipoInstrumento(_managerTiposInstrumentos);
         form.Owner = Window.GetWindow(this);
         form.ShowDialog();
         LoadTable();
@@ -34,7 +34,7 @@ public partial class ManageInstrumentos : Page
     private void EditRecord_Click(object sender, RoutedEventArgs e)
     {
         var record = (TipoInstrumentoResponse)((Button)e.Source).DataContext;
-        var form = new FormInstrumento(_managerTiposInstrumentos, record.Id);
+        var form = new FormTipoInstrumento(_managerTiposInstrumentos, record.Id);
         form.Owner = Window.GetWindow(this);
         form.ShowDialog();
         LoadTable();
