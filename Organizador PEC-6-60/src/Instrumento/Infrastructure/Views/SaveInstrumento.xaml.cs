@@ -98,7 +98,7 @@ public partial class SaveInstrumento : Page
                 InstrumentoCreatorService instrumentoCreator = new InstrumentoCreator(
                     SqliteInstrumentoRepository.Instance
                 );
-                new CreateInstrumento(instrumentoCreator).CreateNewInstrumento(
+                new CreateInstrumento(instrumentoCreator).Register(
                     idTipoEstadistica,
                     idTipoInstrumento,
                     idMunicipio,

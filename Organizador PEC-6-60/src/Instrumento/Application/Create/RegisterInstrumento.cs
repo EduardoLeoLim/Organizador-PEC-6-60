@@ -12,7 +12,7 @@ public class CreateInstrumento
         _creator = creator;
     }
 
-    public void CreateNewInstrumento(
+    public void Register(
         int idTipoEstadistica,
         int idInstrumento,
         int idMunicipio,
