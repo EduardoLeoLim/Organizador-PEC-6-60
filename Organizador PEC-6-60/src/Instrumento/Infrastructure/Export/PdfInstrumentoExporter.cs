@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using Organizador_PEC_6_60.Instrumento.Application;
+using Organizador_PEC_6_60.Instrumento.Domain.Services;
 
-namespace Organizador_PEC_6_60.Instrumento.Application.Export;
+namespace Organizador_PEC_6_60.Instrumento.Infrastructure.Export;
 
 public class PdfInstrumentoExporter : InstrumentoExporter
 {

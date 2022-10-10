@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Organizador_PEC_6_60.Instrumento.Application;
 using Organizador_PEC_6_60.Instrumento.Application.Export;
+using Organizador_PEC_6_60.Instrumento.Infrastructure.Export;
 
 namespace Organizador_PEC_6_60.Instrumento.Infrastructure.Views;
 
