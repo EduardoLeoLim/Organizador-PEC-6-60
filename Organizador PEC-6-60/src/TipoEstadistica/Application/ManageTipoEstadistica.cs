@@ -30,7 +30,7 @@ public class ManageTipoEstadistica
 
     public TiposEstadisticaResponse SearchAllTiposEstadisitca()
     {
-        return new TiposEstadisticaResponse(_allSearcher.SearchAllTiposEstadistica());
+        return new TiposEstadisticaResponse(_allSearcher.SearchAll());
     }
 
     public TipoEstadisticaResponse SearchTipoEstadisticaById(int id)

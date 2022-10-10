@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Delete;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 using Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Persistence;
@@ -59,9 +60,9 @@ public partial class ManageTiposEstadistica : Page
         var result = MessageBox.Show(message, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question,
             MessageBoxResult.No);
 
-        if (result != MessageBoxResult.Yes) 
+        if (result != MessageBoxResult.Yes)
             return;
-        
+
         try
         {
             TipoEstadisticaDeleterService tipoEstadisticaDeleter = new TipoEstadisticaDeleter(
@@ -81,7 +82,11 @@ public partial class ManageTiposEstadistica : Page
     {
         try
         {
-            var tiposEstadistica = _managerTipoEstadistica.SearchAllTiposEstadisitca().TiposEstadistica;
+            AllTipoEstadisticaSearcherService allTipoEstadisticaSearcher = new AllTipoEstadisticaSearcher(
+                SqliteTipoEstadisticaRepository.Instance
+            );
+            var tiposEstadistica = new SearchAllTiposEstadistica(allTipoEstadisticaSearcher)
+                .SearchAll().TiposEstadistica;
             tblTiposEstadistica.ItemsSource = tiposEstadistica;
         }
         catch (DbException ex)
