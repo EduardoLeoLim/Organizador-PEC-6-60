@@ -2,7 +2,7 @@
 
 namespace Organizador_PEC_6_60.TipoEstadistica.Application.Delete;
 
-public class TipoEstadisticaDeleter
+public class TipoEstadisticaDeleter : TipoEstadisticaDeleterService
 {
     private readonly TipoEstadisticaRepository _repository;
 

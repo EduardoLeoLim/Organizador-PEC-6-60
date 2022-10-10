@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Delete;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 using Organizador_PEC_6_60.TipoInstrumento.Infrastructure.Persistence;
@@ -62,7 +63,10 @@ public partial class ManageTiposEstadistica : Page
         {
             try
             {
-                _managerTipoEstadistica.DeleteTipoEstadisitca(record.Id);
+                TipoEstadisticaDeleterService tipoEstadisticaDeleter = new TipoEstadisticaDeleter(
+                    SqliteTipoEstadisticaRepository.Instance
+                );
+                new DeleteTipoEstadistica(tipoEstadisticaDeleter).Delete(record.Id);
             }
             catch (DbException ex)
             {
