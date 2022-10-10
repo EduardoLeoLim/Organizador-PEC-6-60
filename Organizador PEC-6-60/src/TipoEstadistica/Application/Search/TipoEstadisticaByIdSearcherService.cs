@@ -2,5 +2,5 @@
 
 public interface TipoEstadisticaByIdSearcherService
 {
-    Domain.Model.TipoEstadistica SearchById(int id);
+    Domain.Model.TipoEstadistica SearchTipoEstadisticaById(int id);
 }

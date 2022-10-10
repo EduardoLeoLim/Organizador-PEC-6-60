@@ -11,6 +11,6 @@ public class SearchTipoEstadisticaById
     
     public TipoEstadisticaResponse SearchById(int id)
     {
-        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchById(id));
+        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
     }
 }

@@ -11,7 +11,7 @@ public class TipoEstadisticaByIdSearcher : TipoEstadisticaByIdSearcherService
         _repository = repository;
     }
 
-    public Domain.Model.TipoEstadistica SearchById(int id)
+    public Domain.Model.TipoEstadistica SearchTipoEstadisticaById(int id)
     {
         return _repository.SearchById(id);
     }
