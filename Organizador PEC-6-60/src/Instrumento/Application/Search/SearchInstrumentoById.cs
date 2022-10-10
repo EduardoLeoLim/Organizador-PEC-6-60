@@ -36,7 +36,7 @@ public class SearchInstrumentoById
     {
         var instrumento = _instrumentoByIdSearcher.SearchInstrumentoById(id);
         var municipio = _municipioByIdSearcher.SearchMunicipioById(instrumento.IdMunicipio);
-        var entidadFederativa = _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
+        var entidadFederativa = _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
         var tipoEstadistica = _tipoEstadisticaByIdSearcher.SearchById(instrumento.IdTipoEstadistica);
         var tipoInstrumento = _tipoInstrumentoByIdSearcher.SearchTipoInstrumentoById(instrumento.IdInstrumento);
 

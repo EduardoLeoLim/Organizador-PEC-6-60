@@ -11,7 +11,7 @@ public class EntidadFederativaByIdSearcher : EntidadFederativaByIdSearcherServic
         _repository = repository;
     }
 
-    public Domain.Model.EntidadFederativa SearchById(int idEntidadFederetiva)
+    public Domain.Model.EntidadFederativa SearchEntidadFederativaById(int idEntidadFederetiva)
     {
         return _repository.SeacrhById(idEntidadFederetiva);
     }

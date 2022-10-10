@@ -19,7 +19,7 @@ public class SearchMunicipiosByEntidadFederativa
     {
         return new DataMunicipios(
             _allMunicipioSeacher.SearchAll(idEntidadFederativa),
-            _entidadFederativaByIdSearcher.SearchById(idEntidadFederativa)
+            _entidadFederativaByIdSearcher.SearchEntidadFederativaById(idEntidadFederativa)
         );
     }
 }

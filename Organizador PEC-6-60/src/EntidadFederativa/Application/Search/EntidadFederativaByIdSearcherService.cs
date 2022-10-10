@@ -2,5 +2,5 @@
 
 public interface EntidadFederativaByIdSearcherService
 {
-    public Domain.Model.EntidadFederativa SearchById(int idEntidadFederetiva);
+    public Domain.Model.EntidadFederativa SearchEntidadFederativaById(int idEntidadFederetiva);
 }

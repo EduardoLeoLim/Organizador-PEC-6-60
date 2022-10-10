@@ -18,7 +18,7 @@ public class SearchMunicipioById
     public DataMunicipio SearchById(int idMunicipio)
     {
         var municipio = _municipioByIdSearcher.SearchMunicipioById(idMunicipio);
-        var entidadFederativa = _entidadFederativaByIdSearcher.SearchById(municipio.IdEntidadFederativa);
+        var entidadFederativa = _entidadFederativaByIdSearcher.SearchEntidadFederativaById(municipio.IdEntidadFederativa);
 
         return DataMunicipio.FromAggregate(municipio, entidadFederativa);
     }

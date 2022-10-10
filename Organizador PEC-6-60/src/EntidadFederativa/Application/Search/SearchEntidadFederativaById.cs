@@ -11,6 +11,6 @@ public class SearchEntidadFederativaById
 
     public DataEntidadFederativa SearchById(int idEntidadFederativa)
     {
-        return DataEntidadFederativa.FromAggregate(_byIdSearcher.SearchById(idEntidadFederativa));
+        return DataEntidadFederativa.FromAggregate(_byIdSearcher.SearchEntidadFederativaById(idEntidadFederativa));
     }
 }
