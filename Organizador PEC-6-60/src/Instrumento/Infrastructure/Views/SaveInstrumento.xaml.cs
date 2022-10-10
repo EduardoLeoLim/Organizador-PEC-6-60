@@ -95,7 +95,10 @@ public partial class SaveInstrumento : Page
                 pdfViewer.LoadedDocument.Save(memoryStream);
                 var byteArrayInstrumento = memoryStream.ToArray();
 
-                new CreateInstrumento(SqliteInstrumentoRepository.Instance).CreateNewInstrumento(
+                InstrumentoCreatorService instrumentoCreator = new InstrumentoCreator(
+                    SqliteInstrumentoRepository.Instance
+                );
+                new CreateInstrumento(instrumentoCreator).CreateNewInstrumento(
                     idTipoEstadistica,
                     idTipoInstrumento,
                     idMunicipio,

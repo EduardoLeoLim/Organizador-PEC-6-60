@@ -5,11 +5,11 @@ namespace Organizador_PEC_6_60.Instrumento.Application.Create;
 
 public class CreateInstrumento
 {
-    private readonly InstrumentoCreator _creator;
+    private readonly InstrumentoCreatorService _creator;
 
-    public CreateInstrumento(InstrumentoRepository repository)
+    public CreateInstrumento(InstrumentoCreatorService creator)
     {
-        _creator = new InstrumentoCreator(repository);
+        _creator = creator;
     }
 
     public void CreateNewInstrumento(

@@ -4,7 +4,7 @@ using Organizador_PEC_6_60.Instrumento.Domain.ValueObjects;
 
 namespace Organizador_PEC_6_60.Instrumento.Application.Create;
 
-public class InstrumentoCreator
+public class InstrumentoCreator : InstrumentoCreatorService
 {
     private readonly InstrumentoRepository _repository;
 
