@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Organizador_PEC_6_60.TipoEstadistica.Application;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Create;
 using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Update;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.Exceptions;
 using Organizador_PEC_6_60.TipoEstadistica.Infrastructure.Persistence;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
@@ -20,7 +21,7 @@ public partial class FormTipoEstadistica : Window
     private readonly bool _isNewRecord;
     private readonly ManageTipoEstadistica _managerTipoEstadistica;
     private readonly ManageTiposInstrumento _managerTiposInstrumento;
-    private TipoEstadisticaResponse _tipoEstadistica;
+    private TipoEstadisticaData _tipoEstadistica;
 
     public FormTipoEstadistica(
         ManageTipoEstadistica managerTipoEstadistica,
@@ -71,8 +72,14 @@ public partial class FormTipoEstadistica : Window
                 }
                 else
                 {
-                    _managerTipoEstadistica.UpdateTipoEstadistica(_tipoEstadistica.Id, int.Parse(txtClave.Text),
-                        txtNombre.Text, GetSelectedInstrumentos());
+                    TipoEstadisticaUpdaterService updater = new TipoEstadisticaUpdater(
+                        SqliteTipoEstadisticaRepository.Instance
+                    );
+                    new UpdateTipoEstadistica(updater).Update(
+                        _tipoEstadistica.Id,
+                        int.Parse(txtClave.Text),
+                        txtNombre.Text, GetSelectedInstrumentos()
+                    );
 
                     MessageBox.Show("Tipo de estadística editada.", "Exito", MessageBoxButton.OK,
                         MessageBoxImage.Information);

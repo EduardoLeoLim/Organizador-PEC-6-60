@@ -5,7 +5,7 @@ using Organizador_PEC_6_60.TipoEstadistica.Domain.ValueObjects;
 
 namespace Organizador_PEC_6_60.TipoEstadistica.Application.Update;
 
-public class TipoEstadisticaUpdater
+public class TipoEstadisticaUpdater : TipoEstadisticaUpdaterService
 {
     private readonly TipoEstadisticaRepository _repository;
 
