@@ -9,8 +9,8 @@ public class SearchAllTiposEstadistica
         _allSearcher = allSearcher;
     }
     
-    public TiposEstadisticaResponse SearchAll()
+    public TiposEstadisticaData SearchAll()
     {
-        return new TiposEstadisticaResponse(_allSearcher.SearchAll());
+        return new TiposEstadisticaData(_allSearcher.SearchAll());
     }
 }

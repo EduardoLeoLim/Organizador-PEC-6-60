@@ -39,9 +39,9 @@ public partial class FindInstrumento : Page
     {
         cbxTipoInstrumento.Items.Clear();
         cbxTipoInstrumento.Items.Add("TODOS");
-        if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse)
+        if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaData)
         {
-            var tipoEstadistica = (TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem;
+            var tipoEstadistica = (TipoEstadisticaData)cbxTipoEstadistica.SelectedItem;
             foreach (var instrumento in tipoEstadistica.Instrumentos)
                 cbxTipoInstrumento.Items.Add(instrumento);
         }
@@ -85,9 +85,9 @@ public partial class FindInstrumento : Page
             SqliteTipoInstrumentoRepository.Instance
         );
 
-        if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaResponse)
+        if (cbxTipoEstadistica.SelectedItem is TipoEstadisticaData)
         {
-            var idTipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem).Id;
+            var idTipoEstadistica = ((TipoEstadisticaData)cbxTipoEstadistica.SelectedItem).Id;
             finder = finder.TipoEstadistica(idTipoEstadistica);
         }
 

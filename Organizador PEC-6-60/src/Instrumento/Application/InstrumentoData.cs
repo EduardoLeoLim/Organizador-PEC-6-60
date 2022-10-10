@@ -1,6 +1,6 @@
 ﻿using Organizador_PEC_6_60.EntidadFederativa.Application.Search;
 using Organizador_PEC_6_60.Municipio.Application.Search;
-using Organizador_PEC_6_60.TipoEstadistica.Application;
+using Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 
 namespace Organizador_PEC_6_60.Instrumento.Application;
@@ -16,7 +16,7 @@ public class InstrumentoData
         bool estaGuardado,
         int consecutivo,
         byte[] archivo, TipoInstrumentoResponse tipoInstrumento,
-        TipoEstadisticaResponse tipoEstadistica,
+        TipoEstadisticaData tipoEstadistica,
         DataEntidadFederativa entidadFederativa,
         DataMunicipio municipio
     )
@@ -44,7 +44,7 @@ public class InstrumentoData
     public int Consecutivo { get; }
     public byte[] Archivo { get; }
     public TipoInstrumentoResponse TipoInstrumento { get; }
-    public TipoEstadisticaResponse TipoEstadistica { get; }
+    public TipoEstadisticaData TipoEstadistica { get; }
     public DataEntidadFederativa EntidadFederativa { get; }
     public DataMunicipio Municipio { get; }
 
@@ -69,7 +69,7 @@ public class InstrumentoData
             instrumento.Consecutivo.Value,
             instrumento.Archivo,
             TipoInstrumentoResponse.FromAggregate(tipoInstrumento),
-            TipoEstadisticaResponse.FromAggregate(tipoEstadistica),
+            TipoEstadisticaData.FromAggregate(tipoEstadistica),
             DataEntidadFederativa.FromAggregate(entidadFederativa),
             DataMunicipio.FromAggregate(municipio, entidadFederativa)
         );

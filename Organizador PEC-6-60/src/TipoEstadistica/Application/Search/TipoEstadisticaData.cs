@@ -3,11 +3,11 @@ using System.Linq;
 using Organizador_PEC_6_60.TipoEstadistica.Domain.ValueObjects;
 using Organizador_PEC_6_60.TipoInstrumento.Application;
 
-namespace Organizador_PEC_6_60.TipoEstadistica.Application;
+namespace Organizador_PEC_6_60.TipoEstadistica.Application.Search;
 
-public class TipoEstadisticaResponse
+public class TipoEstadisticaData
 {
-    public TipoEstadisticaResponse(
+    public TipoEstadisticaData(
         int id,
         TipoEstadisticaClave clave,
         TipoEstadisticaNombre nombre,
@@ -24,9 +24,9 @@ public class TipoEstadisticaResponse
     public string Nombre { get; }
     public IEnumerable<TipoInstrumentoResponse> Instrumentos { get; }
 
-    public static TipoEstadisticaResponse FromAggregate(Domain.Model.TipoEstadistica tipoEstadistica)
+    public static TipoEstadisticaData FromAggregate(Domain.Model.TipoEstadistica tipoEstadistica)
     {
-        return new TipoEstadisticaResponse(
+        return new TipoEstadisticaData(
             tipoEstadistica.Id,
             tipoEstadistica.Clave,
             tipoEstadistica.Nombre,

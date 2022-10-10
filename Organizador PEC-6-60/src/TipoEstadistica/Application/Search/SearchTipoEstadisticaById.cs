@@ -9,8 +9,8 @@ public class SearchTipoEstadisticaById
         _byIdSearcher = byIdSearcher;
     }
     
-    public TipoEstadisticaResponse SearchById(int id)
+    public TipoEstadisticaData SearchById(int id)
     {
-        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
+        return TipoEstadisticaData.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
     }
 }

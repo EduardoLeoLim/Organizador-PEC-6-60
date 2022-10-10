@@ -39,7 +39,7 @@ public partial class SaveInstrumento : Page
     {
         if (cbxTipoEstadistica.SelectedIndex >= 0)
         {
-            var tipoEstadistica = (TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem;
+            var tipoEstadistica = (TipoEstadisticaData)cbxTipoEstadistica.SelectedItem;
             cbxInstrumento.ItemsSource = tipoEstadistica.Instrumentos;
         }
     }
@@ -85,7 +85,7 @@ public partial class SaveInstrumento : Page
 
             if (IsValidFormData())
             {
-                var idTipoEstadistica = ((TipoEstadisticaResponse)cbxTipoEstadistica.SelectedItem).Id;
+                var idTipoEstadistica = ((TipoEstadisticaData)cbxTipoEstadistica.SelectedItem).Id;
                 var idTipoInstrumento = ((TipoInstrumentoResponse)cbxInstrumento.SelectedItem).Id;
                 var idMunicipio = ((DataMunicipio)cbxMunicipio.SelectedItem).Id;
                 var añoEstadistico = cbxAñoEstadistico.SelectedValue.ToString();

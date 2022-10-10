@@ -39,7 +39,7 @@ public partial class ManageTiposEstadistica : Page
 
     private void EditRecord_Click(object sender, RoutedEventArgs e)
     {
-        var record = (TipoEstadisticaResponse)((Button)e.Source).DataContext;
+        var record = (TipoEstadisticaData)((Button)e.Source).DataContext;
         var form = new FormTipoEstadistica(
             _managerTipoEstadistica,
             new ManageTiposInstrumento(SqliteTipoInstrumentoRepository.Instance),
@@ -52,7 +52,7 @@ public partial class ManageTiposEstadistica : Page
 
     private void DeleteRecord_Click(object sender, RoutedEventArgs e)
     {
-        var record = (TipoEstadisticaResponse)((Button)e.Source).DataContext;
+        var record = (TipoEstadisticaData)((Button)e.Source).DataContext;
         var message = "¿Quiere eliminar el registro?";
         message += $"\nClave: {record.Clave}";
         message += $"\nNombre: {record.Nombre}";

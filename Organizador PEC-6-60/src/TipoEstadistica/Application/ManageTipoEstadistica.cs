@@ -28,14 +28,14 @@ public class ManageTipoEstadistica
         _deleter = new TipoEstadisticaDeleter(repository);
     }
 
-    public TiposEstadisticaResponse SearchAllTiposEstadisitca()
+    public TiposEstadisticaData SearchAllTiposEstadisitca()
     {
-        return new TiposEstadisticaResponse(_allSearcher.SearchAll());
+        return new TiposEstadisticaData(_allSearcher.SearchAll());
     }
 
-    public TipoEstadisticaResponse SearchTipoEstadisticaById(int id)
+    public TipoEstadisticaData SearchTipoEstadisticaById(int id)
     {
-        return TipoEstadisticaResponse.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
+        return TipoEstadisticaData.FromAggregate(_byIdSearcher.SearchTipoEstadisticaById(id));
     }
 
     public void RegisterTipoEstadistica(int clave, string nombre, List<TipoInstrumentoResponse> instrumentos)
